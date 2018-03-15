@@ -5,20 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tho.fisioapp.app.activity.LoginActivity">
+    tools:context="com.tho.fisioapp.app.activity.BlankActivity">
 
-    <Button
-        android:id="@+id/button_login_authenticate"
+    <TextView
+        android:id="@+id/textview_blank_authenticate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_margin_default"
         android:layout_marginEnd="@dimen/activity_margin_default"
         android:layout_marginStart="@dimen/activity_margin_default"
         android:layout_marginTop="@dimen/activity_margin_default"
-        android:text="@string/authenticate"
+        android:text="@string/blank_activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
