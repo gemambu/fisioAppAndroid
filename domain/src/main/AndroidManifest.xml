@@ -1,2 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tho.fisioapp.domain" />
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.projectx.fisioapp.domain" />
