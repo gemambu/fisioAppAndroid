@@ -1,20 +1,17 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compileSdkVersion_version
 
     defaultConfig {
-        applicationId "com.tho.fisioapp"
-
         minSdkVersion minSdkVersion_version
         targetSdkVersion targetSdkVersion_version
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -27,24 +24,20 @@ android {
 }
 
 dependencies {
-    compile project(':domain')
+
+    compile project(':repository')
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "com.android.support:appcompat-v7:$appcompat_version"
-    compile "com.android.support:design:$appcompat_version"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // Google Maps
-    implementation 'com.google.android.gms:play-services-maps:11.8.0'
-
-    // Picasso
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-
+}
+repositories {
+    mavenCentral()
 }
