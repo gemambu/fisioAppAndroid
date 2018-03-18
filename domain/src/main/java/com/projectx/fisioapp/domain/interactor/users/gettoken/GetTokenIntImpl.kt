@@ -18,8 +18,6 @@ class GetTokenIntImpl(val context: Context) : GetTokenInteractor {
         repository.getToken(
             success = {
                 val token: String = it
-                Log.d("App", "Pasa el it: $it")
-                Log.d("App", "Pasa el token: $token")
                 success.successCompletion(token)
             }, error = {
                 error(it)

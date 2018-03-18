@@ -42,6 +42,24 @@ internal class GetJsonManagerVolleyImpl(context: Context): GetJsonManager {
         requestQueue().add(request)
     }
 
+    override fun executePost(url: String, success: SuccessCompletion<String>, error: ErrorCompletion) {
+        // get request queue
+        // see fun bellow
+
+        // create request (success, failure)
+        val request = StringRequest(url,
+                Response.Listener {
+                    Log.d("JSON", it)
+                    success.successCompletion(it)
+                }, Response.ErrorListener {
+            error.errorCompletion(it.localizedMessage)
+        }
+        )
+
+        // add request to queue
+        requestQueue().add(request)
+    }
+
     fun requestQueue(): RequestQueue {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(weakContext.get())
