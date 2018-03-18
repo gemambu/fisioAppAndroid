@@ -4,4 +4,7 @@
     <string name="app_name">FisioApp</string>
     <string name="authenticate">Authenticate</string>
     <string name="blank_activity">Blank Activity</string>
+    <string name="title_service_list">Services</string>
+    <string name="title_service_detail">Service Detail</string>
+    <string name="catalog_list_element_image_content">catalog image</string>
 </resources>
