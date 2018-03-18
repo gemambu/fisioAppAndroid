@@ -1,6 +1,7 @@
 package com.projectx.fisioapp.app.activity
 
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -18,6 +19,9 @@ import kotlinx.android.synthetic.main.activity_service_list.*
 import kotlinx.android.synthetic.main.service_list_content.view.*
 
 import kotlinx.android.synthetic.main.service_list.*
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 /**
  * An activity representing a list of Pings. This activity
@@ -42,7 +46,7 @@ class ServiceListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
-        fab.setOnClickListener { view ->
+        catalog_list_add_element.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
@@ -62,7 +66,6 @@ class ServiceListActivity : AppCompatActivity() {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane)
         // set two columns with the elements
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-
     }
 
     class SimpleItemRecyclerViewAdapter(private val mParentActivity: ServiceListActivity,
