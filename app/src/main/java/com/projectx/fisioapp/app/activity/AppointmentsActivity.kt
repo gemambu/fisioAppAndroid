@@ -6,9 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.settingsmanager.SettingsManager
-import com.projectx.fisioapp.app.sharedpreferenceswrapper.SharedPreferencesWrapper
-import com.projectx.fisioapp.app.sharedpreferenceswrapper.SharedPreferencesWrapper.get
-import com.projectx.fisioapp.app.sharedpreferenceswrapper.SharedPreferencesWrapper.set
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.users.gettoken.GetTokenIntImpl
@@ -17,37 +14,51 @@ import com.projectx.fisioapp.domain.interactor.users.gettoken.GetTokenInteractor
 
 class AppointmentsActivity : AppCompatActivity() {
 
+    val settingsManager = SettingsManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointments)
 
-        lateinit var token: String
-
-        // Shared Preferences Manager
-        // SharedPreferencesWrapper methods .get and .set working here
-        var prefs = SharedPreferencesWrapper.customPrefs(this, "USER_PREFERENCES")
-        prefs["KEY_TOKEN"] = "123456K"
-
-        token = prefs["KEY_TOKEN"] ?: ""
-        Log.d("App", "token: " + token)
-
-        // Settings Manager
-        // Error: types mistake?
-        val settingsManager = SettingsManager()
-        token = settingsManager.getCustomPreference(
+        settingsManager.setCustomSharedPreference(
                 this,
-                "USER_PREFERENCES",
-                "KEY_TOKEN") ?: ""
-        //settingsManager.FILE_USER_PREFERENCES,
-        //settingsManager.KEY_TOKEN)
-        Log.d("App", "token: " + token)
+                settingsManager.FILE_USER_PREFERENCES,
+                settingsManager.KEY_TOKEN,
+                "12345token"
+        )
+        settingsManager.setCustomSharedPreference(
+                this,
+                settingsManager.FILE_USER_PREFERENCES,
+                "INTE",
+                1234.toInt()
+        )
+        settingsManager.setCustomSharedPreference(
+                this,
+                settingsManager.FILE_USER_PREFERENCES,
+            "FLO",
+            1234.30.toFloat()
+        )
+        settingsManager.customSharedPreferences(this, settingsManager.FILE_USER_PREFERENCES)
 
         getToken()
 
     }
 
-    fun getToken() {
+    fun getToken(): String {
 
+        // If token return token else goto Loginactivity
+        val token = settingsManager.getCustomSharedPreference(
+                this,
+                settingsManager.FILE_USER_PREFERENCES,
+                settingsManager.KEY_TOKEN
+        ) as String?
+
+        return token!!
+
+
+
+        /*
         val getToken: GetTokenInteractor = GetTokenIntImpl(this)
         getToken.execute(
                 object: SuccessCompletion<String> {
@@ -66,6 +77,7 @@ class AppointmentsActivity : AppCompatActivity() {
                     }
                 }
         )
+        */
 
     }
 

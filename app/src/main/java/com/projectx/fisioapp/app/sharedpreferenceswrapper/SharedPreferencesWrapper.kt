@@ -9,37 +9,34 @@ import com.projectx.fisioapp.app.settingsmanager.SettingsManagerInteractor
 object SharedPreferencesWrapper: SettingsManagerInteractor.SharedPreferencesWrapperInteractor {
 
     // Interactor methods
-    override fun defaultSharedPrefs(context: Context): SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(context)
+    override fun defaultSharedPreferences(context: Context): SharedPreferences =
+            defaultSharedPrefs(context)
 
-    override fun customSharedPrefs(context: Context, filename: String): SharedPreferences =
-            context.getSharedPreferences(filename, Context.MODE_PRIVATE)
-
-    override fun getCustomPreference(context: Context, filename: String, key: String): Any? {
-        var prefs = customSharedPrefs(context, filename)
-        return prefs[key]
-    }
-
-    override fun getCustomPreferences(context: Context, filename: String): SharedPreferences? =
+    override fun customSharedPreferences(context: Context, filename: String): SharedPreferences =
             customSharedPrefs(context, filename)
 
-    override fun putCustomPreference(context: Context, filename: String, key: String, value: Any?) {
-        customSharedPrefs(context, filename)[key] = value
+    override fun getCustomSharedPreference(context: Context, filename: String, key: String): Any? {
+        val prefs = customSharedPrefs(context, filename)
+        return prefs!![key]
     }
 
-    override fun clearCustomPreferences(context: Context, filename: String) {
-        customSharedPrefs(context, filename).edit().clear().apply()
+    override fun setCustomSharedPreference(context: Context, filename: String, key: String, value: Any?) {
+        customSharedPreferences(context, filename)[key] = value
     }
 
-    override fun deleteCustomPreferences(context: Context, filename: String, key: String) {
-        customSharedPrefs(context, filename).edit().remove(key).apply()
+    override fun deleteCustomSharedPreference(context: Context, filename: String, key: String) {
+        customSharedPreferences(context, filename).edit().remove(key).apply()
+    }
+
+    override fun clearCustomFileSharedPreferences(context: Context, filename: String) {
+        customSharedPreferences(context, filename).edit().clear().apply()
     }
 
     // Library
 
-    fun defaultPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    fun defaultSharedPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun customPrefs(context: Context, name: String): SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
+    fun customSharedPrefs(context: Context, name: String): SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = this.edit()
