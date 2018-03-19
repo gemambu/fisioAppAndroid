@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
-import android.widget.Toast
-
 import com.projectx.fisioapp.R
 
 class CalendarFragment : Fragment() {
@@ -25,6 +23,7 @@ class CalendarFragment : Fragment() {
         inflater?.let{
             root = it.inflate(R.layout.fragment_calendar, container, false)
             calendarView = root.findViewById(R.id.fisio_calendar)
+            setCalendarListener(calendarView)
         }
 
         return root
