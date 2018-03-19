@@ -3,6 +3,7 @@ package com.projectx.fisioapp.app.activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.projectx.fisioapp.R
+
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.settingsmanager.SettingsManager
 
@@ -10,9 +11,9 @@ import com.projectx.fisioapp.app.settingsmanager.SettingsManager
 class AppointmentsActivity : AppCompatActivity() {
 
     val settingsManager = SettingsManager()
-    var token: String = ""
+    var token: String
         get() {
-            //settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, "12345token")
+            settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, "")
             val token = settingsManager.getCustomSharedPreference(
                     this,
                     settingsManager.FILE_USER_PREFERENCES,
@@ -21,17 +22,21 @@ class AppointmentsActivity : AppCompatActivity() {
 
             return token ?: ""
         }
+        set(value) {
+            // Always blank to revoke token
+            settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, "")
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointments)
 
-        getTokenOrRedirectToLogin()
+        checkToken()
 
     }
 
-    fun getTokenOrRedirectToLogin() {
+    fun checkToken() {
         if (token.length == 0) Router().navigateFromAppointmentsActivitytoLoginActivity(this)
     }
 

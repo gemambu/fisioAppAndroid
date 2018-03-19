@@ -2,6 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+
+    ext.www_debug_server_name = "192.168.1.35"
+    ext.www_release_server_name = "192.168.1.35"
     compileSdkVersion compileSdkVersion_version
 
     defaultConfig {
@@ -16,28 +19,31 @@ android {
 
     buildTypes {
         debug {
-            // Servers
+            // DB
             buildConfigField "String", "FISIOAPP_CACHE_DB_NAME", '"FisioAppCache.sqlite"'
             buildConfigField "String", "FISIOAPP_TESTS_DB_NAME", '"FisioAppTests.sqlite"'
 
             // Files
-            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_URL", "\"http://localhost:3000/apiv1/users/authenticate\""
-            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_URL", "\"http://localhost:3000/apiv1/users/register\""
-            buildConfigField "String", "FISIOAPP_APPOINTMENTS_AUTHENTICATE_SERVER_URL", "\"http://localhost:3000/apiv1/appointments\""
-            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_URL", "\"http://localhost:3000/apiv1/users/products\""
-            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_URL", "\"http://localhost:3000/apiv1/users/services\""
+            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_URL", "\"http://$www_debug_server_name:3000/apiv1/users/authenticate\""
+            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_URL", "\"http://$www_debug_server_name:3000/apiv1/users/register\""
+            buildConfigField "String", "FISIOAPP_APPOINTMENTS_AUTHENTICATE_SERVER_URL", "\"http://$www_debug_server_name:3000/apiv1/appointments\""
+            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_URL", "\"http://$www_debug_server_name:3000/apiv1/users/products\""
+            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_URL", "\"http://$www_debug_server_name:3000/apiv1/users/services\""
         }
         release {
-            // Servers
+            // DB
             buildConfigField "String", "FISIOAPP_CACHE_DB_NAME", '"FisioAppCache.sqlite"'
             buildConfigField "String", "FISIOAPP_TESTS_DB_NAME", '"FisioAppTests.sqlite"'
 
+            // Servers
+            buildConfigField "String", "www_debug_server_name", '"192.168.1.35"'
+
             //Files
-            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_URL", "\"http://localhost:3000/apiv1/users/authenticate\""
-            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_URL", "\"http://localhost:3000/apiv1/users/register\""
-            buildConfigField "String", "FISIOAPP_APPOINTMENTS_AUTHENTICATE_SERVER_URL", "\"http://localhost:3000/apiv1/appointments\""
-            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_URL", "\"http://localhost:3000/apiv1/users/products\""
-            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_URL", "\"http://localhost:3000/apiv1/users/services\""
+            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_URL", "\"http://$www_release_server_name:3000/apiv1/users/authenticate\""
+            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_URL", "\"http://$www_release_server_name:3000/apiv1/users/register\""
+            buildConfigField "String", "FISIOAPP_APPOINTMENTS_AUTHENTICATE_SERVER_URL", "\"http://$www_release_server_name:3000/apiv1/appointments\""
+            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_URL", "\"http://$www_release_server_name:3000/apiv1/users/products\""
+            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_URL", "\"http://$www_release_server_name:3000/apiv1/users/services\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
