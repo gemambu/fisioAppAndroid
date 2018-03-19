@@ -4,20 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.projectx.fisioapp.app.sharedpreferenceswrapper.SharedPreferencesWrapper
 import com.projectx.fisioapp.app.sharedpreferenceswrapper.SharedPreferencesWrapper.get
-
-
-interface SettingsManagerInteractor {
-
-    interface SharedPreferencesWrapperInteractor {
-        fun defaultSharedPreferences(context: Context): SharedPreferences
-        fun customSharedPreferences(context: Context, filename: String): SharedPreferences
-        fun getCustomSharedPreference(context: Context, filename: String, key: String): Any?
-        fun setCustomSharedPreference(context: Context, filename: String, key: String, value: Any?)
-        fun deleteCustomSharedPreference(context: Context, filename: String, key: String)
-        fun clearCustomFileSharedPreferences(context: Context, filename: String)
-    }
-
-}
+import com.projectx.fisioapp.app.sharedpreferenceswrapper.SharedPreferencesWrapper.set
 
 class SettingsManager {
     var sharedPreferencesWrapper: SharedPreferencesWrapper
@@ -41,24 +28,28 @@ class SettingsManager {
     )
 
     fun defaultSharedPreferences(context: Context): SharedPreferences =
-            sharedPreferencesWrapper.defaultSharedPreferences(context)
+            sharedPreferencesWrapper.defaultSharedPrefs(context)
 
     fun customSharedPreferences(context: Context, filename: String): SharedPreferences =
-            sharedPreferencesWrapper.customSharedPreferences(context, filename)
+            sharedPreferencesWrapper.customSharedPrefs(context, filename)
 
-    fun getCustomSharedPreference(context: Context, filename: String, key: String) =
-            sharedPreferencesWrapper.getCustomSharedPreference(context, filename, key)
+    inline fun <reified T : Any> getCustomSharedPreference(context: Context, filename: String, key: String): T? {
+        var prefs = customSharedPreferences(
+                context,
+                filename)
+        return prefs[key]
+    }
 
     fun setCustomSharedPreference(context: Context, filename: String, key: String, value: Any?) {
-        sharedPreferencesWrapper.setCustomSharedPreference(context, filename, key, value)
+        customSharedPreferences(context, filename)[key] = value
     }
 
     fun deleteCustomSharedPreference(context: Context, filename: String, key: String) {
-        sharedPreferencesWrapper.deleteCustomSharedPreference(context, filename, key)
+        customSharedPreferences(context, filename).edit().remove(key).apply()
     }
 
     fun clearCustomFileSharedPreferences(context: Context, filename: String) {
-        sharedPreferencesWrapper.clearCustomFileSharedPreferences(context, filename)
+        customSharedPreferences(context, filename).edit().clear().apply()
     }
 
 }
