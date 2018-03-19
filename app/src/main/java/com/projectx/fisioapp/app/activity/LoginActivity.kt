@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.projectx.fisioapp.R
 
-import com.projectx.fisioapp.app.router.Router
+import com.projectx.fisioapp.app.settingsmanager.SettingsManager
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
@@ -15,18 +15,33 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
+    val settingsManager = SettingsManager()
+    var token: String
+        get() {
+            val token = settingsManager.getCustomSharedPreference(
+                    this,
+                    settingsManager.FILE_USER_PREFERENCES,
+                    settingsManager.KEY_TOKEN
+            ) as String?
+
+            return token ?: ""
+        }
+    set(value) {
+        settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, value)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         btnAuthenticate.setOnClickListener {
-            ToastIt(this, 'd', "Trying to authenticate")
+            ToastIt(this, "Trying to authenticate")
             AuthenticateUser()
         }
 
         btnRegister.setOnClickListener {
-            ToastIt(this, 'd', "Trying to register")
-            RegistaerUser()
+            ToastIt(this, "Trying to register")
+            RegisterUser()
         }
 
     }
@@ -40,22 +55,28 @@ class LoginActivity : AppCompatActivity() {
                     success = object : SuccessCompletion<String> {
                         override fun successCompletion(e: String) {
                             Log.d("App", "authenticateUser ok: $e")
-                            ToastIt(baseContext, 'd', "Your token is: $e")
+                            ToastIt(baseContext, "Your token is: $e")
+                            token = e
+                            checkToken()
                         }
                     }, error = object : ErrorCompletion {
                 override fun errorCompletion(errorMessage: String) {
                     Log.d("App", "authenticateUser error: $errorMessage")
-                    ToastIt(baseContext, 'd', "$errorMessage")
+                    ToastIt(baseContext, "$errorMessage")
                 }
             })
-            Router().navigateFromLoginActivitytoBlankActivity(this)
+            checkToken()
         } catch (e: Exception) {
-            ToastIt(this, 'd', "Error: " + e.localizedMessage )
+            ToastIt(this, "Error: " + e.localizedMessage )
         }
     }
 
-    fun RegistaerUser() {
-        ToastIt(this, 'd', "Not yet implemented")
+    fun RegisterUser() {
+        ToastIt(this, "Not yet implemented")
+    }
+
+    fun checkToken() {
+        if (token.length != 0) finish()
     }
 
 }

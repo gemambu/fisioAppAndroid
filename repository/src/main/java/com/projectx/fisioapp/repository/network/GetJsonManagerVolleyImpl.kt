@@ -31,7 +31,7 @@ internal class GetJsonManagerVolleyImpl(context: Context): GetJsonManager {
         // create request (success, failure)
         val request = StringRequest(url,
                 Response.Listener {
-                    Log.d("JSON", it)
+                    Log.d("App", it)
                     success.successCompletion(it)
                 }, Response.ErrorListener {
                     error.errorCompletion(it.localizedMessage)

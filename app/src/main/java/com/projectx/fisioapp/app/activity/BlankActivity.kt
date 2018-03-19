@@ -13,7 +13,7 @@ class BlankActivity : AppCompatActivity() {
         setContentView(R.layout.activity_blank)
 
         val msg = "Welcome Blank Activity!"
-        ToastIt(baseContext, 'd',"$msg")
+        ToastIt(baseContext,"$msg")
     }
 
 }
