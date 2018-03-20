@@ -10,6 +10,7 @@
 
     <fragment
         android:id="@+id/calendar_fragment"
+        android:name="com.projectx.fisioapp.app.fragment.CalendarFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
@@ -17,6 +18,7 @@
 
     <fragment
         android:id="@+id/appointments_fragment"
+        android:name="com.projectx.fisioapp.app.fragment.AppointmentsListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"

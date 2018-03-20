@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projectx.fisioapp">
 
     <!-- Access to internet -->
@@ -42,15 +43,18 @@
 
         <!-- Activities -->
         <activity android:name=".app.activity.AppointmentsActivity">
+
+        </activity>
+        <activity android:name=".app.activity.BlankActivity"></activity>
+        <activity android:name=".app.activity.LoginActivity"></activity>
+        <activity android:name=".app.activity.CalendarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".app.activity.BlankActivity"></activity>
-        <activity android:name=".app.activity.LoginActivity"></activity>
-        <activity android:name=".app.activity.CalendarActivity"></activity>
     </application>
 
 </manifest>
