@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.models.Appointment
 import com.projectx.fisioapp.app.models.Appointments
@@ -26,6 +27,7 @@ class AppointmentsListFragment : Fragment() {
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
             val list = root.findViewById<ListView>(R.id.fisio_appointments_list)
             val adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, Appointments.toArray())
+
             list.adapter = adapter
             list.setOnItemClickListener { parent, view, position, id ->
                 val appointment = Appointments.get(position)

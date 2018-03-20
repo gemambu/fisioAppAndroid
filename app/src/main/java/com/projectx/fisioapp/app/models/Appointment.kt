@@ -5,7 +5,7 @@ import java.util.*
 
 data class Appointment(
         var idService: Int?,
-        var idCustomer: Int?,
+        var idCustomer: String?,
         var idProfessional: Int?,
         var isConfirmed: Boolean?,
         var isCancelled: Boolean?,
@@ -15,8 +15,8 @@ data class Appointment(
         var address: String?,
         var extraInfo: String?): Serializable{
 
-    constructor(date: Date): this(null,
-            null,
+    constructor(customer: String, date: Date): this(null,
+            customer,
             null,
             null,
             null,

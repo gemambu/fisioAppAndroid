@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import com.projectx.fisioapp.R
+import java.util.*
 
 class CalendarFragment : Fragment() {
 
@@ -23,6 +24,9 @@ class CalendarFragment : Fragment() {
         inflater?.let{
             root = it.inflate(R.layout.fragment_calendar, container, false)
             calendarView = root.findViewById(R.id.fisio_calendar)
+            //calendarView.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+            calendarView.firstDayOfWeek = 2
+
             setCalendarListener(calendarView)
         }
 
