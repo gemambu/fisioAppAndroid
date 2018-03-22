@@ -51,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun setFakeDataInForm() {
+        etName.setText( "Only needed to register")
         etEmail.setText( "fisio@invalid.com")
         etPass.setText("12345678")
     }
@@ -82,11 +83,9 @@ class LoginActivity : AppCompatActivity() {
         val registerUser: RegisterUserInteractor = RegisterUserIntImpl(this)
         try {
             registerUser.execute(
-                    "MyNewName",
-                    "fffff@invalid.com",
-                    "12345678",
-                    //etEmail.text.toString(),
-                    //etPass.text.toString(),
+                    etName.text.toString(),
+                    etEmail.text.toString(),
+                    etPass.text.toString(),
                     success = object : SuccessCompletion<Boolean> {
                         override fun successCompletion(e: Boolean) {
                             ToastIt(baseContext, "Transaction is: $e")
