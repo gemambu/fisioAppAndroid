@@ -1,30 +1,17 @@
-package com.projectx.fisioapp.repository.preferencehelper
+package com.projectx.fisioapp.app.sharedpreferenceswrapper
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
 
-object PreferenceHelper {
+object SharedPreferencesWrapper {
 
-    // Constants
-    val KEY_ID = "ID"
-    val KEY_MAIL = "MAIL"
-    val KEY_NAME = "NAME"
-    val KEY_TOKEN = "TOKEN"
+    fun defaultSharedPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    val ALL_KEY_PREFERENCES = arrayOf(
-            KEY_ID,
-            KEY_MAIL,
-            KEY_NAME,
-            KEY_TOKEN
-    )
+    fun customSharedPrefs(context: Context, name: String): SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
-    fun defaultPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-    fun customPrefs(context: Context, name: String): SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
-
-    inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
+    private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = this.edit()
         operation(editor)
         editor.apply()
@@ -49,7 +36,7 @@ object PreferenceHelper {
      * [T] is the type of value
      * @param defaultValue optional default value - will take null for strings, false for bool and -1 for numeric values if [defaultValue] is not specified
      */
-    operator inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
+    inline operator fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T? = null): T? {
         return when (T::class) {
             String::class -> getString(key, defaultValue as? String) as T?
             Int::class -> getInt(key, defaultValue as? Int ?: -1) as T?

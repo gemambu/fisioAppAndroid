@@ -27,14 +27,14 @@ android {
 }
 
 dependencies {
-    compile project(':domain')
+    implementation project(':domain')
 
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile "com.android.support:appcompat-v7:$appcompat_version"
-    compile "com.android.support:design:$appcompat_version"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$appcompat_version"
+    implementation "com.android.support:design:$appcompat_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Tests
     testImplementation 'junit:junit:4.12'

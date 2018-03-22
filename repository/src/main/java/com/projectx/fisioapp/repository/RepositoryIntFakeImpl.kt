@@ -4,10 +4,6 @@ package com.projectx.fisioapp.repository
 class RepositoryIntFakeImpl(): RepositoryInteractor {
 
     override fun authenticateUser(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getToken(success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
         //var allOk = false
         var allOk = true
 
@@ -15,15 +11,30 @@ class RepositoryIntFakeImpl(): RepositoryInteractor {
 
         // check response from repository
         if (allOk) {
-            val token = createFakeGetToken()
+            val token = createFakeAuthenticateUser()
             success(token)
         } else {
-            error("Error while getting token")
+            error("Error while authenticating user")
         }
     }
 
-    fun createFakeGetToken(): String {
-        val token = "token12345"
+    override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean) -> Unit, error: (errorMessage: String) -> Unit) {
+        //var allOk = false
+        var allOk = true
+
+        // connect to the repository
+
+        // check response from repository
+        if (allOk) {
+            var ok = true
+            success(ok)
+        } else {
+            error("Error while getting registering user")
+        }
+    }
+
+    fun createFakeAuthenticateUser(): String {
+        val token = "AuthenticateUser12345"
         return token
     }
 

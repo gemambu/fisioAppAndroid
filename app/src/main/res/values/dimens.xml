@@ -2,4 +2,10 @@
 
 <resources>
     <dimen name="activity_margin_default">8dp</dimen>
+    <dimen name="padding_login_screen">25dp</dimen>
+    <dimen name="login_screen_title_text_size">25sp</dimen>
+    <dimen name="activity_margin_wide">16dp</dimen>
+    <dimen name="padding_login_screen_login">30dp</dimen>
+    <dimen name="activity_margin_wide_ultra">64dp</dimen>
+    <dimen name="activity_screen_width_null">0dp</dimen>
 </resources>
