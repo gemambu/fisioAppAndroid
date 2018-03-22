@@ -6,6 +6,7 @@ import com.projectx.fisioapp.R
 
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.settingsmanager.SettingsManager
+import com.projectx.fisioapp.app.utils.ToastIt
 
 
 class AppointmentsActivity : AppCompatActivity() {
@@ -13,7 +14,12 @@ class AppointmentsActivity : AppCompatActivity() {
     val settingsManager = SettingsManager()
     var token: String
         get() {
-            settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, "")
+            /**/
+            settingsManager.setCustomSharedPreference(this,
+                    settingsManager.FILE_USER_PREFERENCES,
+                    settingsManager.KEY_TOKEN,
+                    "")
+                    /**/
             val token = settingsManager.getCustomSharedPreference(
                     this,
                     settingsManager.FILE_USER_PREFERENCES,
@@ -28,7 +34,6 @@ class AppointmentsActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointments)
 

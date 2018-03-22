@@ -2,4 +2,5 @@
 
 <resources>
     <dimen name="activity_margin_default">8dp</dimen>
+    <dimen name="padding_login_screen">25dp</dimen>
 </resources>

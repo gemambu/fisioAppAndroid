@@ -11,6 +11,8 @@ import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.users.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.domain.interactor.users.authenticateuser.AuthenticateUserInteractor
+import com.projectx.fisioapp.domain.interactor.users.registeruser.RegisterUserIntImpl
+import com.projectx.fisioapp.domain.interactor.users.registeruser.RegisterUserInteractor
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -44,24 +46,29 @@ class LoginActivity : AppCompatActivity() {
             RegisterUser()
         }
 
+        setFakeDataInForm()
+
+    }
+
+    fun setFakeDataInForm() {
+        etEmail.setText( "fisio@invalid.com")
+        etPass.setText("12345678")
     }
 
     fun AuthenticateUser() {
         val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl(this)
         try {
             authenticateUser.execute(
-                    "fisio@invalid.com",
-                    password = "12345678",
+                    etEmail.text.toString(),
+                    etPass.text.toString(),
                     success = object : SuccessCompletion<String> {
                         override fun successCompletion(e: String) {
-                            Log.d("App", "authenticateUser ok: $e")
                             ToastIt(baseContext, "Your token is: $e")
                             token = e
                             checkToken()
                         }
                     }, error = object : ErrorCompletion {
                 override fun errorCompletion(errorMessage: String) {
-                    Log.d("App", "authenticateUser error: $errorMessage")
                     ToastIt(baseContext, "$errorMessage")
                 }
             })
@@ -72,7 +79,28 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun RegisterUser() {
-        ToastIt(this, "Not yet implemented")
+        val registerUser: RegisterUserInteractor = RegisterUserIntImpl(this)
+        try {
+            registerUser.execute(
+                    "MyNewName",
+                    "fffff@invalid.com",
+                    "12345678",
+                    //etEmail.text.toString(),
+                    //etPass.text.toString(),
+                    success = object : SuccessCompletion<Boolean> {
+                        override fun successCompletion(e: Boolean) {
+                            ToastIt(baseContext, "Transaction is: $e")
+                            checkToken()
+                        }
+                    }, error = object : ErrorCompletion {
+                override fun errorCompletion(errorMessage: String) {
+                    ToastIt(baseContext, "$errorMessage")
+                }
+            })
+            checkToken()
+        } catch (e: Exception) {
+            ToastIt(this, "Error: " + e.localizedMessage )
+        }
     }
 
     fun checkToken() {
