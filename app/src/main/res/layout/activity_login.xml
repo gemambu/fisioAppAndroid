@@ -4,10 +4,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:background="#444444"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_login_screen"
     tools:context="com.projectx.fisioapp.app.activity.LoginActivity">
 
+    <TextView
+        android:id="@+id/tvApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="#6dffbf"
+        android:padding="30dp"
+        android:text="Login"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/etEmail"
@@ -21,10 +38,12 @@
         android:hint="email"
         android:inputType="text"
         android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#6bfff7"
+        android:textColorHint="#52afaa"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/tvApp"
+        app:layout_constraintStart_toStartOf="@+id/tvApp"
+        app:layout_constraintTop_toBottomOf="@+id/tvApp" />
 
     <EditText
         android:id="@+id/etPass"
@@ -36,6 +55,9 @@
         android:hint="******"
         android:inputType="textPassword"
         android:singleLine="true"
+        android:textColor="#6bfff7"
+        android:textColorHint="#52afaa"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/etEmail"
         app:layout_constraintStart_toStartOf="@+id/etEmail"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />

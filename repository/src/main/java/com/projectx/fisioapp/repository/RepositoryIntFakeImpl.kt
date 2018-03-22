@@ -18,7 +18,7 @@ class RepositoryIntFakeImpl(): RepositoryInteractor {
         }
     }
 
-    override fun getToken(success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean) -> Unit, error: (errorMessage: String) -> Unit) {
         //var allOk = false
         var allOk = true
 
@@ -26,20 +26,15 @@ class RepositoryIntFakeImpl(): RepositoryInteractor {
 
         // check response from repository
         if (allOk) {
-            val token = createFakeGetToken()
-            success(token)
+            var ok = true
+            success(ok)
         } else {
-            error("Error while getting token")
+            error("Error while getting registering user")
         }
     }
 
     fun createFakeAuthenticateUser(): String {
         val token = "AuthenticateUser12345"
-        return token
-    }
-
-    fun createFakeGetToken(): String {
-        val token = "GetToken12345"
         return token
     }
 
