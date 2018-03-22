@@ -14,12 +14,6 @@ class AppointmentsActivity : AppCompatActivity() {
     val settingsManager = SettingsManager()
     var token: String
         get() {
-            /**/
-            settingsManager.setCustomSharedPreference(this,
-                    settingsManager.FILE_USER_PREFERENCES,
-                    settingsManager.KEY_TOKEN,
-                    "")
-                    /**/
             val token = settingsManager.getCustomSharedPreference(
                     this,
                     settingsManager.FILE_USER_PREFERENCES,

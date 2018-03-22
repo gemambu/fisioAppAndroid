@@ -28,9 +28,9 @@ class LoginActivity : AppCompatActivity() {
 
             return token ?: ""
         }
-    set(value) {
-        settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, value)
-    }
+        set(value) {
+            settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, value)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
