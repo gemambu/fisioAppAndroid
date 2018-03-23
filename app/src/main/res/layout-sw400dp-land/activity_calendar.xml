@@ -13,15 +13,15 @@
         android:name="com.projectx.fisioapp.app.fragment.CalendarFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_weight="1"/>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/appointments_fragment"
-        android:name="com.projectx.fisioapp.app.fragment.AppointmentsListFragment"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:layout_weight="1" />
 
 </LinearLayout>
