@@ -20,7 +20,7 @@ class Router {
     }
 
     fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity){
-        main.startActivity(Intent(main, AppointmentDetailActivity::class.java))
+        main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
     }
 
 }

@@ -10,6 +10,7 @@
 
     <fragment
         android:id="@+id/appointment_detail_fragment"
+        android:name="com.projectx.fisioapp.app.fragment.AppointmentDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
