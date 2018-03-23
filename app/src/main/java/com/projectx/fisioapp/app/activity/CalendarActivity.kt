@@ -13,15 +13,12 @@ class CalendarActivity : AppCompatActivity(), AppointmentsListFragment.OnSelecte
 
 
     lateinit var calendarFragment: CalendarFragment
-    lateinit var appointmentsListFragment: AppointmentsListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
         calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
-        //appointmentsListFragment = supportFragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
-
 
         if (fragmentManager.findFragmentById(R.id.appointments_fragment) == null){
             val fragment = AppointmentsListFragment.newInstance()
