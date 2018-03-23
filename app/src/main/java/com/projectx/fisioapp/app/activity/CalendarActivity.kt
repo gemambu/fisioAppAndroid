@@ -5,8 +5,11 @@ import android.os.Bundle
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
 import com.projectx.fisioapp.app.fragment.CalendarFragment
+import com.projectx.fisioapp.app.router.Router
+import java.util.*
 
-class CalendarActivity : AppCompatActivity() {
+class CalendarActivity : AppCompatActivity(), AppointmentsListFragment.OnSelectedAppointmentListener {
+
 
     lateinit var calendarFragment: CalendarFragment
     lateinit var appointmentsListFragment: AppointmentsListFragment
@@ -17,5 +20,10 @@ class CalendarActivity : AppCompatActivity() {
 
         calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
         appointmentsListFragment = supportFragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
+    }
+
+
+    override fun onSelectedAppointment(date: Date) {
+        Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
     }
 }

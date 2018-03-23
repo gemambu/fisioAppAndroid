@@ -1,9 +1,8 @@
 package com.projectx.fisioapp.app.router
 
 import android.content.Intent
-import com.projectx.fisioapp.app.activity.AppointmentsActivity
-import com.projectx.fisioapp.app.activity.BlankActivity
-import com.projectx.fisioapp.app.activity.LoginActivity
+import com.projectx.fisioapp.app.activity.*
+import java.util.*
 
 
 class Router {
@@ -18,6 +17,10 @@ class Router {
 
     fun navigateFromLoginActivitytoBlankActivity (main: LoginActivity) {
         main.startActivity(Intent(main, BlankActivity::class.java))
+    }
+
+    fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity){
+        main.startActivity(Intent(main, AppointmentDetailActivity::class.java))
     }
 
 }
