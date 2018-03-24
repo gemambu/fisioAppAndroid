@@ -3,6 +3,7 @@ package com.projectx.fisioapp.app.activity
 import android.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
 import com.projectx.fisioapp.app.fragment.CalendarFragment
@@ -18,6 +19,8 @@ class CalendarActivity : AppCompatActivity(), AppointmentsListFragment.OnSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
 
         if (fragmentManager.findFragmentById(R.id.appointments_fragment) == null){
@@ -28,6 +31,17 @@ class CalendarActivity : AppCompatActivity(), AppointmentsListFragment.OnSelecte
         }
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 
     override fun onSelectedAppointment(date: Date) {

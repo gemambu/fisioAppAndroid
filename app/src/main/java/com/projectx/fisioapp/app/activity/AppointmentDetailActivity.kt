@@ -10,19 +10,37 @@ class AppointmentDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_appointment_detail)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setContentView(R.layout.activity_appointment_detail)
 
-        if (fragmentManager.findFragmentById(R.id.appointment_detail_fragment) == null){
+        if (fragmentManager.findFragmentById(R.id.appointment_detail_fragment) == null) {
             val fragment = AppointmentDetailFragment.newInstance()
             fragmentManager.beginTransaction()
                     .add(R.id.appointment_detail_fragment, fragment)
                     .commit()
         }
 
+            /*if (resources.getBoolean(R.bool.screen_sw400) != true) {
 
+                setContentView(R.layout.activity_appointment_detail)
 
+                if (fragmentManager.findFragmentById(R.id.appointment_detail_fragment) == null) {
+                    val fragment = AppointmentDetailFragment.newInstance()
+                    fragmentManager.beginTransaction()
+                            .add(R.id.appointment_detail_fragment, fragment)
+                            .commit()
+                }
+            } else {
+
+                setContentView(R.layout.activity_calendar)
+                if (fragmentManager.findFragmentById(R.id.appointments_fragment) == null) {
+                    val fragment = AppointmentDetailFragment.newInstance()
+                    fragmentManager.beginTransaction()
+                            .add(R.id.appointments_fragment, fragment)
+                            .commit()
+                }
+            }*/
 
     }
 
@@ -36,6 +54,4 @@ class AppointmentDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 }

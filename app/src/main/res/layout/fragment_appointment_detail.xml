@@ -1,14 +1,45 @@
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.projectx.fisioapp.app.fragment.AppointmentDetailFragment">
 
     <ImageView
         android:id="@+id/appointment_detail_map_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorAccent"
+        />
+
+    <ImageView
+        android:id="@+id/appointment_detail_map_image2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorAccent"
+        />
+
+    <ImageView
+        android:id="@+id/appointment_detail_map_image3"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorAccent"
+        />
+
+    <ImageView
+        android:id="@+id/appointment_detail_map_image4"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginEnd="15dp"
@@ -119,12 +150,4 @@
             android:layout_weight="2.25"
             tools:text="JUST A REALLY LONG TEXT TO SIMULATE MULTILINE EXTRA INFO FIELD AND HOW IT WOULD LOOK ON SCREEN WHEN DISPLAYED"/>
     </LinearLayout>
-
-
-
-
-
-
-
-
 </LinearLayout>
