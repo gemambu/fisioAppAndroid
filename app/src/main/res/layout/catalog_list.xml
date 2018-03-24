@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="GridLayoutManager"
-    tools:context="com.projectx.fisioapp.app.activity.ServiceListActivity"
-    tools:listitem="@layout/service_list_content" />
+    tools:context="com.projectx.fisioapp.app.activity.CatalogListActivity"
+    tools:listitem="@layout/catalog_list_content" />

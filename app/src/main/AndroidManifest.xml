@@ -36,6 +36,7 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/GOOGLE_MAPS_API_KEY" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -46,7 +47,7 @@
         <activity android:name=".app.activity.BlankActivity"></activity>
         <activity android:name=".app.activity.LoginActivity"></activity>
         <activity
-            android:name=".app.activity.ServiceListActivity"
+            android:name=".app.activity.CatalogListActivity"
             android:label="@string/title_service_list"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -56,13 +57,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.activity.ServiceDetailActivity"
+            android:name=".app.activity.CatalogDetailActivity"
             android:label="@string/title_service_detail"
-            android:parentActivityName=".app.activity.ServiceListActivity"
+            android:parentActivityName=".app.activity.CatalogListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.projectx.fisioapp.app.activity.ServiceListActivity" />
+                android:value="com.projectx.fisioapp.app.activity.CatalogListActivity" />
         </activity>
     </application>
 

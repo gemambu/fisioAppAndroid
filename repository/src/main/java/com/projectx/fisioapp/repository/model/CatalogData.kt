@@ -9,7 +9,7 @@ data class CatalogData(
         val price: Float,
         val professionalId: Long,
         val isActive: Boolean,
-        val type: String = ""
+        val type: CatalogType
 )
 
 enum class CatalogType(val type: Int) : Serializable {

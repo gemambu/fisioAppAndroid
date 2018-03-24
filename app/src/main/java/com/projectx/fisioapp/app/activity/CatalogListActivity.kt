@@ -1,7 +1,6 @@
 package com.projectx.fisioapp.app.activity
 
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -14,24 +13,22 @@ import android.widget.TextView
 import com.projectx.fisioapp.R
 
 import com.projectx.fisioapp.app.activity.dummy.DummyContent
-import com.projectx.fisioapp.app.fragment.ServiceDetailFragment
-import kotlinx.android.synthetic.main.activity_service_list.*
-import kotlinx.android.synthetic.main.service_list_content.view.*
+import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
+import kotlinx.android.synthetic.main.activity_catalog_list.*
+import kotlinx.android.synthetic.main.catalog_list_content.view.*
 
-import kotlinx.android.synthetic.main.service_list.*
-import android.support.v7.widget.DividerItemDecoration
-
+import kotlinx.android.synthetic.main.catalog_list.*
 
 
 /**
  * An activity representing a list of Pings. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a [ServiceDetailActivity] representing
+ * lead to a [CatalogDetailActivity] representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class ServiceListActivity : AppCompatActivity() {
+class CatalogListActivity : AppCompatActivity() {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -41,7 +38,7 @@ class ServiceListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_service_list)
+        setContentView(R.layout.activity_catalog_list)
 
         setSupportActionBar(toolbar)
         toolbar.title = title
@@ -68,7 +65,7 @@ class ServiceListActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
     }
 
-    class SimpleItemRecyclerViewAdapter(private val mParentActivity: ServiceListActivity,
+    class SimpleItemRecyclerViewAdapter(private val mParentActivity: CatalogListActivity,
                                         private val mValues: List<DummyContent.DummyItem>,
                                         private val mTwoPane: Boolean) :
             RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
@@ -79,17 +76,17 @@ class ServiceListActivity : AppCompatActivity() {
             mOnClickListener = View.OnClickListener { v ->
                 val item = v.tag as DummyContent.DummyItem
                 if (mTwoPane) {
-                    val fragment = ServiceDetailFragment().apply {
+                    val fragment = CatalogDetailFragment().apply {
                         arguments = Bundle()
-                        arguments.putString(ServiceDetailFragment.ARG_ITEM_ID, item.id)
+                        arguments.putString(CatalogDetailFragment.ARG_ITEM_ID, item.name)
                     }
                     mParentActivity.supportFragmentManager
                             .beginTransaction()
                             .replace(R.id.service_detail_container, fragment)
                             .commit()
                 } else {
-                    val intent = Intent(v.context, ServiceDetailActivity::class.java).apply {
-                        putExtra(ServiceDetailFragment.ARG_ITEM_ID, item.id)
+                    val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
+                        putExtra(CatalogDetailFragment.ARG_ITEM_ID, item.name)
                     }
                     v.context.startActivity(intent)
                 }
@@ -98,14 +95,14 @@ class ServiceListActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.service_list_content, parent, false)
+                    .inflate(R.layout.catalog_list_content, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = mValues[position]
-            holder.mIdView.text = item.id
-            holder.mContentView.text = item.content
+            holder.mIdView.text = item.name
+            holder.mContentView.text = item.price.toString() + " €"
 
             with(holder.itemView) {
                 tag = item

@@ -3,8 +3,8 @@ package com.projectx.fisioapp.repository.internetstatus
 import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
-import com.projectx.fisioapp.repository.CodeClosure
-import com.projectx.fisioapp.repository.ErrorClosure
+import com.projectx.fisioapp.repository.utils.CodeClosure
+import com.projectx.fisioapp.repository.utils.ErrorClosure
 
 
 class InternetStatusIntImpl(val context: Context): InternetStatusInteractor {

@@ -2,25 +2,39 @@ package com.projectx.fisioapp.app.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.fragment.ServiceDetailFragment
-import kotlinx.android.synthetic.main.activity_service_detail.*
-import kotlinx.android.synthetic.main.activity_catalog_detail.*
+import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 
 /**
  * An activity representing a single Service detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a [ServiceListActivity].
+ * in a [CatalogListActivity].
  */
-class ServiceDetailActivity : AppCompatActivity() {
+class CatalogDetailActivity : AppCompatActivity() {
+
+    private lateinit var containerListFragment: CatalogDetailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_detail)
+
+       // containerListFragment = supportFragmentManager.findFragmentById(R.id.activity_list_detail_fragment) as CatalogDetailFragment
+
+        val arguments = Bundle()
+        arguments.putString(CatalogDetailFragment.ARG_ITEM_ID,
+                intent.getStringExtra(CatalogDetailFragment.ARG_ITEM_ID))
+         val fragment = CatalogDetailFragment()
+        fragment.arguments = arguments
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.activity_list_detail_fragment, fragment)
+                .commit()
+
+
+
+        /*
         //setSupportActionBar(detail_toolbar)
 
 //        fab.setOnClickListener { view ->
@@ -44,14 +58,14 @@ class ServiceDetailActivity : AppCompatActivity() {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val arguments = Bundle()
-            arguments.putString(ServiceDetailFragment.ARG_ITEM_ID,
-                    intent.getStringExtra(ServiceDetailFragment.ARG_ITEM_ID))
-            val fragment = ServiceDetailFragment()
+            arguments.putString(CatalogDetailFragment.ARG_ITEM_ID,
+                    intent.getStringExtra(CatalogDetailFragment.ARG_ITEM_ID))
+            val fragment = CatalogDetailFragment()
             fragment.arguments = arguments
             supportFragmentManager.beginTransaction()
-                    .add(R.id.service_detail_container, fragment)
+                    .add(R.id.activity_list_detail_fragment, fragment)
                     .commit()
-        }
+        }*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -63,7 +77,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                     //
                     // http://developer.android.com/design/patterns/navigation.html#up-vs-back
 
-                    navigateUpTo(Intent(this, ServiceListActivity::class.java))
+                    navigateUpTo(Intent(this, CatalogListActivity::class.java))
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
