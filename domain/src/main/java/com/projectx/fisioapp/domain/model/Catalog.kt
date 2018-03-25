@@ -3,10 +3,10 @@ package com.projectx.fisioapp.domain.model
 import com.projectx.fisioapp.domain.model.util.BenefitType
 import java.io.Serializable
 
-open class Catalog(val id: Int,
+open class Catalog(val id: String,
                    val name: String,
                    val description: String,
-                   val professionalId: Int,
+                   val professionalId: String,
                    val price: Float,
                    val isActive: Boolean,
                    val type: BenefitType) : Serializable {

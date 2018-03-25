@@ -45,7 +45,13 @@
         <activity android:name=".app.activity.AppointmentsActivity">
         </activity>
         <activity android:name=".app.activity.BlankActivity"></activity>
-        <activity android:name=".app.activity.LoginActivity"></activity>
+        <activity android:name=".app.activity.LoginActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
         <activity
             android:name=".app.activity.CatalogListActivity"
             android:label="@string/title_service_list"

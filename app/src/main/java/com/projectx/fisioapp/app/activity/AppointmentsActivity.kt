@@ -20,7 +20,7 @@ class AppointmentsActivity : AppCompatActivity() {
                     settingsManager.KEY_TOKEN,
                     "")
                     /**/
-            val token = settingsManager.getCustomSharedPreference(
+            val token = settingsManager.getCustomSharedPreference<String>(
                     this,
                     settingsManager.FILE_USER_PREFERENCES,
                     settingsManager.KEY_TOKEN

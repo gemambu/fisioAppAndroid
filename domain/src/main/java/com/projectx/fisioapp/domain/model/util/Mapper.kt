@@ -33,10 +33,10 @@ class Mapper {
     }
 
     private fun mapBenefit(catalog: CatalogData, type: BenefitType): Catalog = Catalog(
-            catalog.databaseId.toInt(),
+            catalog.databaseId,
             catalog.name,
             catalog.description,
-            catalog.professionalId.toInt(),
+            catalog.professionalId,
             catalog.price.toFloat(),
             catalog.isActive,
             type)

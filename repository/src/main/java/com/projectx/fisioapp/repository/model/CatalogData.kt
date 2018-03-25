@@ -1,18 +1,21 @@
 package com.projectx.fisioapp.repository.model
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class CatalogData(
-        val databaseId: Long,
-        val name: String,
-        val description: String,
-        val price: Float,
-        val professionalId: Long,
-        val isActive: Boolean,
+        @SerializedName("_id") val databaseId: String,
+        @SerializedName("name")val name: String,
+        @SerializedName("description")val description: String,
+        @SerializedName("price")val price: Float,
+        @SerializedName("professional")val professionalId: String,
+        @SerializedName("isActive")val isActive: Boolean,
+        @SerializedName("image")val image: String,
         val type: CatalogType
 )
 
-enum class CatalogType(val type: Int) : Serializable {
-    SERVICE(1),
-    PRODUCT(2)
+
+enum class CatalogType(val type: String) : Serializable {
+    SERVICE("service"),
+    PRODUCT("product")
 }

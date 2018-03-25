@@ -17,13 +17,13 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    val settingsManager = SettingsManager()
+    private val settingsManager = SettingsManager()
     var token: String
         get() {
-            val token = settingsManager.getCustomSharedPreference(
-                    this,
-                    settingsManager.FILE_USER_PREFERENCES,
-                    settingsManager.KEY_TOKEN
+            val token = settingsManager.getCustomSharedPreference<String>(
+                    context = this,
+                    filename = settingsManager.FILE_USER_PREFERENCES,
+                    key = settingsManager.KEY_TOKEN
             ) as String?
 
             return token ?: ""
@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         etPass.setText("12345678")
     }
 
-    fun AuthenticateUser() {
+    private fun AuthenticateUser() {
         val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl(this)
         try {
             authenticateUser.execute(
@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun RegisterUser() {
+    private fun RegisterUser() {
         val registerUser: RegisterUserInteractor = RegisterUserIntImpl(this)
         try {
             registerUser.execute(
