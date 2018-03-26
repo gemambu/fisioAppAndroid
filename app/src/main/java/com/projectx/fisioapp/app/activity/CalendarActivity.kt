@@ -46,12 +46,12 @@ class CalendarActivity : AppCompatActivity(), AppointmentsListFragment.OnSelecte
 
 
     override fun onSelectedAppointment(date: Date) {
-        //Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
+        Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
 
-        val fragment = AppointmentDetailFragment.newInstance()
+        /*val fragment = AppointmentDetailFragment.newInstance()
         fragmentManager.beginTransaction()
                 .replace(R.id.appointments_fragment, fragment)
-                .commit()
+                .commit()*/
 
         /*if(resources.getBoolean(R.bool.screen_not_sw600) == false){
             Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)

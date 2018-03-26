@@ -1,10 +1,20 @@
 package com.projectx.fisioapp.repository
 
+import com.projectx.fisioapp.repository.model.CatalogData
+
+
 interface RepositoryInteractor {
 
-    // Users
+    /******** users ********/
     fun authenticateUser(email: String, password: String,
                          success: (token: String) -> Unit, error: (errorMessage: String) -> Unit)
-    fun getToken(success: (token: String) -> Unit, error: (errorMessage: String) -> Unit)
+    fun registerUser(name: String, email: String, password: String,
+                     success: (ok: Boolean) -> Unit, error: (errorMessage: String) -> Unit)
+
+
+    /******** catalog (products and services) ********/
+    fun countCatalogItems(): Int
+    fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit)
+    fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit)
 
 }
