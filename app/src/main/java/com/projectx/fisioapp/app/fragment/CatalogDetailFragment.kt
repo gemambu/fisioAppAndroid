@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.activity.dummy.DummyContent
+import com.projectx.fisioapp.domain.model.Catalog
 import kotlinx.android.synthetic.main.fragment_catalog_detail.*
 
 /**
@@ -20,7 +21,7 @@ class CatalogDetailFragment : Fragment() {
     /**
      * The dummy content this fragment is presenting.
      */
-    private var mItem: DummyContent.DummyItem? = null
+    private var mItem: Catalog? = null
 
     private lateinit var root: View
 
@@ -38,11 +39,11 @@ class CatalogDetailFragment : Fragment() {
         super.onResume()
 
         arguments?.let {
-            if(arguments.containsKey(ARG_ITEM_ID)) {
+            if(arguments.containsKey(ARG_ITEM)) {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                mItem = DummyContent.ITEM_MAP[arguments.getString(ARG_ITEM_ID)]
+                mItem = arguments.getSerializable(ARG_ITEM) as Catalog
                 mItem?.let {
                     //activity.toolbar_layout?.title = it.content
                     activity_catalog_detail_name_text.hint = it.name
@@ -58,6 +59,6 @@ class CatalogDetailFragment : Fragment() {
          * The fragment argument representing the item ID that this fragment
          * represents.
          */
-        const val ARG_ITEM_ID = "item_id"
+        const val ARG_ITEM = "item_id"
     }
 }

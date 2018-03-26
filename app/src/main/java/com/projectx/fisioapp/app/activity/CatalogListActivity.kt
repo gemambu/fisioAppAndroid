@@ -12,14 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.activity.dummy.DummyContent
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
-import com.projectx.fisioapp.app.settingsmanager.SettingsManager
 import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.getToken
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogIntImpl
 import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogInteractor
+import com.projectx.fisioapp.domain.model.Catalog
 import com.projectx.fisioapp.domain.model.Catalogs
 import kotlinx.android.synthetic.main.activity_catalog_list.*
 import kotlinx.android.synthetic.main.catalog_list.*
@@ -65,12 +65,12 @@ class CatalogListActivity : AppCompatActivity() {
             mTwoPane = true
         }
 
+        getCatalogItems("service", this)
         setupRecyclerView(service_list)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        // TODO Get in this point the information related with products/services, and send it to the adapter
-        getCatalogItems("service", this)
+
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, list, mTwoPane)
         // set two columns with the elements
         recyclerView.layoutManager = GridLayoutManager(this, 2)
@@ -81,13 +81,14 @@ class CatalogListActivity : AppCompatActivity() {
 
             val getAllCatalogItems: GetCatalogInteractor = GetCatalogIntImpl(context)
             try {
-                val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVhYWFkOWQ2NzE3MDgwNThkODZiOGUxMCIsIm5hbWUiOiJnZW1hIiwicGFzc3dvcmQiOiIzYzhkZGUxNmJkZDMzOTMwODQxODhkODEwMzE0ZGY3NDhlYTY5NTEwMzk2Y2MzZDk5ZTE2Yzc2ODhjZDQ1MmQ0IiwiZW1haWwiOiJleGFtcGxlNkBray5jb20iLCJpc1Byb2Zlc3Npb25hbCI6dHJ1ZSwiZ2VuZGVyIjoiZmVtYWxlIiwibGFzdE5hbWUiOiJtYiIsImFkZHJlc3MiOiJteSBhZGRyZXNzIiwiX192IjowLCJkZWxldGVkIjpmYWxzZX0sImlhdCI6MTUyMTk4MTE0OCwiZXhwIjoxNTIyMTUzOTQ4fQ.wpXtybj08J7IrYzh2IoY5bs8bBFKyMXi34MksAieLnU"
+                val token: String = getToken(context)
                 getAllCatalogItems.execute(token,
                         type,
                         success = object : SuccessCompletion<Catalogs> {
                             override fun successCompletion(e: Catalogs) {
-                                ToastIt(baseContext, "Items downloaded: $e.size")
+                                ToastIt(baseContext, "Items downloaded: ${e.catalogs.size}")
                                 list = e
+                                setupRecyclerView(service_list)
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
@@ -100,6 +101,8 @@ class CatalogListActivity : AppCompatActivity() {
         }
     }
 
+
+
     class SimpleItemRecyclerViewAdapter(private val mParentActivity: CatalogListActivity,
                                         private val mValues: Catalogs?,
                                         private val mTwoPane: Boolean) :
@@ -109,11 +112,11 @@ class CatalogListActivity : AppCompatActivity() {
 
         init {
             mOnClickListener = View.OnClickListener { v ->
-                val item = v.tag as DummyContent.DummyItem
+                val item = v.tag as Catalog
                 if (mTwoPane) {
                     val fragment = CatalogDetailFragment().apply {
                         arguments = Bundle()
-                        arguments.putString(CatalogDetailFragment.ARG_ITEM_ID, item.name)
+                        arguments.putSerializable(CatalogDetailFragment.ARG_ITEM, item)
                     }
                     mParentActivity.supportFragmentManager
                             .beginTransaction()
@@ -121,7 +124,7 @@ class CatalogListActivity : AppCompatActivity() {
                             .commit()
                 } else {
                     val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
-                        putExtra(CatalogDetailFragment.ARG_ITEM_ID, item.name)
+                        putExtra(CatalogDetailFragment.ARG_ITEM, item)
                     }
                     v.context.startActivity(intent)
                 }

@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
                     context = this,
                     filename = settingsManager.FILE_USER_PREFERENCES,
                     key = settingsManager.KEY_TOKEN
-            ) as String?
+            )
 
             return token ?: ""
         }
