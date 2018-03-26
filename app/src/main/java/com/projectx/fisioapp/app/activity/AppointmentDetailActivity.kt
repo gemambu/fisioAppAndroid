@@ -2,6 +2,7 @@ package com.projectx.fisioapp.app.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.view.MenuItem
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentDetailFragment

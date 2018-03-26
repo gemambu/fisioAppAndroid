@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.projectx.fisioapp.R
+import com.projectx.fisioapp.app.fragment.AppointmentDetailFragment
 import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
 import com.projectx.fisioapp.app.fragment.CalendarFragment
 import com.projectx.fisioapp.app.router.Router
@@ -45,6 +46,20 @@ class CalendarActivity : AppCompatActivity(), AppointmentsListFragment.OnSelecte
 
 
     override fun onSelectedAppointment(date: Date) {
-        Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
+        //Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
+
+        val fragment = AppointmentDetailFragment.newInstance()
+        fragmentManager.beginTransaction()
+                .replace(R.id.appointments_fragment, fragment)
+                .commit()
+
+        /*if(resources.getBoolean(R.bool.screen_not_sw600) == false){
+            Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
+        } else if(resources.getBoolean(R.bool.screen_is_sw600) == false){
+            val fragment = AppointmentDetailFragment.newInstance()
+            fragmentManager.beginTransaction()
+                    .add(R.id.appointments_fragment, fragment)
+                    .commit()
+        }*/
     }
 }
