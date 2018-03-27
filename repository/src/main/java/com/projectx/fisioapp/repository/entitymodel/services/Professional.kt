@@ -13,7 +13,7 @@ class Professional {
     var name: String? = null
     @SerializedName("password")
     @Expose
-    var password: String? = null
+    var password: String? = null // DE VERDAD HACE FALTA TRAERSE EL PASSWORD DEL PROFESIONAL?
     @SerializedName("email")
     @Expose
     var email: String? = null
