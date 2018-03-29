@@ -66,6 +66,22 @@ class CacheIntImpl(context: Context): CacheInteractor {
         }).run()
     }
 
+    override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            val successDeleting = CatalogDAO(dbHelper).delete(id)
+
+            DispatchOnMainThread(Runnable {
+                if (successDeleting.length > 0) {
+                    success()
+                } else {
+                    error("Error deleting")
+                }
+                dbHelper.close()
+            })
+
+        }).run()
+    }
+
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             val successDeleting = CatalogDAO(dbHelper).deleteAll()

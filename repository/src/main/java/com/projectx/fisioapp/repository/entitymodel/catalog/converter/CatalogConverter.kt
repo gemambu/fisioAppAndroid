@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.entitymodel.converter
+package com.projectx.fisioapp.repository.entitymodel.catalog.converter
 
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData

@@ -8,6 +8,9 @@ import java.lang.ref.WeakReference
 
 
 class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
+    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+
+    }
 
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntFakeImpl(weakContext.get() !!)

@@ -2,6 +2,7 @@ package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 
 import com.projectx.fisioapp.repository.BuildConfig
 import com.projectx.fisioapp.repository.entitymodel.responses.AuthenticateUserResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.DeleteCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.RegisterUserResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
 
@@ -24,6 +25,9 @@ internal interface APIV1FisioAppInterface {
 
     @GET(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH)
     fun doGetProducts(@Header("x-access-token") token: String): Call<GetCatalogResponse>
+
+    @DELETE(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
+    fun doDeleteService(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteCatalogResponse>
 
 
 }

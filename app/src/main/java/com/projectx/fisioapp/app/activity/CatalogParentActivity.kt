@@ -6,7 +6,7 @@ import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.router.Router
 import kotlinx.android.synthetic.main.activity_catalog.*
 
-class CatalogParentActivity : ParentActivity() {
+open class CatalogParentActivity : ParentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

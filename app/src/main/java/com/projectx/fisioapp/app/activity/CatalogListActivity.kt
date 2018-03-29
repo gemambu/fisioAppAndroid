@@ -149,6 +149,8 @@ class CatalogListActivity : ParentActivity() {
             holder.mIdView.text = item.name
             holder.mContentView.text = item.price.toString() + " €"
 
+
+
             with(holder.itemView) {
                 tag = item
                 setOnClickListener(mOnClickListener)
@@ -165,7 +167,9 @@ class CatalogListActivity : ParentActivity() {
         inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
             val mIdView: TextView = mView.catalog_list_element_name
             val mContentView: TextView = mView.catalog_list_element_price
+
         }
+
     }
 
 }
