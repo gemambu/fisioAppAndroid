@@ -22,11 +22,11 @@ class CacheIntFakeImpl(context: Context) : CacheInteractor {
         var listData = ArrayList<CatalogData>()
 
         for (i in 1..5) {
-            listData.add(createDummyItem(i, "product"))
+            listData.add(createDummyItem(i, "PRODUCT"))
         }
 
         for (i in 1..5) {
-            listData.add(createDummyItem(i, "service"))
+            listData.add(createDummyItem(i, "SERVICE"))
         }
 
         success(listData)

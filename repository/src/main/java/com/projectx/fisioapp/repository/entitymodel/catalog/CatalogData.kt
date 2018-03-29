@@ -15,7 +15,7 @@ data class CatalogData(
 )
 
 
-enum class CatalogType(val type: String) : Serializable {
-    SERVICE("service"),
-    PRODUCT("product")
+enum class CatalogType : Serializable {
+    SERVICE,
+    PRODUCT
 }

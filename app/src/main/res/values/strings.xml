@@ -18,4 +18,5 @@
     <string name="login_name_hint">Name</string>
     <string name="login_email_hint">email</string>
     <string name="login_password_hint">******</string>
+    <string name="catalog_list">Catalog List</string>
 </resources>

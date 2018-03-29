@@ -12,17 +12,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class GetServicesIntImpl (): GetProductsInteractor {
+internal class GetProductsIntImpl(): GetProductsInteractor {
     override fun execute(token: String, success: (catalogItems: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
-         * Get Services
+         * Get Products
          */
-        val callGetServices = apiInterfaceLocalhost.doGetServices(token)
-        callGetServices.enqueue(object : Callback<GetServicesResponse> {
+        val callGetProducts = apiInterfaceLocalhost.doGetProducts(token)
+        callGetProducts.enqueue(object : Callback<GetServicesResponse> {
             override fun onResponse(call: Call<GetServicesResponse>, response: Response<GetServicesResponse>) {
                 val response = response.body()
 

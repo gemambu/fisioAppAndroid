@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:background="@color/login_screen_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_login_screen"
+    tools:context="com.projectx.fisioapp.app.activity.LoginActivity">
+
+    <TextView
+        android:id="@+id/tvApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/login_screen_title_text_size"
+        android:textColor="@color/login_screen_text_color"
+        android:padding="@dimen/padding_login_screen_login"
+        android:text="Select a type"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnServices"
+        android:layout_width="@dimen/activity_screen_width_null"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_wide_ultra"
+        android:text="Services"
+        app:layout_constraintEnd_toEndOf="@+id/tvApp"
+        app:layout_constraintStart_toStartOf="@+id/tvApp"
+        app:layout_constraintTop_toBottomOf="@+id/tvApp" />
+
+    <Button
+        android:id="@+id/btnProducts"
+        android:layout_width="@dimen/activity_screen_width_null"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_default"
+        android:text="Products"
+        app:layout_constraintEnd_toEndOf="@+id/btnServices"
+        app:layout_constraintStart_toStartOf="@+id/btnServices"
+        app:layout_constraintTop_toBottomOf="@+id/btnServices" />
+
+</android.support.constraint.ConstraintLayout>

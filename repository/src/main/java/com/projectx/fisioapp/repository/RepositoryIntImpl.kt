@@ -6,8 +6,9 @@ import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetProductsIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetProductsInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetServicesIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetServicesInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
 import java.lang.ref.WeakReference
@@ -19,7 +20,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val cache: CacheInteractor = CacheIntImpl(weakContext.get()!!)
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
-    private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
+    private val getAllServices: GetProductsInteractor = GetServicesIntImpl()
+    private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
 
     /******** users ********/
     override fun authenticateUser(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -68,14 +70,31 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
     private fun populateCache(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
-        // perform network request
-        getAllServices.execute(token,
-                success = {
-                    success(it)
-                }, error = {
-                    error(it)
-                }
-        )
+
+        when(type){
+            "SERVICE" -> {
+                // perform network request
+                getAllServices.execute(token,
+                        success = {
+                            success(it)
+                        }, error = {
+                            error(it)
+                        }
+                )
+            }
+            "PRODUCT" -> {
+                // perform network request
+                getAllProducts.execute(token,
+                        success = {
+                            success(it)
+                        }, error = {
+                            error(it)
+                        }
+                )
+            }
+        }
+
+
     }
 
 

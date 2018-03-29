@@ -22,5 +22,8 @@ internal interface APIV1FisioAppInterface {
     @GET(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH)
     fun doGetServices(@Header("x-access-token") token: String): Call<GetServicesResponse>
 
+    @GET(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH)
+    fun doGetProducts(@Header("x-access-token") token: String): Call<GetServicesResponse>
+
 
 }

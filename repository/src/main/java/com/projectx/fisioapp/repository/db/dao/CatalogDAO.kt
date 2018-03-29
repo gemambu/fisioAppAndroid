@@ -67,7 +67,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         }
 
         val isActive = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_ENTITY_IS_ACTIVE)) == 1;
-        val type : CatalogType = if (cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_TYPE)) === "service")  CatalogType.SERVICE else CatalogType.PRODUCT
+        val type : CatalogType = if (cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_TYPE)) === "SERVICE")  CatalogType.SERVICE else CatalogType.PRODUCT
 
         return CatalogData(cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_NAME)),
