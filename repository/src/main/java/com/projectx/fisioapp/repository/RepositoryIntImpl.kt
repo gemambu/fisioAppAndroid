@@ -3,7 +3,7 @@ package com.projectx.fisioapp.repository
 import android.content.Context
 import com.projectx.fisioapp.repository.cache.CacheIntImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
-import com.projectx.fisioapp.repository.entitymodel.appointments.Appoinment
+import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
@@ -120,7 +120,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     /******** Appointments ********/
 
-    override fun getAllAppointments(token: String, success: (appointmentsList: List<Appoinment>) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun getAllAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
         getAllAppointments.execute(token,
                 success = {
                     success(it)

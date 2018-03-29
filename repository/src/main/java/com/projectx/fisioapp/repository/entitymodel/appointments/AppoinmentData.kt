@@ -3,7 +3,7 @@ package com.projectx.fisioapp.repository.entitymodel.appointments
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class Appoinment(
+data class AppoinmentData(
         @SerializedName("_id") val databaseId: String,
         @SerializedName("serviceId") val serviceId: String,
         @SerializedName("servicePrice") val servicePrice: String,
