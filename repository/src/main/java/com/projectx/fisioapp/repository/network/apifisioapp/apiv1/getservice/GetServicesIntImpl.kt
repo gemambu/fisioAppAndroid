@@ -1,11 +1,10 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice
 
 import android.util.Log
-import com.gmb.madridshops.repository.db.convert
 
 import com.projectx.fisioapp.repository.entitymodel.services.GetServicesResponse
-import com.projectx.fisioapp.repository.model.CatalogData
-import com.projectx.fisioapp.repository.model.converter.convert
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.converter.convert
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 import retrofit2.Call

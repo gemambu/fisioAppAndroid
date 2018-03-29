@@ -1,8 +1,8 @@
 package com.projectx.fisioapp.repository.cache
 
 import android.content.Context
-import com.projectx.fisioapp.repository.model.CatalogData
-import com.projectx.fisioapp.repository.model.CatalogType
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import java.lang.ref.WeakReference
 
 

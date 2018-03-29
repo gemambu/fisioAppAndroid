@@ -5,10 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 class GetServicesResponse {
 
-    @SerializedName("ok")
     @Expose
     var ok: Boolean? = null
-    @SerializedName("result")
     @Expose
     var result: ResultServices? = null
 

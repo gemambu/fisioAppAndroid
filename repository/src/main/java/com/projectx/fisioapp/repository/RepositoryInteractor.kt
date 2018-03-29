@@ -1,6 +1,6 @@
 package com.projectx.fisioapp.repository
 
-import com.projectx.fisioapp.repository.model.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 
 
 interface RepositoryInteractor {

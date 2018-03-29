@@ -3,7 +3,7 @@ package com.projectx.fisioapp.repository
 import android.content.Context
 import com.projectx.fisioapp.repository.cache.CacheIntImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
-import com.projectx.fisioapp.repository.model.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetServicesIntImpl

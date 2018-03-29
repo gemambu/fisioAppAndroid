@@ -5,8 +5,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.gmb.madridshops.repository.db.DBConstants
 import com.gmb.madridshops.repository.db.DBHelper
-import com.projectx.fisioapp.repository.model.CatalogData
-import com.projectx.fisioapp.repository.model.CatalogType
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 
 class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
@@ -76,7 +76,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_PROFESSIONAL_ID)),
                 isActive,
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_IMAGE_URL)),
-               type
+                type
         )
     }
 
