@@ -4,7 +4,6 @@ import android.util.Log
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.appointments.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.entitymodel.appointments.convertAppointments
-import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 import retrofit2.Call
