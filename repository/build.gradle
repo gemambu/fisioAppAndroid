@@ -31,8 +31,10 @@ android {
             buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/users/authenticate" + "?\""
             buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/users/register" + "?\""
             buildConfigField "String", "FISIOAPP_APPOINTMENTS_SERVER_PATH", "\"/apiv1/appointments\""
+            buildConfigField "String", "FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH", "\"/apiv1/appointments/professional\""
             buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/products\""
             buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/services\""
+
         }
         release {
             // DB
