@@ -10,7 +10,7 @@ fun convertAppointments(response: GetAppointmentsResponse): List<Appoinment> {
             val rows = response.result!!.rows
             rows.let {
 
-                rows.map {
+                rows!!.map {
                     val row = it
                     val appointment = Appoinment(
                             it.id,
@@ -24,7 +24,7 @@ fun convertAppointments(response: GetAppointmentsResponse): List<Appoinment> {
                             it.longitude,
                             it.extraInfo,
                             it.deleted,
-                            it._v
+                            it.v
                     )
                     appointmentsList.add(appointment)
                 }

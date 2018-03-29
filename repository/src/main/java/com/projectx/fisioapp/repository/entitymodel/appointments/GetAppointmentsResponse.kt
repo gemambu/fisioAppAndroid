@@ -6,10 +6,8 @@ import com.projectx.fisioapp.repository.entitymodel.services.ResultServices
 
 class GetAppointmentsResponse{
 
-    @SerializedName("ok")
     @Expose
     var ok: Boolean? = null
-    @SerializedName("result")
     @Expose
     var result: ResultAppointments? = null
 }

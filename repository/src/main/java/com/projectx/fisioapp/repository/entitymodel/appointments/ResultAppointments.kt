@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 class ResultAppointments {
 
-    @SerializedName("rows")
     @Expose
     var rows: List<AppoinmentRow>? = null
 

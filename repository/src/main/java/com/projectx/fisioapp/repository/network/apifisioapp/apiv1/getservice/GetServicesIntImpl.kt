@@ -1,7 +1,12 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice
 
 import android.util.Log
+<<<<<<< HEAD
 import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
+=======
+
+import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
+>>>>>>> services_and_products_gema
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.converter.convert
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient

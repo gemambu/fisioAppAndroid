@@ -1,10 +1,16 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 
 import com.projectx.fisioapp.repository.BuildConfig
+<<<<<<< HEAD
 import com.projectx.fisioapp.repository.entitymodel.AuthenticateUserResponse
 import com.projectx.fisioapp.repository.entitymodel.RegisterUserResponse
 import com.projectx.fisioapp.repository.entitymodel.appointments.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
+=======
+import com.projectx.fisioapp.repository.entitymodel.responses.AuthenticateUserResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.RegisterUserResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
+>>>>>>> services_and_products_gema
 
 import retrofit2.Call
 import retrofit2.http.*

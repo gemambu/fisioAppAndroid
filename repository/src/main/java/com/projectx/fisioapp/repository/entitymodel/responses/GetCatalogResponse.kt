@@ -1,6 +1,7 @@
-package com.projectx.fisioapp.repository.entitymodel.catalog
+package com.projectx.fisioapp.repository.entitymodel.responses
 
 import com.google.gson.annotations.Expose
+import com.projectx.fisioapp.repository.entitymodel.catalog.ResultCatalogItems
 
 class GetCatalogResponse {
 
