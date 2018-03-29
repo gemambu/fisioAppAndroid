@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.repository.cache
 
+import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 
 
@@ -15,4 +16,8 @@ interface CacheInteractor {
     fun saveAllCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit)
 
+
+    /******** appointments ********/
+    fun getAllAppointments(success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
+    fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
 }

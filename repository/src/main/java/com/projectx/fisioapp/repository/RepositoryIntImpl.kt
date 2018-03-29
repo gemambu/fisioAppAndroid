@@ -100,9 +100,10 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 )
             }
         }
-
-
     }
+
+
+
 
     private fun saveCatalog(list: List<CatalogData>, type: String) {
         cache.saveAllCatalogItems(type, list, success = {
@@ -146,7 +147,25 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 success = {
                     success(it)
                 }, error = {
+            populateCacheWithAppointments(token, success, error)
+        })
+    }
+
+    private fun populateCacheWithAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit){
+        getAllAppointments.execute(token,
+                success = {
+                    saveAppointments(it)
+                    success(it)
+                }, error = {
             error(it)
+        })
+    }
+
+    private fun saveAppointments(list: List<AppoinmentData>) {
+        cache.saveAllAppointments(list, success = {
+            success(list)
+        }, error = {
+            error("Something happened on the way to heaven!")
         })
     }
 

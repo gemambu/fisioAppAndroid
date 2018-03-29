@@ -119,6 +119,8 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
     override fun insert(element: AppoinmentData, type: String): Long = dbReadWriteOnlyConn.insert(DBAppointmentConstants.TABLE_APPOINTMENT, null, contentValues(element))
 
+    override fun insert(element: AppoinmentData): Long = dbReadWriteOnlyConn.insert(DBAppointmentConstants.TABLE_APPOINTMENT, null, contentValues(element))
+
 
     override fun update(id: Long, element: AppoinmentData): Long =
             dbReadWriteOnlyConn.update(

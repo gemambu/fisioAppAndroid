@@ -23,6 +23,9 @@ internal interface APIV1FisioAppInterface {
     @GET(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH)
     fun doGetServices(@Header("x-access-token") token: String): Call<GetCatalogResponse>
 
+    @DELETE(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
+    fun doDeleteService(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteCatalogResponse>
+
     @GET(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH)
     fun doGetProducts(@Header("x-access-token") token: String): Call<GetCatalogResponse>
 
@@ -33,8 +36,7 @@ internal interface APIV1FisioAppInterface {
     @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
     fun doGetAppointmentsForDate(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
 
-    @DELETE(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
-    fun doDeleteService(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteCatalogResponse>
+
 
 
 }

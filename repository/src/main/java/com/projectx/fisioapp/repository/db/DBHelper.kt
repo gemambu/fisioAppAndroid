@@ -3,6 +3,7 @@ package com.gmb.madridshops.repository.db
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.projectx.fisioapp.repository.db.constants.DBAppointmentConstants
 
 fun buildHelper(context: Context, name: String, version: Int): DBHelper {
     return DBHelper(context, name, null, version)
@@ -21,6 +22,7 @@ class DBHelper(context: Context?, name: String?, factory: SQLiteDatabase.CursorF
 
     override fun onCreate(db: SQLiteDatabase?) {
         DBCatalogConstants.CREATE_DATABASE_SCRIPTS.forEach { db?.execSQL(it) }
+        DBAppointmentConstants.CREATE_DATABASE_SCRIPTS.forEach { db?.execSQL(it) }
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
