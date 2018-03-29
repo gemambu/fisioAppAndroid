@@ -96,7 +96,6 @@ class CatalogListActivity : ParentActivity() {
                         type.name,
                         success = object : SuccessCompletion<Catalogs> {
                             override fun successCompletion(e: Catalogs) {
-                                ToastIt(baseContext, "Items downloaded: ${e.catalogs.size}")
                                 list = e
                                 setupRecyclerView(catalog_list)
                             }

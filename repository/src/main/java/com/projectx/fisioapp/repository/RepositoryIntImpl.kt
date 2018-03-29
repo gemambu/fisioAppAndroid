@@ -11,6 +11,7 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.Get
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetServicesIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
+import retrofit2.Response.success
 import java.lang.ref.WeakReference
 
 
@@ -76,7 +77,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 // perform network request
                 getAllServices.execute(token,
                         success = {
+                            saveCatalog(it, type)
                             success(it)
+
                         }, error = {
                             error(it)
                         }
@@ -86,6 +89,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 // perform network request
                 getAllProducts.execute(token,
                         success = {
+                            saveCatalog(it, type)
                             success(it)
                         }, error = {
                             error(it)
@@ -95,6 +99,14 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         }
 
 
+    }
+
+    private fun saveCatalog(list: List<CatalogData>, type: String) {
+        cache.saveAllCatalogItems(type, list, success = {
+            success(list)
+        }, error = {
+            error("Something happened on the way to heaven!")
+        })
     }
 
 

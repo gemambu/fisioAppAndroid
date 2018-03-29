@@ -27,12 +27,12 @@ object DBConstants {
     private val SQL_SCRIPT_CREATE_ENTITY_TABLE = (
             "create table " + TABLE_CATALOG
                     + "( "
-                    + KEY_ENTITY_DATABASE_ID + " string primary key autoincrement, "
+                    + KEY_ENTITY_DATABASE_ID + " string primary key, "
                     + KEY_ENTITY_NAME + " text not null,"
                     + KEY_ENTITY_DESCRIPTION + " text, "
                     + KEY_ENTITY_PRICE + " real,"
                     + KEY_ENTITY_IS_ACTIVE + " integer,"
-                    + KEY_ENTITY_PROFESSIONAL_ID + " integer,"
+                    + KEY_ENTITY_PROFESSIONAL_ID + " string,"
                     + KEY_ENTITY_IMAGE_URL + " text, "
                     + KEY_ENTITY_TYPE + " text"
                     + ");")

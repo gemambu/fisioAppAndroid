@@ -3,7 +3,7 @@ package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 import com.projectx.fisioapp.repository.BuildConfig
 import com.projectx.fisioapp.repository.entitymodel.AuthenticateUserResponse
 import com.projectx.fisioapp.repository.entitymodel.RegisterUserResponse
-import com.projectx.fisioapp.repository.entitymodel.services.GetServicesResponse
+import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
 
 import retrofit2.Call
 import retrofit2.http.*
@@ -20,10 +20,10 @@ internal interface APIV1FisioAppInterface {
     fun doRegisterUser(@Field("name") name: String, @Field("email") email: String, @Field("password") password: String): Call<RegisterUserResponse>
 
     @GET(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH)
-    fun doGetServices(@Header("x-access-token") token: String): Call<GetServicesResponse>
+    fun doGetServices(@Header("x-access-token") token: String): Call<GetCatalogResponse>
 
     @GET(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH)
-    fun doGetProducts(@Header("x-access-token") token: String): Call<GetServicesResponse>
+    fun doGetProducts(@Header("x-access-token") token: String): Call<GetCatalogResponse>
 
 
 }

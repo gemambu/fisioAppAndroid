@@ -2,7 +2,7 @@ package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice
 
 import android.util.Log
 
-import com.projectx.fisioapp.repository.entitymodel.services.GetServicesResponse
+import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.converter.convert
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
@@ -22,15 +22,15 @@ internal class GetProductsIntImpl(): GetProductsInteractor {
          * Get Products
          */
         val callGetProducts = apiInterfaceLocalhost.doGetProducts(token)
-        callGetProducts.enqueue(object : Callback<GetServicesResponse> {
-            override fun onResponse(call: Call<GetServicesResponse>, response: Response<GetServicesResponse>) {
+        callGetProducts.enqueue(object : Callback<GetCatalogResponse> {
+            override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
                 val response = response.body()
 
                 response.let { success(convert(response!!)) }
 
             }
 
-            override fun onFailure(call: Call<GetServicesResponse>, t: Throwable?) {
+            override fun onFailure(call: Call<GetCatalogResponse>, t: Throwable?) {
                 call.cancel()
                 Log.d("App: ", t?.localizedMessage ?: "Connection to server not available")
                 error(t?.localizedMessage ?: "Connection to server not available")
