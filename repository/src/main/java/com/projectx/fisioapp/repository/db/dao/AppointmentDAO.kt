@@ -20,7 +20,9 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
         content.put(DBAppointmentConstants.KEY_DATABASE_ID, entityData.databaseId)
         content.put(DBAppointmentConstants.KEY_SERVICE_ID, entityData.serviceId)
+        content.put(DBAppointmentConstants.KEY_SERVICE_PRICE, entityData.servicePrice)
         content.put(DBAppointmentConstants.KEY_CUSTOMER_ID, entityData.customerId)
+        content.put(DBAppointmentConstants.KEY_CUSTOMER_NAME, entityData.customerName)
         content.put(DBAppointmentConstants.KEY_PROFESSIONAL_ID, entityData.professionalId)
         content.put(DBAppointmentConstants.KEY_IS_CONFIRMED, entityData.isConfirmed)
         content.put(DBAppointmentConstants.KEY_IS_CANCELLED, entityData.isCancelled)
@@ -74,7 +76,9 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
         val date = cursor.getInt(cursor.getColumnIndex(DBAppointmentConstants.KEY_DATE))
         return AppoinmentData(cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_SERVICE_ID)),
+                cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_SERVICE_PRICE)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_CUSTOMER_ID)),
+                cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_CUSTOMER_NAME)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_PROFESSIONAL_ID)),
                 isConfirmed,
                 isCancelled,
