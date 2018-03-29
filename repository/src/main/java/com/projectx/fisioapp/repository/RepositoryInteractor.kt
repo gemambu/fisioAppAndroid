@@ -1,6 +1,6 @@
 package com.projectx.fisioapp.repository
 
-import com.projectx.fisioapp.repository.model.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 
 
 interface RepositoryInteractor {
@@ -16,5 +16,6 @@ interface RepositoryInteractor {
     fun countCatalogItems(): Int
     fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit)
+    
 
 }

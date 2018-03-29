@@ -1,6 +1,7 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice
 
 import android.util.Log
+
 import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.converter.convert
@@ -11,17 +12,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class GetServicesIntImpl (): GetProductsInteractor {
+internal class GetProductsIntImpl(): GetProductsInteractor {
     override fun execute(token: String, success: (catalogItems: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
-         * Get Services
+         * Get Products
          */
-        val callGetServices = apiInterfaceLocalhost.doGetServices(token)
-        callGetServices.enqueue(object : Callback<GetCatalogResponse> {
+        val callGetProducts = apiInterfaceLocalhost.doGetProducts(token)
+        callGetProducts.enqueue(object : Callback<GetCatalogResponse> {
             override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
                 val response = response.body()
 

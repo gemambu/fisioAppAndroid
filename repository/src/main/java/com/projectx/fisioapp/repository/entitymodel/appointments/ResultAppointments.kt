@@ -7,6 +7,6 @@ class ResultAppointments {
 
     @SerializedName("rows")
     @Expose
-    var rows: List<Appoinment>? = null
+    var rows: List<AppoinmentRow>? = null
 
 }

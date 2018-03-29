@@ -2,7 +2,7 @@ package com.projectx.fisioapp.domain.model.util
 
 import com.projectx.fisioapp.domain.model.Catalog
 import com.projectx.fisioapp.domain.model.Catalogs
-import com.projectx.fisioapp.repository.model.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import java.io.Serializable
 
 enum class BenefitType(val type: Int) : Serializable {

@@ -24,8 +24,8 @@ class CatalogDetailActivity : AppCompatActivity() {
        // containerListFragment = supportFragmentManager.findFragmentById(R.id.activity_list_detail_fragment) as CatalogDetailFragment
 
         val arguments = Bundle()
-        arguments.putString(CatalogDetailFragment.ARG_ITEM_ID,
-                intent.getStringExtra(CatalogDetailFragment.ARG_ITEM_ID))
+        arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
+                intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
          val fragment = CatalogDetailFragment()
         fragment.arguments = arguments
         supportFragmentManager.beginTransaction()
@@ -58,8 +58,8 @@ class CatalogDetailActivity : AppCompatActivity() {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val arguments = Bundle()
-            arguments.putString(CatalogDetailFragment.ARG_ITEM_ID,
-                    intent.getStringExtra(CatalogDetailFragment.ARG_ITEM_ID))
+            arguments.putString(CatalogDetailFragment.ARG_ITEM,
+                    intent.getStringExtra(CatalogDetailFragment.ARG_ITEM))
             val fragment = CatalogDetailFragment()
             fragment.arguments = arguments
             supportFragmentManager.beginTransaction()

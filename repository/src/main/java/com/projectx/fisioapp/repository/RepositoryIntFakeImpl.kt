@@ -3,7 +3,7 @@ package com.projectx.fisioapp.repository
 import android.content.Context
 import com.projectx.fisioapp.repository.cache.CacheIntFakeImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
-import com.projectx.fisioapp.repository.model.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import java.lang.ref.WeakReference
 
 

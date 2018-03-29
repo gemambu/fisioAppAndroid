@@ -59,4 +59,6 @@ dependencies {
     // see: https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md
     implementation 'org.jetbrains.anko:anko-coroutines:0.10.2'
 
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
+
 }

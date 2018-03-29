@@ -11,5 +11,5 @@ class GetAppointmentsResponse{
     var ok: Boolean? = null
     @SerializedName("result")
     @Expose
-    var result: ResultServices? = null
+    var result: ResultAppointments? = null
 }

@@ -5,8 +5,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.gmb.madridshops.repository.db.DBConstants
 import com.gmb.madridshops.repository.db.DBHelper
-import com.projectx.fisioapp.repository.model.CatalogData
-import com.projectx.fisioapp.repository.model.CatalogType
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 
 class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
@@ -67,7 +67,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         }
 
         val isActive = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_ENTITY_IS_ACTIVE)) == 1;
-        val type : CatalogType = if (cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_TYPE)) === "service")  CatalogType.SERVICE else CatalogType.PRODUCT
+        val type : CatalogType = if (cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_TYPE)) === "SERVICE")  CatalogType.SERVICE else CatalogType.PRODUCT
 
         return CatalogData(cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_NAME)),
@@ -76,7 +76,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_PROFESSIONAL_ID)),
                 isActive,
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_ENTITY_IMAGE_URL)),
-               type
+                type
         )
     }
 
@@ -109,7 +109,12 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         return result
     }
 
-    override fun insert(element: CatalogData, type: String): Long = dbReadWriteOnlyConn.insert(DBConstants.TABLE_CATALOG, null, contentValues(element, type))
+    override fun insert(element: CatalogData, type: String): Long {
+
+        val id = dbReadWriteOnlyConn.insert(DBConstants.TABLE_CATALOG, null, contentValues(element, type))
+        return id
+    }
+
 
     override fun update(id: Long, element: CatalogData): Long =
             dbReadWriteOnlyConn.update(

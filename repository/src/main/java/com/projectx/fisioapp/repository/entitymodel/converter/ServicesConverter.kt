@@ -1,11 +1,11 @@
-package com.projectx.fisioapp.repository.model.converter
+package com.projectx.fisioapp.repository.entitymodel.converter
 
-import com.projectx.fisioapp.repository.entitymodel.services.GetServicesResponse
-import com.projectx.fisioapp.repository.model.CatalogData
-import com.projectx.fisioapp.repository.model.CatalogType
+import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 
- fun convert(response: GetServicesResponse): List<CatalogData> {
+ fun convert(response: GetCatalogResponse): List<CatalogData> {
         var catalogDataList: MutableList<CatalogData> = arrayListOf()
 
 
