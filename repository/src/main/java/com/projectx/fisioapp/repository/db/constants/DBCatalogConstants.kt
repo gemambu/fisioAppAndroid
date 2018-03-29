@@ -1,7 +1,8 @@
 package com.gmb.madridshops.repository.db
 
 
-object DBConstants {
+object DBCatalogConstants {
+
     val TABLE_CATALOG = "CATALOG"
 
     // Table field constants
@@ -24,7 +25,7 @@ object DBConstants {
             KEY_ENTITY_IMAGE_URL,
             KEY_ENTITY_TYPE)
 
-    private val SQL_SCRIPT_CREATE_ENTITY_TABLE = (
+    private val SQL_SCRIPT_CREATE_CATALOG_TABLE = (
             "create table " + TABLE_CATALOG
                     + "( "
                     + KEY_ENTITY_DATABASE_ID + " string primary key, "
@@ -39,5 +40,10 @@ object DBConstants {
 
     val DROP_DATABASE_SCRIPTS = ""
 
-    val CREATE_DATABASE_SCRIPTS = arrayOf(SQL_SCRIPT_CREATE_ENTITY_TABLE)
+    val CREATE_DATABASE_SCRIPTS = arrayOf(SQL_SCRIPT_CREATE_CATALOG_TABLE)
+
+    val QUERY_COUNT = "SELECT COUNT(*) FROM $TABLE_CATALOG"
+
+
+
 }

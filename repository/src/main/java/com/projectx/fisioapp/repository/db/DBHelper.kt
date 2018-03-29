@@ -20,7 +20,7 @@ class DBHelper(context: Context?, name: String?, factory: SQLiteDatabase.CursorF
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        DBConstants.CREATE_DATABASE_SCRIPTS.forEach { db?.execSQL(it) }
+        DBCatalogConstants.CREATE_DATABASE_SCRIPTS.forEach { db?.execSQL(it) }
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

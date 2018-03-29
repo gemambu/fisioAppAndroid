@@ -1,6 +1,6 @@
 package com.projectx.fisioapp.repository.entitymodel.converter
 
-import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
