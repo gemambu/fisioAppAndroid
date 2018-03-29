@@ -115,6 +115,10 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         return id
     }
 
+    // Empty implementation as this method is used only for AppointmentDAO
+    override fun insert(element: CatalogData): Long {
+        return 0
+    }
 
     override fun update(id: Long, element: CatalogData): Long =
             dbReadWriteOnlyConn.update(
