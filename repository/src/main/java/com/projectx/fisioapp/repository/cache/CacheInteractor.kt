@@ -20,5 +20,5 @@ interface CacheInteractor {
     /******** appointments ********/
     fun getAllAppointments(success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
     fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
-    //fu deleteAllAppointments(appointmentsList)
+    fun deleteAllAppointments(success: () -> Unit, error: (errorMessage: String) -> Unit)
 }

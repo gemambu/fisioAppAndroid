@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference
 
 class CacheIntImpl(context: Context): CacheInteractor {
 
+
     private val context = WeakReference<Context>(context)
     private val dbHelper = cacheDBHelper()
 
@@ -97,8 +98,9 @@ class CacheIntImpl(context: Context): CacheInteractor {
             })
 
         }).run()
-
     }
+
+
 
 
     /******** appointments ********/
@@ -133,6 +135,23 @@ class CacheIntImpl(context: Context): CacheInteractor {
                     dbHelper.close()
                 })
             }
+        }).run()
+    }
+
+
+    override fun deleteAllAppointments(success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            val successDeleting = AppointmentDAO(dbHelper).deleteAll()
+
+            DispatchOnMainThread(Runnable {
+                if (successDeleting) {
+                    success()
+                } else {
+                    error("Error deleting")
+                }
+                dbHelper.close()
+            })
+
         }).run()
     }
 
