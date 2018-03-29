@@ -23,7 +23,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
                                 row?.name!!,
                                 row?.description!!,
                                 row?.price!!.toFloat()!!,
-                                row?.professional!!.id!!,
+                                row?.person!!.id!!,
                                 row?.isActive!!,
                                 row?.image!!,
                                 CatalogType.SERVICE

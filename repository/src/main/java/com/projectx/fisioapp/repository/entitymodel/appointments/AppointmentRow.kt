@@ -2,18 +2,19 @@ package com.projectx.fisioapp.repository.entitymodel.appointments
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.projectx.fisioapp.repository.entitymodel.catalog.Professional
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.Person
 import java.util.*
 
 class AppoinmentRow{
     @SerializedName("_id")
     var id: String? = null
     @Expose
-    var service: String? = null
+    var service: CatalogData? = null
     @Expose
-    var customer: String? = null
+    var customer: Person? = null
     @Expose
-    var professional: Professional? = null
+    var professional: Person? = null
     @Expose
     var date: Date? = null
     @Expose

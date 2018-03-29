@@ -11,20 +11,20 @@ fun convertAppointments(response: GetAppointmentsResponse): List<Appoinment> {
             rows.let {
 
                 rows!!.map {
-                    val row = it
+                    val name = it.customer!!.name + " " + it.customer!!.lastName
                     val appointment = Appoinment(
-                            it.id,
-                            it.service,
-                            it.customer,
-                            it.professional,
-                            it.isConfirmed,
-                            it.isCancelled,
-                            it.date,
-                            it.latitude,
-                            it.longitude,
-                            it.extraInfo,
-                            it.deleted,
-                            it.v
+                            it.id!!,
+                            it.service!!.databaseId,
+                            it.service!!.price.toString(),
+                            it.customer!!.id!!,
+                            name,
+                            it.professional!!.id!!,
+                            it.isConfirmed!!,
+                            it.isCancelled!!,
+                            it.date!!,
+                            it.latitude.toString()!!,
+                            it.longitude.toString()!!,
+                            it.extraInfo!!
                     )
                     appointmentsList.add(appointment)
                 }
