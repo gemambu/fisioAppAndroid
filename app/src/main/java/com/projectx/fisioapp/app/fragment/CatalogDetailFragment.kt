@@ -1,12 +1,15 @@
 package com.projectx.fisioapp.app.fragment
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.activity.dummy.DummyContent
+import com.projectx.fisioapp.app.activity.CatalogListActivity
 import com.projectx.fisioapp.domain.model.Catalog
 import kotlinx.android.synthetic.main.fragment_catalog_detail.*
 
@@ -22,20 +25,24 @@ class CatalogDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var mItem: Catalog? = null
-
+    var catalogItemListener: CatalogItemListener? = null
     private lateinit var root: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         inflater.let {
-            root= inflater.inflate(R.layout.fragment_catalog_detail, container, false)
+            root = inflater.inflate(R.layout.fragment_catalog_detail, container, false)
+
+
         }
 
         return root
     }
 
-   override fun onResume() {
+
+
+    override fun onResume() {
         super.onResume()
 
         arguments?.let {
@@ -50,6 +57,11 @@ class CatalogDetailFragment : Fragment() {
                     activity_catalog_detail_desc_text.hint = it.description
                     activity_catalog_detail_price_text.hint = it.price.toString() + " €"
                 }
+
+                activity_catalog_detail_delete_bttn.setOnClickListener {
+                    Log.d(CatalogDetailFragment::class.java.canonicalName, "Clicked on DELETE")
+                    catalogItemListener?.onDeletePressed(root.rootView, mItem!!.id)
+                }
             }
         }
     }
@@ -61,4 +73,30 @@ class CatalogDetailFragment : Fragment() {
          */
         const val ARG_ITEM = "item_id"
     }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        commonOnAttach(context)
+    }
+
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        commonOnAttach(activity)
+    }
+
+    private fun commonOnAttach(context: Context?) {
+        if (context is CatalogItemListener) {
+            catalogItemListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        catalogItemListener = null
+    }
+}
+
+interface CatalogItemListener {
+    fun onSavePressed(view: View, item: Catalog)
+    fun onDeletePressed(view: View, id: String)
 }

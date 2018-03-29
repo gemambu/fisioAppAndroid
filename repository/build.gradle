@@ -22,7 +22,6 @@ android {
         debug {
             // DB
             buildConfigField "String", "FISIOAPP_CACHE_DB_NAME", '"FisioAppCache.sqlite"'
-            buildConfigField "String", "FISIOAPP_TESTS_DB_NAME", '"FisioAppTests.sqlite"'
 
             // Server
             buildConfigField "String", "HTTP_SERVER", "\"http://192.168.2.48:3000\""

@@ -18,5 +18,6 @@ interface RepositoryInteractor {
     fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit)
     fun getAllAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
+    fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit)
 
 }

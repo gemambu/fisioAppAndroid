@@ -37,7 +37,7 @@ class Mapper {
             catalog.name,
             catalog.description,
             catalog.professionalId,
-            catalog.price.toFloat(),
+            catalog.price,
             catalog.isActive,
             type)
 

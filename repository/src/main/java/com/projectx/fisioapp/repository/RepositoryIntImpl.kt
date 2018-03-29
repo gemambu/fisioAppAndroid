@@ -9,9 +9,7 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateus
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetProductsIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetProductsInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.GetServicesIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.*
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
 import retrofit2.Response.success
@@ -25,7 +23,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val cache: CacheInteractor = CacheIntImpl(weakContext.get()!!)
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
-    private val getAllServices: GetProductsInteractor = GetServicesIntImpl()
+    private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
+    private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
     private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
     private val getAllAppointments: GetAppointmentsInteractor = GetAppointmentsIntImpl()
 
@@ -61,7 +60,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         return cache.countCatalogItems()
     }
 
-    // TODO: check the moment where we try to get information from backend
     override fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         cache.getAllCatalogItems(type,
@@ -117,6 +115,29 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
+    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
+        deleteService.execute(token, id,
+                success = {
+                    deleteServiceFromCache(id)
+                    success(it)
+
+                }, error = {
+                    error(it)
+                })
+    }
+
+    private fun deleteServiceFromCache(id: String) {
+        cache.deleteService(id,
+                success = {
+                    // if there are entities in the cache, return them
+                    success("Service $id removed successfully")
+                }, error = {
+            // if no catalog in cache --> network
+            error("Error deleting service: $id")
+        }
+        )
+    }
+
 
     /******** Appointments ********/
 
@@ -125,8 +146,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 success = {
                     success(it)
                 }, error = {
-                    error(it)
+            error(it)
         })
     }
+
 
 }

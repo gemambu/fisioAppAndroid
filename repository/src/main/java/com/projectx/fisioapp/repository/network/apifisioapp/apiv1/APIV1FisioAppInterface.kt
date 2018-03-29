@@ -1,17 +1,11 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 
 import com.projectx.fisioapp.repository.BuildConfig
-<<<<<<< HEAD
-import com.projectx.fisioapp.repository.entitymodel.AuthenticateUserResponse
-import com.projectx.fisioapp.repository.entitymodel.RegisterUserResponse
 import com.projectx.fisioapp.repository.entitymodel.appointments.GetAppointmentsResponse
-import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
-=======
 import com.projectx.fisioapp.repository.entitymodel.responses.AuthenticateUserResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.DeleteCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.RegisterUserResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
->>>>>>> services_and_products_gema
-
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -38,6 +32,9 @@ internal interface APIV1FisioAppInterface {
     // PENDIENTE SOLUCIONAR CONCATENAR URL Y PARAM DATE
     @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
     fun doGetAppointmentsForDate(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
+
+    @DELETE(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
+    fun doDeleteService(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteCatalogResponse>
 
 
 }

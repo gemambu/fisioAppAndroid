@@ -1,11 +1,23 @@
 package com.projectx.fisioapp.app.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
+import com.projectx.fisioapp.app.fragment.CatalogItemListener
+import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.domain.interactor.ErrorCompletion
+import com.projectx.fisioapp.domain.interactor.SuccessCompletion
+import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogIntImpl
+import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogInteractor
+import com.projectx.fisioapp.domain.model.Catalog
+import com.projectx.fisioapp.domain.model.Catalogs
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 
 /**
  * An activity representing a single Service detail screen. This
@@ -13,20 +25,17 @@ import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
  * item details are presented side-by-side with a list of items
  * in a [CatalogListActivity].
  */
-class CatalogDetailActivity : AppCompatActivity() {
-
-    private lateinit var containerListFragment: CatalogDetailFragment
+class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_detail)
 
-       // containerListFragment = supportFragmentManager.findFragmentById(R.id.activity_list_detail_fragment) as CatalogDetailFragment
-
         val arguments = Bundle()
         arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
                 intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
-         val fragment = CatalogDetailFragment()
+
+        val fragment = CatalogDetailFragment()
         fragment.arguments = arguments
         supportFragmentManager.beginTransaction()
                 .replace(R.id.activity_list_detail_fragment, fragment)
@@ -82,4 +91,31 @@ class CatalogDetailActivity : AppCompatActivity() {
                 }
                 else -> super.onOptionsItemSelected(item)
             }
+
+
+    override fun onSavePressed(view: View, item: Catalog) {
+       // TODO
+    }
+
+    override fun onDeletePressed(view: View, id: String) {
+        async(UI) {
+
+            val deleteItem: DeleteCatalogInteractor = DeleteCatalogIntImpl(view.context)
+            try {
+                deleteItem.execute(token,
+                        id,
+                        success = object : SuccessCompletion<String> {
+                            override fun successCompletion(e: String) {
+                                ToastIt(view.context, "$e")
+                            }
+                        }, error = object : ErrorCompletion {
+                            override fun errorCompletion(errorMessage: String) {
+                                ToastIt(view.context, "$errorMessage")
+                            }
+                        })
+            } catch (e: Exception) {
+                ToastIt(view.context, "Error: " + e.localizedMessage )
+            }
+        }
+    }
 }

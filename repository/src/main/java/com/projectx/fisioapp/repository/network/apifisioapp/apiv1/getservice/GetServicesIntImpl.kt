@@ -8,7 +8,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
 >>>>>>> services_and_products_gema
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-import com.projectx.fisioapp.repository.entitymodel.converter.convert
+import com.projectx.fisioapp.repository.entitymodel.catalog.converter.convert
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 import retrofit2.Call
@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class GetServicesIntImpl (): GetProductsInteractor {
+internal class GetServicesIntImpl (): GetServicesInteractor {
     override fun execute(token: String, success: (catalogItems: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
