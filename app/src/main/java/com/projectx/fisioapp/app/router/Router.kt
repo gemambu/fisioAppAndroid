@@ -2,12 +2,8 @@ package com.projectx.fisioapp.app.router
 
 import android.content.Intent
 import com.projectx.fisioapp.app.activity.*
-<<<<<<< HEAD
-import java.util.*
-=======
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
->>>>>>> services_and_products_gema
 
 
 class Router {
@@ -24,12 +20,10 @@ class Router {
         main.startActivity(Intent(main, BlankActivity::class.java))
     }
 
-<<<<<<< HEAD
     fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity){
         main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
     }
 
-=======
     fun navigateFromCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }
@@ -47,5 +41,4 @@ class Router {
         intent.putExtra(EXTRA_CATALOG_TYPE, type)
         mainActivity.startActivity(intent)
     }
->>>>>>> services_and_products_gema
 }
