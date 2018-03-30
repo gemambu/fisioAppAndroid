@@ -20,8 +20,6 @@ import java.lang.ref.WeakReference
 
 class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
-
-
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntImpl(weakContext.get()!!)
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
@@ -153,6 +151,12 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
             populateCacheWithAppointments(token, success, error)
         })
     }
+
+    override fun getAppointmentsForDate(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
 
 
     override fun deleteAppointment(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
