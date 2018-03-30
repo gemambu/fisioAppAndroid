@@ -22,6 +22,7 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
 
     private var list: Appointments? = null
     lateinit var calendarFragment: CalendarFragment
+    lateinit var appointmentsListFragment: AppointmentsListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +37,8 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
         }
 
         calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
+        appointmentsListFragment = supportFragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
 
-        if (fragmentManager.findFragmentById(R.id.appointments_fragment) == null){
-            val fragment = AppointmentsListFragment.newInstance()
-            fragmentManager.beginTransaction()
-                    .add(R.id.appointments_fragment, fragment)
-                    .commit()
-        }
     }
 
 
@@ -55,6 +51,7 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
                         success = object : SuccessCompletion<Appointments> {
                             override fun successCompletion(e: Appointments) {
                                 list = e
+                                appointmentsListFragment.setAppointmentsList(e)
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
@@ -65,6 +62,10 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
                 ToastIt(context, "Error: " + e.localizedMessage)
             }
         }
+    }
+
+    private fun initializeAppointmentsList(appointments: Appointments) {
+        appointmentsListFragment.setAppointmentsList(appointments)
     }
 
 
