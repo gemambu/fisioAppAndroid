@@ -27,8 +27,8 @@ android {
             buildConfigField "String", "HTTP_SERVER", "\"http://192.168.2.48:3000\""
 
             // Files
-            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/users/authenticate" + "?\""
-            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/users/register" + "?\""
+            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/login" + "?\""
+            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/register" + "?\""
             buildConfigField "String", "FISIOAPP_APPOINTMENTS_SERVER_PATH", "\"/apiv1/appointments\""
             buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/products\""
             buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/services\""
@@ -42,8 +42,8 @@ android {
             buildConfigField "String", "HTTP_SERVER", "\"http://192.168.1.41:3000\""
 
             //Files
-            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/users/authenticate" + "?\""
-            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/users/register" + "?\""
+            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/login" + "?\""
+            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/register" + "?\""
             buildConfigField "String", "FISIOAPP_APPOINTMENTS_SERVER_PATH", "\"/apiv1/appointments\""
             buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/products\""
             buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/services\""

@@ -20,8 +20,8 @@ class InsertCatalogIntImpl(context: Context) : InsertCatalogInteractor {
                 success = {
                     success.successCompletion("Successfully saved")
                 }, error = {
-            error(it)
-        })
+                    error(it)
+                })
 
     }
 

@@ -124,26 +124,54 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
     override fun insertService(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
-        insertService.execute(token,
-                item,
-                success = {
-                    insertCatalogInCache(item)
-                    success(it)
 
-                }, error = {
-            error(it)
-        })
+        if (item.databaseId != null && item.databaseId != ""){
+            //update option
+            updateService.execute(token,
+                    item,
+                    success = {
+                        updateCatalogInCache(item)
+                        success(it)
+
+                    }, error = {
+                error(it)
+            })
+        } else {
+            // insert option
+            insertService.execute(token,
+                    item,
+                    success = {
+                        insertCatalogInCache(item)
+                        success(it)
+
+                    }, error = {
+                error(it)
+            })
+        }
+
+
     }
 
     private fun insertCatalogInCache(item: CatalogData) {
         cache.insertCatalogItem(item,
                 success = {
-                    success("Service ${item.name} removed successfully")
+                    success("Service ${item.name} inserted successfully")
                 }, error = {
-            // if no catalog in cache --> network
-            error("Error deleting service: ${item.name}")
-        }
-        )
+                    // if no catalog in cache --> network
+                    error("Error inserting service: ${item.name}")
+                }
+                )
+    }
+
+    private fun updateCatalogInCache(item: CatalogData) {
+        cache.updateCatalogItem(item,
+                success = {
+                    success("Service ${item.name} updated successfully")
+                }, error = {
+                    // if no catalog in cache --> network
+                    error("Error updating service: ${item.name}")
+                }
+                )
     }
 
 

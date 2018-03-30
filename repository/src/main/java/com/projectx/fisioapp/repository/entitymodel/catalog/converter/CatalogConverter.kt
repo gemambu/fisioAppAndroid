@@ -24,8 +24,8 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
                                 row?.description!!,
                                 row?.price!!.toFloat()!!,
                                 row?.professional!!.id!!,
-                                row?.isActive!!,
-                                row?.image!!,
+                                //row?.isActive!!,
+                                //row?.image!!,
                                 CatalogType.SERVICE
                         )
                         catalogDataList.add(catalog)

@@ -28,12 +28,15 @@ internal interface APIV1FisioAppInterface {
     @DELETE(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
     fun doDeleteService(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteCatalogResponse>
 
+    @FormUrlEncoded
     @POST(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH)
     fun doInsertService(@Header("x-access-token") token: String,
                         @Field("name") name: String,
+                        @Field("professional") professional: String,
                         @Field("description") description: String,
                         @Field("price") price: Float): Call<SaveCatalogResponse>
 
+    @FormUrlEncoded
     @PUT(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
     fun doUpdateService(@Header("x-access-token") token: String,
                         @Path("id") id: String,

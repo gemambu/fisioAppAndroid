@@ -9,10 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.activity.CatalogListActivity
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.domain.model.Catalog
+import com.projectx.fisioapp.domain.model.util.BenefitType
 import kotlinx.android.synthetic.main.fragment_catalog_detail.*
 
 /**
@@ -27,7 +27,7 @@ class CatalogDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var mItem: Catalog? = null
-    private lateinit var type: CatalogType
+    private var type: CatalogType = CatalogType.SERVICE
     var catalogItemListener: CatalogItemListener? = null
     private lateinit var root: View
 
@@ -44,10 +44,24 @@ class CatalogDetailFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        activity_catalog_detail_name_text.hint = "name"
+        activity_catalog_detail_desc_text.hint = "description"
+        activity_catalog_detail_price_text.hint = "20 €"
+
+        activity_catalog_detail_save_bttn.setOnClickListener {
+            val newItem = Catalog("",
+                    activity_catalog_detail_name_text.text.toString(),
+                    activity_catalog_detail_desc_text.text.toString(),
+                    "",
+                    activity_catalog_detail_price_text.text.toString().toFloat(),
+                    BenefitType.valueOf(type.name))
+            catalogItemListener?.onSavePressed(root.rootView, newItem)
+        }
+
         arguments?.let {
 
-            if (arguments.containsKey(EXTRA_CATALOG_TYPE)){
-                type =  arguments.getSerializable(EXTRA_CATALOG_TYPE) as CatalogType
+            if(arguments.containsKey(EXTRA_CATALOG_TYPE)){
+                type = arguments.getSerializable(EXTRA_CATALOG_TYPE) as CatalogType
             }
 
             if(arguments.containsKey(ARG_ITEM)) {
@@ -56,17 +70,28 @@ class CatalogDetailFragment : Fragment() {
                 // to load content from a content provider.
                 mItem = arguments.getSerializable(ARG_ITEM) as Catalog
 
+
+
                 mItem?.let {
+                    type = CatalogType.valueOf(it.type.name)
+
                     //activity.toolbar_layout?.title = it.content
-                    activity_catalog_detail_name_text.hint = it.name
-                    activity_catalog_detail_desc_text.hint = it.description
-                    activity_catalog_detail_price_text.hint = it.price.toString() + " €"
+                    activity_catalog_detail_name_text.setText(it.name)
+                    activity_catalog_detail_desc_text.setText(it.description)
+                    activity_catalog_detail_price_text.setText(it.price.toString())
                 }
 
                 activity_catalog_detail_save_bttn.setOnClickListener {
                     Log.d(CatalogDetailFragment::class.java.canonicalName, "Clicked on SAVE")
-                    catalogItemListener?.onSavePressed(root.rootView, mItem!!)
+                    val newItem = Catalog(mItem!!.id,
+                            activity_catalog_detail_name_text.text.toString(),
+                            activity_catalog_detail_desc_text.text.toString(),
+                            mItem!!.professionalId,
+                            activity_catalog_detail_price_text.text.toString().toFloat(),
+                            BenefitType.valueOf(type.name))
+                    catalogItemListener?.onSavePressed(root.rootView, newItem)
                 }
+
                 activity_catalog_detail_delete_bttn.setOnClickListener {
                     Log.d(CatalogDetailFragment::class.java.canonicalName, "Clicked on DELETE")
                     catalogItemListener?.onDeletePressed(root.rootView, mItem!!.id)

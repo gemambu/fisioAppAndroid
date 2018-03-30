@@ -13,6 +13,8 @@ import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogIntImpl
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogInteractor
+import com.projectx.fisioapp.domain.interactor.catalog.InsertCatalogIntImpl
+import com.projectx.fisioapp.domain.interactor.catalog.InsertCatalogInteractor
 import com.projectx.fisioapp.domain.model.Catalog
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -36,8 +38,11 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                     intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
         }
 
-        arguments.putSerializable(EXTRA_CATALOG_TYPE,
-                intent.getSerializableExtra(EXTRA_CATALOG_TYPE))
+        if(intent.getSerializableExtra(EXTRA_CATALOG_TYPE) != null){
+            arguments.putSerializable(EXTRA_CATALOG_TYPE,
+                    intent.getSerializableExtra(EXTRA_CATALOG_TYPE))
+        }
+
 
         val fragment = CatalogDetailFragment()
         fragment.arguments = arguments
@@ -98,7 +103,28 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
 
 
     override fun onSavePressed(view: View, item: Catalog) {
-       // TODO
+        async(UI) {
+
+            val insertItem: InsertCatalogInteractor = InsertCatalogIntImpl(view.context)
+            try {
+                insertItem.execute(token,
+                        item,
+                        success = object : SuccessCompletion<String> {
+                            override fun successCompletion(e: String) {
+                                ToastIt(view.context, "$e")
+
+                                // TODO improve the back, to refresh the catalog list with the last data
+                                finish()
+                            }
+                        }, error = object : ErrorCompletion {
+                    override fun errorCompletion(errorMessage: String) {
+                        ToastIt(view.context, "$errorMessage")
+                    }
+                })
+            } catch (e: Exception) {
+                ToastIt(view.context, "Error: " + e.localizedMessage )
+            }
+        }
     }
 
     override fun onDeletePressed(view: View, id: String) {

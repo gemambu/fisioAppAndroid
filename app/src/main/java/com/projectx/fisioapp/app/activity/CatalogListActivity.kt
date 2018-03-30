@@ -121,6 +121,7 @@ class CatalogListActivity : ParentActivity() {
                     val fragment = CatalogDetailFragment().apply {
                         arguments = Bundle()
                         arguments.putSerializable(CatalogDetailFragment.ARG_ITEM, item)
+                        arguments.putSerializable(EXTRA_CATALOG_TYPE, mParentActivity.type)
                     }
                     mParentActivity.supportFragmentManager
                             .beginTransaction()
@@ -129,6 +130,7 @@ class CatalogListActivity : ParentActivity() {
                 } else {
                     val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
                         putExtra(CatalogDetailFragment.ARG_ITEM, item)
+                        putExtra(EXTRA_CATALOG_TYPE, mParentActivity.type)
                     }
                     v.context.startActivity(intent)
                 }
