@@ -12,6 +12,7 @@ object DBAppointmentConstants {
     val KEY_SERVICE_PRICE = "SERVICE_PRICE"
     val KEY_CUSTOMER_ID = "CUSTOMER_ID"
     val KEY_CUSTOMER_NAME = "CUSTOMER_NAME"
+    val KEY_CUSTOMER_ADDRESS = "CUSTOMER_ADDRESS"
     val KEY_PROFESSIONAL_ID = "PROFESSIONAL_ID"
     val KEY_IS_CONFIRMED = "IS_CONFIRMED"
     val KEY_IS_CANCELLED = "IS_CANCELLED"
@@ -26,6 +27,7 @@ object DBAppointmentConstants {
             KEY_SERVICE_PRICE,
             KEY_CUSTOMER_ID,
             KEY_CUSTOMER_NAME,
+            KEY_CUSTOMER_ADDRESS,
             KEY_PROFESSIONAL_ID,
             KEY_IS_CONFIRMED,
             KEY_IS_CANCELLED,
@@ -42,6 +44,7 @@ object DBAppointmentConstants {
                     + KEY_SERVICE_PRICE + " text not null,"
                     + KEY_CUSTOMER_ID + " text not null,"
                     + KEY_CUSTOMER_NAME + " text not null,"
+                    + KEY_CUSTOMER_ADDRESS + " text not null,"
                     + KEY_PROFESSIONAL_ID + " text not null,"
                     + KEY_IS_CONFIRMED + " integer,"
                     + KEY_IS_CANCELLED + " integer,"

@@ -9,6 +9,7 @@ data class AppoinmentData(
         @SerializedName("servicePrice") val servicePrice: String,
         @SerializedName("customer")val customerId: String,
         @SerializedName("customerName")val customerName: String,
+        @SerializedName("customerAddress")val customerAddress: String,
         @SerializedName("professional")val professionalId: String,
         @SerializedName("isConfirmed")val isConfirmed: Boolean,
         @SerializedName("isCancelled")val isCancelled: Boolean,
