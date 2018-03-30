@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice
+package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get
 
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 

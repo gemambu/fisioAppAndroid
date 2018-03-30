@@ -37,4 +37,10 @@ class Router {
         intent.putExtra(EXTRA_CATALOG_TYPE, type)
         mainActivity.startActivity(intent)
     }
+
+    fun navigateFromParentActivityToNewCatalogActivity(mainActivity: CatalogListActivity, type: CatalogType) {
+        val intent = Intent(mainActivity, CatalogDetailActivity::class.java)
+        intent.putExtra(EXTRA_CATALOG_TYPE, type)
+        mainActivity.startActivity(intent)
+    }
 }

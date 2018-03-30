@@ -2,7 +2,7 @@ package com.projectx.fisioapp.repository.entitymodel.responses
 
 import com.google.gson.annotations.Expose
 
-class DeleteCatalogResponse {
+class SaveCatalogResponse {
 
     @Expose
     var ok: Boolean? = null

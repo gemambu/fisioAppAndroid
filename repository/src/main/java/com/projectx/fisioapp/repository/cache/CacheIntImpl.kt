@@ -1,9 +1,9 @@
 package com.projectx.fisioapp.repository.cache
 
 import android.content.Context
-import com.gmb.madridshops.repository.db.DBHelper
-import com.gmb.madridshops.repository.db.buildHelper
-import com.gmb.madridshops.repository.db.dao.CatalogDAO
+import com.projectx.fisioapp.repository.db.DBHelper
+import com.projectx.fisioapp.repository.db.buildHelper
+import com.projectx.fisioapp.repository.db.dao.CatalogDAO
 import com.projectx.fisioapp.repository.BuildConfig
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.thread.DispatchOnMainThread
@@ -56,6 +56,53 @@ class CacheIntImpl(context: Context): CacheInteractor {
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()
                     success()
+                })
+            } catch (ex: Exception) {
+                DispatchOnMainThread(Runnable {
+                    error("Error inserting items: " + ex.message.toString())
+                    dbHelper.close()
+                })
+            }
+        }).run()
+    }
+    override fun insertCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            try {
+                val successInsert = CatalogDAO(dbHelper).insert(item, item.type.name )
+
+                DispatchOnMainThread(Runnable {
+
+                    if(successInsert > 0){
+                        dbHelper.close()
+                        success()
+                    } else {
+                        error("Error inserting")
+                    }
+                    dbHelper.close()
+                })
+            } catch (ex: Exception) {
+                DispatchOnMainThread(Runnable {
+                    error("Error inserting items: " + ex.message.toString())
+                    dbHelper.close()
+                })
+            }
+        }).run()
+    }
+
+    override fun updateCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            try {
+                val successUpdate = CatalogDAO(dbHelper).update(item.databaseId, item)
+
+                DispatchOnMainThread(Runnable {
+
+                    if(successUpdate.length > 0){
+                        dbHelper.close()
+                        success()
+                    } else {
+                        error("Error updating")
+                    }
+                    dbHelper.close()
                 })
             } catch (ex: Exception) {
                 DispatchOnMainThread(Runnable {

@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.activity.CatalogListActivity
+import com.projectx.fisioapp.app.utils.CatalogType
+import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.domain.model.Catalog
 import kotlinx.android.synthetic.main.fragment_catalog_detail.*
 
@@ -25,6 +27,7 @@ class CatalogDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var mItem: Catalog? = null
+    private lateinit var type: CatalogType
     var catalogItemListener: CatalogItemListener? = null
     private lateinit var root: View
 
@@ -33,24 +36,26 @@ class CatalogDetailFragment : Fragment() {
 
         inflater.let {
             root = inflater.inflate(R.layout.fragment_catalog_detail, container, false)
-
-
         }
 
         return root
     }
 
-
-
     override fun onResume() {
         super.onResume()
 
         arguments?.let {
+
+            if (arguments.containsKey(EXTRA_CATALOG_TYPE)){
+                type =  arguments.getSerializable(EXTRA_CATALOG_TYPE) as CatalogType
+            }
+
             if(arguments.containsKey(ARG_ITEM)) {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
                 mItem = arguments.getSerializable(ARG_ITEM) as Catalog
+
                 mItem?.let {
                     //activity.toolbar_layout?.title = it.content
                     activity_catalog_detail_name_text.hint = it.name
@@ -58,10 +63,15 @@ class CatalogDetailFragment : Fragment() {
                     activity_catalog_detail_price_text.hint = it.price.toString() + " €"
                 }
 
+                activity_catalog_detail_save_bttn.setOnClickListener {
+                    Log.d(CatalogDetailFragment::class.java.canonicalName, "Clicked on SAVE")
+                    catalogItemListener?.onSavePressed(root.rootView, mItem!!)
+                }
                 activity_catalog_detail_delete_bttn.setOnClickListener {
                     Log.d(CatalogDetailFragment::class.java.canonicalName, "Clicked on DELETE")
                     catalogItemListener?.onDeletePressed(root.rootView, mItem!!.id)
                 }
+
             }
         }
     }

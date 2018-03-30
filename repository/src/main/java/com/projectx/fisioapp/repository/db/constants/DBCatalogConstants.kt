@@ -1,4 +1,4 @@
-package com.gmb.madridshops.repository.db
+package com.projectx.fisioapp.repository.db
 
 
 object DBCatalogConstants {

@@ -69,6 +69,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/activity_catalog_detail_save_bttn"
+            android:text="Save"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/activity_catalog_detail_delete_bttn"
             android:text="Delete"/>
     </LinearLayout>

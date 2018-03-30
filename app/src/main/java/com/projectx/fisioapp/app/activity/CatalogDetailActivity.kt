@@ -1,21 +1,19 @@
 package com.projectx.fisioapp.app.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 import com.projectx.fisioapp.app.fragment.CatalogItemListener
+import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogIntImpl
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogInteractor
 import com.projectx.fisioapp.domain.model.Catalog
-import com.projectx.fisioapp.domain.model.Catalogs
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
@@ -32,8 +30,14 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
         setContentView(R.layout.activity_catalog_detail)
 
         val arguments = Bundle()
-        arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
-                intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
+
+        if(intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM) != null){
+            arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
+                    intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
+        }
+
+        arguments.putSerializable(EXTRA_CATALOG_TYPE,
+                intent.getSerializableExtra(EXTRA_CATALOG_TYPE))
 
         val fragment = CatalogDetailFragment()
         fragment.arguments = arguments
@@ -107,6 +111,9 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
                                 ToastIt(view.context, "$e")
+
+                                // TODO improve the back, to refresh the catalog list with the last data
+                                finish()
                             }
                         }, error = object : ErrorCompletion {
                             override fun errorCompletion(errorMessage: String) {

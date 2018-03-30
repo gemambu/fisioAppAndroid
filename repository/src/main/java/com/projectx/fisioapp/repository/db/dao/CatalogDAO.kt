@@ -1,10 +1,10 @@
-package com.gmb.madridshops.repository.db.dao
+package com.projectx.fisioapp.repository.db.dao
 
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.gmb.madridshops.repository.db.DBCatalogConstants
-import com.gmb.madridshops.repository.db.DBHelper
+import com.projectx.fisioapp.repository.db.DBCatalogConstants
+import com.projectx.fisioapp.repository.db.DBHelper
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
@@ -109,12 +109,14 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         return result
     }
 
-    override fun insert(element: CatalogData, type: String): Long {
+    override fun insert(element: CatalogData, type: String): Long = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
 
-        val id = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
-        return id
-    }
-
+    override fun update(id: String, element: CatalogData): String =
+            dbReadWriteOnlyConn.update(
+                    DBCatalogConstants.TABLE_CATALOG,
+                    contentValues(element, element.type.toString()),
+                    DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
+                    arrayOf(id)).toString()
 
     override fun update(id: Long, element: CatalogData): Long =
             dbReadWriteOnlyConn.update(

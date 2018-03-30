@@ -8,9 +8,8 @@ import java.lang.ref.WeakReference
 
 
 class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
-    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
-    }
+
 
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntFakeImpl(weakContext.get() !!)
@@ -110,4 +109,11 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
+    override fun insertService(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+
+    }
 }

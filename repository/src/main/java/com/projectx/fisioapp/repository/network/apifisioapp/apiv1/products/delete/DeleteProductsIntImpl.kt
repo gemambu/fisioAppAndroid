@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice
+package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete
 
 import android.util.Log
 
@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class GetProductsIntImpl(): GetProductsInteractor {
+internal class DeleteProductsIntImpl(): DeleteProductsInteractor {
     override fun execute(token: String, success: (catalogItems: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =

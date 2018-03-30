@@ -3,7 +3,6 @@ package com.projectx.fisioapp.app.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -45,7 +44,7 @@ class CatalogListActivity : ParentActivity() {
      */
     private var mTwoPane: Boolean = false
     private var list: Catalogs? = null
-    private lateinit var type: CatalogType
+    private var type: CatalogType = CatalogType.SERVICE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +60,7 @@ class CatalogListActivity : ParentActivity() {
             toolbar.title = title
 
             catalog_list_add_element.setOnClickListener { view ->
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
+                Router().navigateFromParentActivityToNewCatalogActivity(this, type)
             }
 
             if (catalog_detail_container != null) {
@@ -76,7 +74,6 @@ class CatalogListActivity : ParentActivity() {
             getCatalogList(this)
             setupRecyclerView(catalog_list)
         }
-
 
     }
 
@@ -148,8 +145,6 @@ class CatalogListActivity : ParentActivity() {
             val item = mValues!![position]
             holder.mIdView.text = item.name
             holder.mContentView.text = item.price.toString() + " €"
-
-
 
             with(holder.itemView) {
                 tag = item

@@ -6,9 +6,18 @@ import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.*
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.get.GetServicesIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.get.GetServicesInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.insert.InsertServiceIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.insert.InsertServiceInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceInteractor
 import retrofit2.Response.success
 import java.lang.ref.WeakReference
 
@@ -19,8 +28,12 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val cache: CacheInteractor = CacheIntImpl(weakContext.get()!!)
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
+
     private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
+    private val insertService: InsertServiceInteractor = InsertServiceIntImpl()
     private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
+    private val updateService: UpdateServiceInteractor = UpdateServiceIntImpl()
+
     private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
 
     /******** users ********/
@@ -110,6 +123,31 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
+    override fun insertService(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+        insertService.execute(token,
+                item,
+                success = {
+                    insertCatalogInCache(item)
+                    success(it)
+
+                }, error = {
+            error(it)
+        })
+    }
+
+    private fun insertCatalogInCache(item: CatalogData) {
+        cache.insertCatalogItem(item,
+                success = {
+                    success("Service ${item.name} removed successfully")
+                }, error = {
+            // if no catalog in cache --> network
+            error("Error deleting service: ${item.name}")
+        }
+        )
+    }
+
+
+
     override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
         deleteService.execute(token, id,
                 success = {
@@ -124,13 +162,11 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private fun deleteServiceFromCache(id: String) {
         cache.deleteService(id,
                 success = {
-                    // if there are entities in the cache, return them
                     success("Service $id removed successfully")
                 }, error = {
-            // if no catalog in cache --> network
-            error("Error deleting service: $id")
-        }
-        )
+                    // if no catalog in cache --> network
+                    error("Error deleting service: $id")
+                })
     }
 
 }

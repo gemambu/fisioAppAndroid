@@ -34,8 +34,8 @@ class LoginActivity : ParentActivity() {
 
     fun setFakeDataInForm() {
         etName.setText( "Only needed to register")
-        etEmail.setText( "fisio@invalid.com")
-        etPass.setText("12345678")
+        etEmail.setText( "example6@kk.com")
+        etPass.setText("temp1234")
     }
 
     private fun AuthenticateUser() {
