@@ -102,7 +102,7 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
         val cursor = dbReadOnlyConn.query(DBAppointmentConstants.TABLE_APPOINTMENT,
                 DBAppointmentConstants.ALL_COLUMNS,
-                "",
+                DBAppointmentConstants.KEY_DATE + " = ?",
                 arrayOf(type),
                 "",
                 "",
