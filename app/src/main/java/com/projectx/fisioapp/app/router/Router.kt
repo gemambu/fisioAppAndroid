@@ -24,6 +24,10 @@ class Router {
         main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
     }
 
+    fun navigateFromCalendarActivityToLoginActivity(main: CalendarActivity) {
+        main.startActivity(Intent(main, LoginActivity::class.java))
+    }
+
     fun navigateFromCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }

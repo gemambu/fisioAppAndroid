@@ -1,18 +1,17 @@
 package com.projectx.fisioapp.app.fragment
 
 import android.app.Activity
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
-import android.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.models.Appointment
-import com.projectx.fisioapp.app.models.Appointments
+import com.projectx.fisioapp.domain.model.Appointment
+import com.projectx.fisioapp.domain.model.Appointments
 import java.util.*
 
 class AppointmentsListFragment : Fragment() {
@@ -21,7 +20,10 @@ class AppointmentsListFragment : Fragment() {
         fun newInstance(): AppointmentsListFragment = AppointmentsListFragment()
     }
 
+
     lateinit var root: View
+    private var appointments: Appointments? = null
+    lateinit var adapter: ArrayAdapter<Appointment>
     private var onSelectedAppointmentListener: OnSelectedAppointmentListener? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -30,17 +32,24 @@ class AppointmentsListFragment : Fragment() {
         inflater?.let{
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
             val list = root.findViewById<ListView>(R.id.fisio_appointments_list)
-            val adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, Appointments.toArray())
-
+            adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, appointments?.toArray())
             list.adapter = adapter
             list.setOnItemClickListener { parent, view, position, id ->
-                val appointment = Appointments.get(position)
-                onSelectedAppointmentListener?.onSelectedAppointment(appointment.date)
+                val appointment = appointments?.get(position)
+                onSelectedAppointmentListener?.onSelectedAppointment(appointment!!.date)
             }
         }
 
         return root
     }
+
+
+    fun setAppointmentsList(appointments: Appointments){
+        this.appointments = appointments
+        adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, appointments?.toArray())
+    }
+
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

@@ -39,5 +39,7 @@ class Appointments(val appointments: MutableList<Appointment>): Aggregate<Appoin
     override fun delete(element: Appointment) {
         appointments.remove(element)
     }
+
+    fun toArray() = appointments.toTypedArray()
 }
 
