@@ -33,3 +33,18 @@ fun convertAppointments(response: GetAppointmentsResponse): List<AppoinmentData>
     }
     return appointmentsList
 }
+
+
+fun converterDeleteAppointment(response: DeleteAppointmentResponse): Boolean {
+    var appointmentDeleted: Boolean = false
+
+
+    response.ok.let {
+        if (it == true){
+            appointmentDeleted = it
+        }
+    }
+
+    return appointmentDeleted
+
+}

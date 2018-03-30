@@ -1,6 +1,7 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 
 import com.projectx.fisioapp.repository.BuildConfig
+import com.projectx.fisioapp.repository.entitymodel.appointments.DeleteAppointmentResponse
 import com.projectx.fisioapp.repository.entitymodel.appointments.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.AuthenticateUserResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.DeleteCatalogResponse
@@ -36,6 +37,8 @@ internal interface APIV1FisioAppInterface {
     @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
     fun doGetAppointmentsForDate(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
 
+    @DELETE(BuildConfig.FISIOAPP_APPOINTMENTS_SERVER_PATH + "/{id}")
+    fun doDeleteAppointment(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteAppointmentResponse>
 
 
 
