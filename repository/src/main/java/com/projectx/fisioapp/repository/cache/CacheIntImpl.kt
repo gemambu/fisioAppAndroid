@@ -14,8 +14,6 @@ import java.lang.ref.WeakReference
 
 class CacheIntImpl(context: Context): CacheInteractor {
 
-
-
     private val context = WeakReference<Context>(context)
     private val dbHelper = cacheDBHelper()
 
@@ -121,6 +119,18 @@ class CacheIntImpl(context: Context): CacheInteractor {
         }).run()
     }
 
+    override fun getAppointmentsForDate(date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            val entityList = AppointmentDAO(dbHelper).query(date)
+
+            if (entityList.isNotEmpty()) {
+                success(entityList)
+            } else {
+                error("Error getting appointments for date $date from cache")
+            }
+            dbHelper.close()
+        }).run()
+    }
 
     override fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {

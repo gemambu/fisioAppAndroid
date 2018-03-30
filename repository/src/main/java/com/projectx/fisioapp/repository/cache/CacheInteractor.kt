@@ -19,6 +19,7 @@ interface CacheInteractor {
 
     /******** appointments ********/
     fun getAllAppointments(success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
+    fun getAppointmentsForDate(date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
     fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteAllAppointments(success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteAppointment(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit)

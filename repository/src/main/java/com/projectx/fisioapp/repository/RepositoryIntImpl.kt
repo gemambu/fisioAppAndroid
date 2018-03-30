@@ -9,6 +9,8 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateus
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.*
@@ -28,6 +30,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
     private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
     private val getAllAppointments: GetAppointmentsInteractor = GetAppointmentsIntImpl()
+    private val getAppointmentsForDate: GetAppointmentsForDateInteractor = GetAppointmentsForDateIntImpl()
     private val deleteAppointment: DeleteAppointmentInteractor = DeleteAppointmentIntImpl()
 
     /******** users ********/
@@ -60,6 +63,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     override fun countCatalogItems(): Int {
         return cache.countCatalogItems()
     }
+
 
     override fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
@@ -128,7 +132,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
 
-
     private fun deleteServiceFromCache(id: String) {
         cache.deleteService(id,
                 success = {
@@ -142,6 +145,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
 
+
     /******** Appointments ********/
 
     override fun getAllAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -153,10 +157,12 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
     override fun getAppointmentsForDate(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        cache.getAppointmentsForDate(date, success = {
+            success(it)
+        }, error = {
+            populateCacheWithAppointmentsForDate(token, date, success, error)
+        })
     }
-
-
 
 
     override fun deleteAppointment(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -171,6 +177,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
 
+    /******** Appointments Utils ********/
     private fun populateCacheWithAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit){
         getAllAppointments.execute(token,
                 success = {
@@ -181,6 +188,19 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         })
     }
 
+
+    private fun populateCacheWithAppointmentsForDate(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+        getAppointmentsForDate.execute(token, date,
+                success = {
+                    saveAppointments(it)
+                    success(it)
+
+        }, error = {
+            error(it)
+        })
+    }
+
+
     private fun saveAppointments(list: List<AppoinmentData>) {
         cache.saveAllAppointments(list, success = {
             success(list)
@@ -188,6 +208,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
             error("Something happened on the way to heaven!")
         })
     }
+
 
     private fun deleteAppointmentFromCache(id: String) {
         cache.deleteAppointment(id, success = {
