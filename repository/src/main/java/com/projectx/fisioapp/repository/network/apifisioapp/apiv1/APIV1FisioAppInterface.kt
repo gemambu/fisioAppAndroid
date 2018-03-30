@@ -34,8 +34,8 @@ internal interface APIV1FisioAppInterface {
     fun doGetAppointments(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
 
     // PENDIENTE SOLUCIONAR CONCATENAR URL Y PARAM DATE
-    @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
-    fun doGetAppointmentsForDate(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
+    @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH + "/date/{date}")
+    fun doGetAppointmentsForDate(@Header("x-access-token") token: String, @Path("date") date: String): Call<GetAppointmentsResponse>
 
     @DELETE(BuildConfig.FISIOAPP_APPOINTMENTS_SERVER_PATH + "/{id}")
     fun doDeleteAppointment(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteAppointmentResponse>
