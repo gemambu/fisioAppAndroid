@@ -11,12 +11,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class GetAppointmentsForDateIntImpl : GetAppointmentsForDateInteractor {
-    override fun execute(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun execute(token: String, dateFrom: String, dateTo: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
-        val callGetAppointmentsForDate = apiInterfaceLocalhost.doGetAppointmentsForDate(token, date)
+        val callGetAppointmentsForDate = apiInterfaceLocalhost.doGetAppointmentsForDate(token, dateFrom, dateTo)
         callGetAppointmentsForDate.enqueue(object : Callback<GetAppointmentsResponse> {
 
             override fun onResponse(call: Call<GetAppointmentsResponse>, response: Response<GetAppointmentsResponse>) {
