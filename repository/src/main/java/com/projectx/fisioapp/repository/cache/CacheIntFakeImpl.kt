@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference
 
 class CacheIntFakeImpl(context: Context) : CacheInteractor {
 
-    override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun deleteCatalogItem(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
 
     }
 
@@ -50,7 +50,7 @@ class CacheIntFakeImpl(context: Context) : CacheInteractor {
         )
     }
 
-    override fun saveAllCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         success()
     }
 

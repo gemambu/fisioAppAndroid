@@ -27,7 +27,7 @@ class CatalogDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var mItem: Catalog? = null
-    private var type: CatalogType = CatalogType.SERVICE
+    lateinit var type: CatalogType
     var catalogItemListener: CatalogItemListener? = null
     private lateinit var root: View
 
@@ -73,8 +73,6 @@ class CatalogDetailFragment : Fragment() {
 
 
                 mItem?.let {
-                    type = CatalogType.valueOf(it.type.name)
-
                     //activity.toolbar_layout?.title = it.content
                     activity_catalog_detail_name_text.setText(it.name)
                     activity_catalog_detail_desc_text.setText(it.description)

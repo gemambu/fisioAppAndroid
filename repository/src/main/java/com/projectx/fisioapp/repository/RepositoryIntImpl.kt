@@ -4,10 +4,17 @@ import android.content.Context
 import com.projectx.fisioapp.repository.cache.CacheIntImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.insert.InsertProductIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.insert.InsertProductInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceIntImpl
@@ -35,6 +42,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val updateService: UpdateServiceInteractor = UpdateServiceIntImpl()
 
     private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
+    private val insertProduct: InsertProductInteractor = InsertProductIntImpl()
+    private val deleteProduct: DeleteProductInteractor = DeleteProductIntImpl()
+    private val updateProduct: UpdateProductInteractor = UpdateProductIntImpl()
 
     /******** users ********/
     override fun authenticateUser(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -68,7 +78,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         return cache.countCatalogItems()
     }
 
-    override fun getAllCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun getCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         if(forceUpdate){
             populateCache(token, type, success, error)
@@ -118,7 +128,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
     private fun saveCatalog(list: List<CatalogData>, type: String) {
-        cache.saveAllCatalogItems(type, list, success = {
+        cache.saveCatalogItems(type, list, success = {
             success(list)
         }, error = {
             error("Something happened on the way to heaven!")
@@ -126,34 +136,66 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
 
-    override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
+    override fun saveCatalogData(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
-    override fun insertService(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
-
-        if (item.databaseId != null && item.databaseId != ""){
+        if (item.databaseId != ""){
             //update option
-            updateService.execute(token,
-                    item,
-                    success = {
-                        updateCatalogInCache(item)
-                        success(it)
 
-                    }, error = {
+            when(item.type) {
+                CatalogType.SERVICE -> {
+
+                    updateService.execute(token,
+                            item,
+                            success = {
+                                updateCatalogInCache(item)
+                                success(it)
+
+                            }, error = {
                         error(it)
                     })
+                }
+                CatalogType.PRODUCT -> {
+                    updateProduct.execute(token,
+                            item,
+                            success = {
+                                updateCatalogInCache(item)
+                                success(it)
+
+                            }, error = {
+                        error(it)
+                    })
+                }
+            }
+
         } else {
             // insert option
-            insertService.execute(token,
-                    item,
-                    success = {
-                        insertCatalogInCache(item)
-                        success(it)
 
-                    }, error = {
+            when(item.type) {
+                CatalogType.SERVICE -> {
+                    insertService.execute(token,
+                            item,
+                            success = {
+                                insertCatalogInCache(it)
+                                success(it)
+
+                            }, error = {
                         error(it)
                     })
-        }
+                }
+                CatalogType.PRODUCT -> {
+                    insertProduct.execute(token,
+                            item,
+                            success = {
+                                insertCatalogInCache(it)
+                                success(it)
 
+                            }, error = {
+                        error(it)
+                    })
+                }
+            }
+
+        }
 
     }
 
@@ -178,19 +220,37 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 })
     }
 
-    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
-        deleteService.execute(token, id,
-                success = {
-                    deleteServiceFromCache(id)
-                    success(it)
+    override fun deleteCatalogData(token: String, id: String, type: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
 
-                }, error = {
+        when(type) {
+            "SERVICE" -> {
+                deleteService.execute(token, id,
+                        success = {
+                            deleteCatalogItemFromCache(id)
+                            success(it)
+
+                        }, error = {
                     error(it)
                 })
+            }
+            "PRODUCT" -> {
+                deleteProduct.execute(token, id,
+                        success = {
+                            deleteCatalogItemFromCache(id)
+                            success(it)
+
+                        }, error = {
+                    error(it)
+                })
+            }
+        }
+
+
+
     }
 
-    private fun deleteServiceFromCache(id: String) {
-        cache.deleteService(id,
+    private fun deleteCatalogItemFromCache(id: String) {
+        cache.deleteCatalogItem(id,
                 success = {
                     success("Service $id removed successfully")
                 }, error = {
@@ -198,5 +258,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                     error("Error deleting service: $id")
                 })
     }
+
+    override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
 }

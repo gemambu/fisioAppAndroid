@@ -48,7 +48,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
 
     }
 
-    override fun saveAllCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
                 catalogList.forEach { CatalogDAO(dbHelper).insert(it, type) }
@@ -113,7 +113,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
         }).run()
     }
 
-    override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun deleteCatalogItem(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             val successDeleting = CatalogDAO(dbHelper).delete(id)
 

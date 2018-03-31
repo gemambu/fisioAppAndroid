@@ -6,5 +6,5 @@ import com.projectx.fisioapp.domain.model.Catalog
 import com.projectx.fisioapp.domain.model.Catalogs
 
 interface DeleteCatalogInteractor {
-    fun execute(token: String, id: String, success: SuccessCompletion<String>, error: ErrorCompletion)
+    fun execute(token: String, id: String, type: String, success: SuccessCompletion<String>, error: ErrorCompletion)
 }

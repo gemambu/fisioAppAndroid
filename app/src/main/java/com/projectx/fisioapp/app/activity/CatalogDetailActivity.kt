@@ -7,14 +7,15 @@ import android.view.View
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 import com.projectx.fisioapp.app.fragment.CatalogItemListener
+import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogIntImpl
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogInteractor
-import com.projectx.fisioapp.domain.interactor.catalog.InsertCatalogIntImpl
-import com.projectx.fisioapp.domain.interactor.catalog.InsertCatalogInteractor
+import com.projectx.fisioapp.domain.interactor.catalog.SaveCatalogIntImpl
+import com.projectx.fisioapp.domain.interactor.catalog.SaveCatalogInteractor
 import com.projectx.fisioapp.domain.model.Catalog
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -105,9 +106,9 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
     override fun onSavePressed(view: View, item: Catalog) {
         async(UI) {
 
-            val insertItem: InsertCatalogInteractor = InsertCatalogIntImpl(view.context)
+            val saveItem: SaveCatalogInteractor = SaveCatalogIntImpl(view.context)
             try {
-                insertItem.execute(token,
+                saveItem.execute(token,
                         item,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
@@ -130,10 +131,12 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
     override fun onDeletePressed(view: View, id: String) {
         async(UI) {
 
+            val type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
             val deleteItem: DeleteCatalogInteractor = DeleteCatalogIntImpl(view.context)
             try {
                 deleteItem.execute(token,
                         id,
+                        type.name,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
                                 ToastIt(view.context, "$e")

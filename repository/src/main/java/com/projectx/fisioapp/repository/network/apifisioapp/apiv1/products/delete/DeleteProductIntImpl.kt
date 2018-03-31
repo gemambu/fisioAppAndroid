@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete
+package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete
 
 import android.util.Log
 
@@ -10,17 +10,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class DeleteServiceIntImpl(): DeleteServiceInteractor {
+internal class DeleteProductIntImpl(): DeleteProductInteractor {
     override fun execute(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
-         * Delete Service
+         * Delete Product
          */
-        val deleteService = apiInterfaceLocalhost.doDeleteService(token, id)
-        deleteService.enqueue(object : Callback<DeleteCatalogResponse> {
+        val deleteProduct = apiInterfaceLocalhost.doDeleteProduct(token, id)
+        deleteProduct.enqueue(object : Callback<DeleteCatalogResponse> {
             override fun onResponse(call: Call<DeleteCatalogResponse>, response: Response<DeleteCatalogResponse>) {
                 val response = response.body()
                 if (response !== null) response.message.let { success(response.message!!) }

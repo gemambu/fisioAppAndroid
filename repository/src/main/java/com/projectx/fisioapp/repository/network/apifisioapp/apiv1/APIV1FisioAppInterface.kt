@@ -47,4 +47,22 @@ internal interface APIV1FisioAppInterface {
     /******** PRODUCTS OPERATIONS *********/
     @GET(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH)
     fun doGetProducts(@Header("x-access-token") token: String): Call<GetCatalogResponse>
+
+    @DELETE(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH + "/{id}")
+    fun doDeleteProduct(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteCatalogResponse>
+
+    @FormUrlEncoded
+    @POST(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH)
+    fun doInsertProduct(@Header("x-access-token") token: String,
+                        @Field("name") name: String,
+                        @Field("description") description: String,
+                        @Field("price") price: Float): Call<SaveCatalogResponse>
+
+    @FormUrlEncoded
+    @PUT(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH + "/{id}")
+    fun doUpdateProduct(@Header("x-access-token") token: String,
+                        @Path("id") id: String,
+                        @Field("name") name: String,
+                        @Field("description") description: String,
+                        @Field("price") price: Float): Call<SaveCatalogResponse>
 }

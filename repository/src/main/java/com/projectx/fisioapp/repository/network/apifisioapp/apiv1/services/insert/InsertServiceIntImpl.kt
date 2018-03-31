@@ -2,6 +2,7 @@ package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.inse
 
 import android.util.Log
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 import com.projectx.fisioapp.repository.entitymodel.responses.SaveCatalogResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
@@ -11,8 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class InsertServiceIntImpl: InsertServiceInteractor {
-    override fun execute(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+internal class InsertServiceIntImpl : InsertServiceInteractor {
+    override fun execute(token: String, item: CatalogData, success: (successMessage: CatalogData) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
@@ -24,7 +25,11 @@ internal class InsertServiceIntImpl: InsertServiceInteractor {
         insertService.enqueue(object : Callback<SaveCatalogResponse> {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
                 val response = response.body()
-                if (response !== null) response.result.let { success(response.result!!) }
+                if (response !== null){
+                    var completeItem = response.result!!
+                    completeItem.type = CatalogType.SERVICE
+                    response.result.let { success(completeItem) }
+                }
             }
 
             override fun onFailure(call: Call<SaveCatalogResponse>, t: Throwable?) {

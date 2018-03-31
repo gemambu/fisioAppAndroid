@@ -11,7 +11,7 @@ data class CatalogData(
         @SerializedName("professional")val professionalId: String,
         //@SerializedName("isActive")val isActive: Boolean,
       //  @SerializedName("image")val image: String,
-        val type: CatalogType
+        var type: CatalogType
 )
 
 

@@ -4,7 +4,7 @@ import android.util.Log
 
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-import com.projectx.fisioapp.repository.entitymodel.catalog.converter.convert
+import com.projectx.fisioapp.repository.entitymodel.catalog.converter.convertList
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 import retrofit2.Call
@@ -26,7 +26,7 @@ internal class GetProductsIntImpl(): GetProductsInteractor {
             override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
                 val response = response.body()
 
-                response.let { success(convert(response!!)) }
+                response.let { success(convertList(response!!)) }
 
             }
 

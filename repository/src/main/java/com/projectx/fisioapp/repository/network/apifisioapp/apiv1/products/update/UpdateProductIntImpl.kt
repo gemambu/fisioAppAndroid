@@ -1,8 +1,7 @@
-package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update
+package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update
 
 import android.util.Log
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-
 import com.projectx.fisioapp.repository.entitymodel.responses.SaveCatalogResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
@@ -11,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-internal class UpdateServiceIntImpl: UpdateServiceInteractor {
+internal class UpdateProductIntImpl: UpdateProductInteractor {
     override fun execute(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
@@ -20,7 +19,7 @@ internal class UpdateServiceIntImpl: UpdateServiceInteractor {
         /**
          * Update Service
          */
-        val updateService = apiInterfaceLocalhost.doUpdateService(token, item.databaseId, item.name, item.description, item.price)
+        val updateService = apiInterfaceLocalhost.doUpdateProduct(token, item.databaseId, item.name, item.description, item.price)
         updateService.enqueue(object : Callback<SaveCatalogResponse> {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
                 val response = response.body()

@@ -7,6 +7,6 @@ class DeleteCatalogResponse {
     @Expose
     var ok: Boolean? = null
     @Expose
-    var result: String? = null
+    var message: String? = null
 
 }

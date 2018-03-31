@@ -53,7 +53,7 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
     /******** catalog (products and services) ********/
     override fun countCatalogItems(): Int = 10
 
-    override fun getAllCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun getCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         cache.getAllCatalogItems(type,
                 success = {
@@ -68,52 +68,15 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
     private fun populateCache(type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
         // perform network request
-
-        var url = ""
-
-        // TODO: Get the information from backend?
-        /*
-        when (type) {
-            "PRODUCT" -> url = BuildConfig.MADRID_SHOPS_SERVER_URL
-            "SERVICE" -> url = BuildConfig.MADRID_ACTIVITIES_SERVER_URL
-        }
-
-        val jsonManager: GetJsonManager = GetJsonManagerVolleyImpl(weakContext.get()!!)
-        jsonManager.execute(url, success = object : SuccessCompletion<String> {
-            override fun successCompletion(e: String) {
-
-                val parser = JsonEntitiesParser()
-                val responseEntity: ResponseEntity
-
-                try {
-                    responseEntity = parser.parse(e)
-                } catch (e: InvalidFormatException) {
-                    error("Error parsing")
-                    return
-                }
-
-
-                cache.saveAllCatalogItems(type, responseEntity.resultGetAllServices, success = {
-                    success(responseEntity.resultGetAllServices)
-                }, error = {
-                    error("Something happened on the way to heaven!")
-                })
-
-            }
-        }, error = object : ErrorCompletion {
-            override fun errorCompletion(errorMessage: String) {
-            }
-        })
-        */
     }
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
-    override fun insertService(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun saveCatalogData(token: String, item: CatalogData, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun deleteCatalogData(token: String, id: String, type: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
     }
 }
