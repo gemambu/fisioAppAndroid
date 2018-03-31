@@ -18,7 +18,7 @@ fun convertAppointments(response: GetAppointmentsResponse): List<AppoinmentData>
                             it.service!!.price.toString(),
                             it.customer!!.id!!,
                             name,
-                            it.customer!!.address!!,
+                            "Calle Goya # 15",
                             it.professional!!.id!!,
                             it.isConfirmed!!,
                             it.isCancelled!!,
