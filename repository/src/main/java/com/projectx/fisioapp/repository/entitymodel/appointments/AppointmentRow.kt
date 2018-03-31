@@ -22,6 +22,8 @@ class AppoinmentRow{
     @Expose
     var longitude: Double? = null
     @Expose
+    var address: String? = null
+    @Expose
     var extraInfo: String? = null
     @SerializedName("__v")
     var v: Int? = null

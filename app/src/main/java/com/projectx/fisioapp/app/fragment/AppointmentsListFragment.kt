@@ -24,6 +24,7 @@ class AppointmentsListFragment : Fragment() {
     lateinit var root: View
     lateinit var appointmentsList: ListView
     private var appointments: Appointments? = null
+    private var list = emptyArray<Appointment>()
     lateinit var adapter: ArrayAdapter<Appointment>
     private var onSelectedAppointmentListener: OnSelectedAppointmentListener? = null
 
@@ -34,7 +35,8 @@ class AppointmentsListFragment : Fragment() {
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
             appointmentsList = root.findViewById<ListView>(R.id.fisio_appointments_list)
             //adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, appointments?.toArray())
-            //appointmentsList.adapter = adapter
+            adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, list)
+            appointmentsList.adapter = adapter
             appointmentsList.setOnItemClickListener { parent, view, position, id ->
                 val appointment = appointments?.get(position)
                 onSelectedAppointmentListener?.onSelectedAppointment(appointment!!.date)
@@ -47,7 +49,8 @@ class AppointmentsListFragment : Fragment() {
 
     fun setAppointmentsList(appointments: Appointments){
         this.appointments = appointments
-        adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, appointments?.toArray())
+        adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, this.appointments!!.toArray())
+        appointmentsList.adapter = adapter
     }
 
 
