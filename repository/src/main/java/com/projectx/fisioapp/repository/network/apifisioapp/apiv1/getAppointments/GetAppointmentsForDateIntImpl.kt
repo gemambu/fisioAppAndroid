@@ -16,7 +16,7 @@ class GetAppointmentsForDateIntImpl : GetAppointmentsForDateInteractor {
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
-        val callGetAppointmentsForDate = apiInterfaceLocalhost.doGetAppointmentsForDate(token, date)
+        val callGetAppointmentsForDate = apiInterfaceLocalhost.doGetAppointmentsForDate(token, date, date)
         callGetAppointmentsForDate.enqueue(object : Callback<GetAppointmentsResponse> {
 
             override fun onResponse(call: Call<GetAppointmentsResponse>, response: Response<GetAppointmentsResponse>) {

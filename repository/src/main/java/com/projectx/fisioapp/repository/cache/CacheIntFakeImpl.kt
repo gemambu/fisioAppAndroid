@@ -6,7 +6,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import java.lang.ref.WeakReference
 
 
-class CacheIntFakeImpl(context: Context) : CacheInteractor {
+/*class CacheIntFakeImpl(context: Context) : CacheInteractor {
     override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
 
     }
@@ -57,4 +57,4 @@ class CacheIntFakeImpl(context: Context) : CacheInteractor {
         success()
     }
 
-}
+}*/

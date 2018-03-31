@@ -1,13 +1,13 @@
 package com.projectx.fisioapp.repository
 
 import android.content.Context
-import com.projectx.fisioapp.repository.cache.CacheIntFakeImpl
+//import com.projectx.fisioapp.repository.cache.CacheIntFakeImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import java.lang.ref.WeakReference
 
 
-class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
+/*class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
     override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
     }
@@ -110,4 +110,4 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
-}
+}*/

@@ -19,10 +19,10 @@ import java.util.*
 
 class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), AppointmentsListFragment.OnSelectedAppointmentListener, CalendarFragment.OnSelectedDateListener {
 
-
-    private var list: Appointments? = null
+    //private var list: Appointments? = null
     lateinit var calendarFragment: CalendarFragment
     lateinit var appointmentsListFragment: AppointmentsListFragment
+    val myToken: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVhOWYwNTRmNjAyZGQwZTU0MGM3MWJjNiIsImlzUHJvZmVzc2lvbmFsIjp0cnVlLCJmZWxsb3dzaGlwTnVtYmVyIjozMywiZ2VuZGVyIjoibWFsZSIsIm5hbWUiOiJmaXNpbyIsImxhc3ROYW1lIjoibGFzdG5hbWUiLCJlbWFpbCI6ImZpc2lvQGludmFsaWQuY29tIiwicGFzc3dvcmQiOiJlZjc5N2M4MTE4ZjAyZGZiNjQ5NjA3ZGQ1ZDNmOGM3NjIzMDQ4YzljMDYzZDUzMmNjOTVjNWVkN2E4OThhNjRmIiwiYWRkcmVzcyI6IkZpc2lvIEFkZHJlc3MsIDMzIiwicGhvbmUiOiI2MjY2MjY2MjYiLCJiaXJ0aERhdGUiOiIxOTcwLTEyLTMwVDEyOjMwOjAwLjAwMFoiLCJuYXRpb25hbElkIjoiMTIzNDU2NzhaIiwicmVnaXN0cmF0aW9uRGF0ZSI6IjIwMTgtMDEtMDFUMDE6MDE6MDAuMDAwWiIsImxhc3RMb2dpbkRhdGUiOiIyMDE4LTAzLTA3VDE2OjAwOjAwLjAwMFoiLCJfX3YiOjAsImRlbGV0ZWQiOmZhbHNlfSwiaWF0IjoxNTIyNDg4NDU4LCJleHAiOjE1MjI2NjEyNTh9.SQCXMk_apNOsiOC9kfAUxbzkdZ3kpvmrBDpX2bQ5pB8"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +30,15 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (!checkToken()) {
+        /*if (!checkToken()) {
             Router().navigateFromCalendarActivityToLoginActivity(this)
         } else {
+            calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
+            appointmentsListFragment = supportFragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
+        }*/
 
-        }
-
-        calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
-        appointmentsListFragment = supportFragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
-
+        calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
+        appointmentsListFragment = fragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
     }
 
 
@@ -47,10 +47,10 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
 
             val getAppointmentsForDate: GetAppointmentsForDateInteractor = GetAppointmentsForDateIntImpl(context)
             try{
-                getAppointmentsForDate.execute(token,date,
+                getAppointmentsForDate.execute(myToken, date,
                         success = object : SuccessCompletion<Appointments> {
                             override fun successCompletion(e: Appointments) {
-                                list = e
+                                //list = e
                                 appointmentsListFragment.setAppointmentsList(e)
                             }
                         }, error = object : ErrorCompletion {
@@ -63,11 +63,6 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
             }
         }
     }
-
-    private fun initializeAppointmentsList(appointments: Appointments) {
-        appointmentsListFragment.setAppointmentsList(appointments)
-    }
-
 
 
     // ***** Back button enabled *****

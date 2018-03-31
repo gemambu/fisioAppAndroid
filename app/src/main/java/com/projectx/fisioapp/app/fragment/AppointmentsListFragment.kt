@@ -1,8 +1,7 @@
 package com.projectx.fisioapp.app.fragment
 
 import android.app.Activity
-//import android.app.Fragment
-import android.support.v4.app.Fragment
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ class AppointmentsListFragment : Fragment() {
 
 
     lateinit var root: View
+    lateinit var appointmentsList: ListView
     private var appointments: Appointments? = null
     lateinit var adapter: ArrayAdapter<Appointment>
     private var onSelectedAppointmentListener: OnSelectedAppointmentListener? = null
@@ -32,10 +32,10 @@ class AppointmentsListFragment : Fragment() {
 
         inflater?.let{
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
-            val list = root.findViewById<ListView>(R.id.fisio_appointments_list)
-            adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, appointments?.toArray())
-            list.adapter = adapter
-            list.setOnItemClickListener { parent, view, position, id ->
+            appointmentsList = root.findViewById<ListView>(R.id.fisio_appointments_list)
+            //adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, appointments?.toArray())
+            //appointmentsList.adapter = adapter
+            appointmentsList.setOnItemClickListener { parent, view, position, id ->
                 val appointment = appointments?.get(position)
                 onSelectedAppointmentListener?.onSelectedAppointment(appointment!!.date)
             }
