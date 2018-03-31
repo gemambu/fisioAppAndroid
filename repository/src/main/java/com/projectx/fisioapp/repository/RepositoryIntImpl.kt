@@ -68,17 +68,22 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         return cache.countCatalogItems()
     }
 
-    override fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun getAllCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        cache.getAllCatalogItems(type,
-                success = {
-                    // if there are entities in the cache, return them
-                    success(it)
-                }, error = {
-                    // if no catalog in cache --> network
-                    populateCache(token, type, success, error)
-                }
-        )
+        if(forceUpdate){
+            populateCache(token, type, success, error)
+        } else {
+            cache.getAllCatalogItems(type,
+                    success = {
+                        // if there are entities in the cache, return them
+                        success(it)
+                    }, error = {
+                // if no catalog in cache --> network
+                populateCache(token, type, success, error)
+            }
+            )
+        }
+
     }
 
     private fun populateCache(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -134,8 +139,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                         success(it)
 
                     }, error = {
-                error(it)
-            })
+                        error(it)
+                    })
         } else {
             // insert option
             insertService.execute(token,
@@ -145,8 +150,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                         success(it)
 
                     }, error = {
-                error(it)
-            })
+                        error(it)
+                    })
         }
 
 
@@ -170,11 +175,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 }, error = {
                     // if no catalog in cache --> network
                     error("Error updating service: ${item.name}")
-                }
-                )
+                })
     }
-
-
 
     override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
         deleteService.execute(token, id,

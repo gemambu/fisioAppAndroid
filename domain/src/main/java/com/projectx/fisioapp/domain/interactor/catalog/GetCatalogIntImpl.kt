@@ -15,9 +15,9 @@ class GetCatalogIntImpl(context: Context) : GetCatalogInteractor {
     private val weakContext = WeakReference<Context>(context)
     private val repository: RepositoryInteractor = RepositoryIntImpl(weakContext.get()!!)
 
-    override fun execute(token: String, type: String, success: SuccessCompletion<Catalogs>, error: ErrorCompletion) {
+    override fun execute(forceUpdate: Boolean, token: String, type: String, success: SuccessCompletion<Catalogs>, error: ErrorCompletion) {
 
-        repository.getAllCatalogItems(token, type,
+        repository.getAllCatalogItems(forceUpdate, token, type,
                 success = {
                     val items: Catalogs = Mapper().benefitsMapper(it, BenefitType.SERVICE)
                     success.successCompletion(items)

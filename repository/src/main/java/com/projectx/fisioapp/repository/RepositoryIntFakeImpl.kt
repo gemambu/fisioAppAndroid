@@ -53,7 +53,7 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
     /******** catalog (products and services) ********/
     override fun countCatalogItems(): Int = 10
 
-    override fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun getAllCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         cache.getAllCatalogItems(type,
                 success = {

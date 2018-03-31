@@ -32,7 +32,6 @@ internal interface APIV1FisioAppInterface {
     @POST(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH)
     fun doInsertService(@Header("x-access-token") token: String,
                         @Field("name") name: String,
-                        @Field("professional") professional: String,
                         @Field("description") description: String,
                         @Field("price") price: Float): Call<SaveCatalogResponse>
 

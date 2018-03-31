@@ -5,5 +5,5 @@ import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.model.Catalogs
 
 interface GetCatalogInteractor {
-    fun execute(token: String, type: String, success: SuccessCompletion<Catalogs>, error: ErrorCompletion)
+    fun execute(forceUpdate: Boolean, token: String, type: String, success: SuccessCompletion<Catalogs>, error: ErrorCompletion)
 }

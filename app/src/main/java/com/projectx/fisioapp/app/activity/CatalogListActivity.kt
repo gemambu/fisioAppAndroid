@@ -3,12 +3,16 @@ package com.projectx.fisioapp.app.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 import com.projectx.fisioapp.app.router.Router
@@ -46,9 +50,15 @@ class CatalogListActivity : ParentActivity() {
     private var list: Catalogs? = null
     private var type: CatalogType = CatalogType.SERVICE
 
+    private val swipeLayout: SwipeRefreshLayout by lazy  { swipe_container }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_list)
+
+        swipeLayout.setOnRefreshListener {
+            refreshData()
+        }
 
         if (!checkToken()) {
             Router().navigateFromCatalogListActivitytoLoginActivity(this)
@@ -71,10 +81,21 @@ class CatalogListActivity : ParentActivity() {
                 mTwoPane = true
             }
 
-            getCatalogList(this)
+            getCatalogList(this, false)
             setupRecyclerView(catalog_list)
         }
 
+    }
+
+    private fun refreshData() {
+        Toast.makeText(this, "Refreshing data", Toast.LENGTH_LONG).show()
+
+        getCatalogList(this, true)
+
+        Handler().postDelayed({
+            Toast.makeText(this, "Datos guardados", Toast.LENGTH_LONG).show()
+            swipeLayout.setRefreshing(false)
+        }, 5000)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -84,12 +105,12 @@ class CatalogListActivity : ParentActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
     }
 
-    private fun getCatalogList(context: Context) {
+    private fun getCatalogList(context: Context, forceUpdate: Boolean) {
         async(UI) {
 
             val getAllCatalogItems: GetCatalogInteractor = GetCatalogIntImpl(context)
             try {
-                getAllCatalogItems.execute(token,
+                getAllCatalogItems.execute(forceUpdate, token,
                         type.name,
                         success = object : SuccessCompletion<Catalogs> {
                             override fun successCompletion(e: Catalogs) {
