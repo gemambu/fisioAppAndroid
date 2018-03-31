@@ -1,6 +1,7 @@
 package com.projectx.fisioapp.app.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
@@ -12,6 +13,7 @@ import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
+import com.projectx.fisioapp.app.utils.RQ_OPERATION
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
@@ -74,15 +76,15 @@ class CatalogListActivity : ParentActivity() {
             }
 
             getCatalogList(this, false)
-            //setupRecyclerView(catalog_list)
         }
 
     }
 
-//    override fun onRestart() {
-//        super.onRestart()
-//        getCatalogList(this, false)
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        if (requestCode == RQ_OPERATION && resultCode == RESULT_OK) {
+            getCatalogList(this, true)
+        }
+    }
 
     private fun refreshData() {
         Toast.makeText(this, "Refreshing data", Toast.LENGTH_LONG).show()
@@ -92,7 +94,7 @@ class CatalogListActivity : ParentActivity() {
         Handler().postDelayed({
             Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
             swipeLayout.setRefreshing(false)
-        }, 5000)
+        }, 4000)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -114,7 +116,6 @@ class CatalogListActivity : ParentActivity() {
                                 list = e
                                 // update list data
                                 setupRecyclerView(catalog_list)
-                                //catalog_list.adapter.notifyDataSetChanged()
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {

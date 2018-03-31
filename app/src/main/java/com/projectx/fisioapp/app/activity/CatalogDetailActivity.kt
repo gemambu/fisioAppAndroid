@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -114,18 +115,25 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                             override fun successCompletion(e: String) {
                                 ToastIt(view.context, "$e")
 
-                                // TODO improve the back, to refresh the catalog list with the last data
-                                finish()
+                                val intent = Intent()
+                                intent.putExtra("result", -1)
+                                finalizeActivity(Activity.RESULT_OK, intent)
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
                         ToastIt(view.context, "$errorMessage")
+                        finalizeActivity(Activity.RESULT_CANCELED, Intent())
                     }
                 })
             } catch (e: Exception) {
                 ToastIt(view.context, "Error: " + e.localizedMessage )
             }
         }
+    }
+
+    private fun finalizeActivity(result: Int, intent: Intent) {
+        setResult(result, intent)
+        finish()
     }
 
     override fun onDeletePressed(view: View, id: String) {
@@ -141,12 +149,15 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                             override fun successCompletion(e: String) {
                                 ToastIt(view.context, "$e")
 
-                                // TODO improve the back, to refresh the catalog list with the last data
-                                finish()
+                                val intent = Intent()
+                                intent.putExtra("result", -1)
+                                finalizeActivity(Activity.RESULT_OK, intent)
                             }
                         }, error = object : ErrorCompletion {
                             override fun errorCompletion(errorMessage: String) {
                                 ToastIt(view.context, "$errorMessage")
+
+                                finalizeActivity(Activity.RESULT_CANCELED, Intent())
                             }
                         })
             } catch (e: Exception) {

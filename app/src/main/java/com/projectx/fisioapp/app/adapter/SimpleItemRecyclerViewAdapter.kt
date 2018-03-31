@@ -1,6 +1,5 @@
 package com.projectx.fisioapp.app.adapter
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.activity.CatalogDetailActivity
 import com.projectx.fisioapp.app.activity.CatalogListActivity
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
+import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.domain.model.Catalog
 import com.projectx.fisioapp.domain.model.Catalogs
@@ -37,11 +36,12 @@ class SimpleItemRecyclerViewAdapter(private val mParentActivity: CatalogListActi
                         .replace(R.id.catalog_detail_container, fragment)
                         .commit()
             } else {
-                val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
-                    putExtra(CatalogDetailFragment.ARG_ITEM, item)
-                    putExtra(EXTRA_CATALOG_TYPE, mParentActivity.type)
-                }
-                v.context.startActivity(intent)
+                Router().navigateFromParentActivityToDetailCatalogActivity(item, mParentActivity, mParentActivity.type)
+//                val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
+//                    putExtra(CatalogDetailFragment.ARG_ITEM, item)
+//                    putExtra(EXTRA_CATALOG_TYPE, mParentActivity.type)
+//                }
+//                v.context.startActivity(intent)
             }
         }
     }

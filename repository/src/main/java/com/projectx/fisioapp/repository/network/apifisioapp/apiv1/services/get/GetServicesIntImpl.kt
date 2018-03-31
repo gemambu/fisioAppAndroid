@@ -31,7 +31,7 @@ internal class GetServicesIntImpl (): GetServicesInteractor {
                     response.let { success(convertList(response!!)) }
                 }
 
-                error(response.message())
+                // error(response.message())
 
             }
 
