@@ -1,11 +1,7 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete
 
 import android.util.Log
-<<<<<<< HEAD:repository/src/main/java/com/projectx/fisioapp/repository/network/apifisioapp/apiv1/deleteservice/DeleteServiceIntImpl.kt
-import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-=======
 
->>>>>>> services_and_products_gema:repository/src/main/java/com/projectx/fisioapp/repository/network/apifisioapp/apiv1/services/delete/DeleteServiceIntImpl.kt
 import com.projectx.fisioapp.repository.entitymodel.responses.DeleteCatalogResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface

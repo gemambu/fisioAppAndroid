@@ -1,14 +1,11 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.get
 
 import android.util.Log
-import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-<<<<<<< HEAD:repository/src/main/java/com/projectx/fisioapp/repository/network/apifisioapp/apiv1/getservice/GetServicesIntImpl.kt
-import com.projectx.fisioapp.repository.entitymodel.catalog.converter.convert
+
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
-=======
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import com.projectx.fisioapp.repository.entitymodel.catalog.converter.convertList
->>>>>>> services_and_products_gema:repository/src/main/java/com/projectx/fisioapp/repository/network/apifisioapp/apiv1/services/get/GetServicesIntImpl.kt
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 import retrofit2.Call
