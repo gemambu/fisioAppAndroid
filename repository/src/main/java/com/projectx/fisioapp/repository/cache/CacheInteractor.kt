@@ -13,8 +13,10 @@ interface CacheInteractor {
     fun getAllCatalogItems(type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun countCatalogItems(): Int
-    fun saveAllCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
-    fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit)
+    fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
+    fun insertCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit)
+    fun updateCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit)
+    fun deleteCatalogItem(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit)
 
 
     /******** appointments ********/

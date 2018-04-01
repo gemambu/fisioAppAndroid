@@ -1,4 +1,4 @@
-package com.gmb.madridshops.repository.db
+package com.projectx.fisioapp.repository.db
 
 
 object DBCatalogConstants {
@@ -12,7 +12,7 @@ object DBCatalogConstants {
     val KEY_ENTITY_PRICE = "PRICE"
     val KEY_ENTITY_IS_ACTIVE = "IS_ACTIVE"
     val KEY_ENTITY_PROFESSIONAL_ID = "PROFESSIONAL_ID"
-    val KEY_ENTITY_IMAGE_URL = "IMAGE_URL"
+    //val KEY_ENTITY_IMAGE_URL = "IMAGE_URL"
     val KEY_ENTITY_TYPE = "TYPE"
 
     val ALL_COLUMNS = arrayOf(
@@ -22,7 +22,7 @@ object DBCatalogConstants {
             KEY_ENTITY_PRICE,
             KEY_ENTITY_IS_ACTIVE,
             KEY_ENTITY_PROFESSIONAL_ID,
-            KEY_ENTITY_IMAGE_URL,
+            //KEY_ENTITY_IMAGE_URL,
             KEY_ENTITY_TYPE)
 
     private val SQL_SCRIPT_CREATE_CATALOG_TABLE = (
@@ -34,7 +34,7 @@ object DBCatalogConstants {
                     + KEY_ENTITY_PRICE + " real,"
                     + KEY_ENTITY_IS_ACTIVE + " integer,"
                     + KEY_ENTITY_PROFESSIONAL_ID + " string,"
-                    + KEY_ENTITY_IMAGE_URL + " text, "
+                    //+ KEY_ENTITY_IMAGE_URL + " text, "
                     + KEY_ENTITY_TYPE + " text"
                     + ");")
 

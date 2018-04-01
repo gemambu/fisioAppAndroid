@@ -1,4 +1,4 @@
-package com.gmb.madridshops.repository.db
+package com.projectx.fisioapp.repository.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

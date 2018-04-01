@@ -3,14 +3,21 @@ package com.projectx.fisioapp.repository.db.dao
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.gmb.madridshops.repository.db.DBHelper
-import com.gmb.madridshops.repository.db.dao.DAOPersistable
+import com.projectx.fisioapp.repository.db.DBHelper
+import com.projectx.fisioapp.repository.db.dao.DAOPersistable
 import com.projectx.fisioapp.repository.db.constants.DBAppointmentConstants
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import java.util.*
 
+<<<<<<< HEAD
 class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
+=======
+class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppointmentData> {
+    override fun insertOrUpdate(element: AppointmentData, type: String): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+>>>>>>> services_and_products_gema
 
     private val dbReadOnlyConn: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteOnlyConn: SQLiteDatabase = dbHelper.writableDatabase
@@ -146,5 +153,9 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
     override fun deleteAll(): Boolean = dbReadWriteOnlyConn.delete(DBAppointmentConstants.TABLE_APPOINTMENT,
             null,
             null).toLong() >= 0
+
+    override fun update(id: String, element: AppointmentData): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 }

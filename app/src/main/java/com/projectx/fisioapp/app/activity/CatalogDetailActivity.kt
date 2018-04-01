@@ -1,21 +1,23 @@
 package com.projectx.fisioapp.app.activity
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 import com.projectx.fisioapp.app.fragment.CatalogItemListener
+import com.projectx.fisioapp.app.utils.CatalogType
+import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogIntImpl
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogInteractor
+import com.projectx.fisioapp.domain.interactor.catalog.SaveCatalogIntImpl
+import com.projectx.fisioapp.domain.interactor.catalog.SaveCatalogInteractor
 import com.projectx.fisioapp.domain.model.Catalog
-import com.projectx.fisioapp.domain.model.Catalogs
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
@@ -32,8 +34,17 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
         setContentView(R.layout.activity_catalog_detail)
 
         val arguments = Bundle()
-        arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
-                intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
+
+        if(intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM) != null){
+            arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
+                    intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
+        }
+
+        if(intent.getSerializableExtra(EXTRA_CATALOG_TYPE) != null){
+            arguments.putSerializable(EXTRA_CATALOG_TYPE,
+                    intent.getSerializableExtra(EXTRA_CATALOG_TYPE))
+        }
+
 
         val fragment = CatalogDetailFragment()
         fragment.arguments = arguments
@@ -86,7 +97,7 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                     //
                     // http://developer.android.com/design/patterns/navigation.html#up-vs-back
 
-                    navigateUpTo(Intent(this, CatalogListActivity::class.java))
+                    finalizeActivity(Activity.RESULT_CANCELED, Intent())
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
@@ -94,28 +105,72 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
 
 
     override fun onSavePressed(view: View, item: Catalog) {
-       // TODO
+        async(UI) {
+
+            val saveItem: SaveCatalogInteractor = SaveCatalogIntImpl(view.context)
+            try {
+                saveItem.execute(token,
+                        item,
+                        success = object : SuccessCompletion<String> {
+                            override fun successCompletion(e: String) {
+                                ToastIt(view.context, "$e")
+
+                                val intent = Intent()
+                                intent.putExtra("result", -1)
+                                finalizeActivity(Activity.RESULT_OK, intent)
+                            }
+                        }, error = object : ErrorCompletion {
+                    override fun errorCompletion(errorMessage: String) {
+                        ToastIt(view.context, "$errorMessage")
+                        finalizeActivity(Activity.RESULT_CANCELED, Intent())
+                    }
+                })
+            } catch (e: Exception) {
+                ToastIt(view.context, "Error: " + e.localizedMessage )
+            }
+        }
     }
 
     override fun onDeletePressed(view: View, id: String) {
         async(UI) {
 
+            val type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
             val deleteItem: DeleteCatalogInteractor = DeleteCatalogIntImpl(view.context)
             try {
                 deleteItem.execute(token,
                         id,
+                        type.name,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
                                 ToastIt(view.context, "$e")
+
+                                val intent = Intent()
+                                intent.putExtra("result", -1)
+                                finalizeActivity(Activity.RESULT_OK, intent)
                             }
                         }, error = object : ErrorCompletion {
                             override fun errorCompletion(errorMessage: String) {
                                 ToastIt(view.context, "$errorMessage")
+
+                                finalizeActivity(Activity.RESULT_CANCELED, Intent())
                             }
                         })
             } catch (e: Exception) {
                 ToastIt(view.context, "Error: " + e.localizedMessage )
             }
         }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finalizeActivity(Activity.RESULT_CANCELED, Intent())
+    }
+
+
+
+    private fun finalizeActivity(result: Int, intent: Intent) {
+        setResult(result, intent)
+        finish()
     }
 }

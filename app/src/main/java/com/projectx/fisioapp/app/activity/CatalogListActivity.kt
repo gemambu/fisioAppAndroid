@@ -1,30 +1,28 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.os.Handler
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
+import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
+import com.projectx.fisioapp.app.utils.RQ_OPERATION
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
-import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogIntImpl
-import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogInteractor
-import com.projectx.fisioapp.domain.model.Catalog
+import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogListIntImpl
+import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogListInteractor
 import com.projectx.fisioapp.domain.model.Catalogs
 import kotlinx.android.synthetic.main.activity_catalog_list.*
 import kotlinx.android.synthetic.main.catalog_list.*
-import kotlinx.android.synthetic.main.catalog_list_content.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
@@ -45,25 +43,31 @@ class CatalogListActivity : ParentActivity() {
      */
     private var mTwoPane: Boolean = false
     private var list: Catalogs? = null
-    private lateinit var type: CatalogType
+    lateinit var type: CatalogType
+
+    private val swipeLayout: SwipeRefreshLayout by lazy  { swipe_container }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_list)
 
+        type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
+
+        swipeLayout.setOnRefreshListener {
+            refreshData()
+        }
+
         if (!checkToken()) {
             Router().navigateFromCatalogListActivitytoLoginActivity(this)
         } else {
-
-            type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
 
             setSupportActionBar(toolbar)
             toolbar.title = title
 
             catalog_list_add_element.setOnClickListener { view ->
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
+                Router().navigateFromParentActivityToNewCatalogActivity(this, type)
             }
+
 
             if (catalog_detail_container != null) {
                 // The detail container view will be present only in the
@@ -73,30 +77,48 @@ class CatalogListActivity : ParentActivity() {
                 mTwoPane = true
             }
 
-            getCatalogList(this)
-            setupRecyclerView(catalog_list)
+            getCatalogList(this, false)
         }
 
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RQ_OPERATION && resultCode == RESULT_OK) {
+            getCatalogList(this, true)
+        } else {
+            setupRecyclerView(catalog_list)
+        }
+    }
+
+    private fun refreshData() {
+        Toast.makeText(this, "Refreshing data", Toast.LENGTH_LONG).show()
+
+        getCatalogList(this, true)
+
+        Handler().postDelayed({
+            Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
+            swipeLayout.setRefreshing(false)
+        }, 4000)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
 
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, list, mTwoPane)
         // set two columns with the elements
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
     }
 
-    private fun getCatalogList(context: Context) {
+    private fun getCatalogList(context: Context, forceUpdate: Boolean) {
         async(UI) {
 
-            val getAllCatalogItems: GetCatalogInteractor = GetCatalogIntImpl(context)
+            val getAllCatalogListItems: GetCatalogListInteractor = GetCatalogListIntImpl(context)
             try {
-                getAllCatalogItems.execute(token,
+                getAllCatalogListItems.execute(forceUpdate, token,
                         type.name,
                         success = object : SuccessCompletion<Catalogs> {
                             override fun successCompletion(e: Catalogs) {
                                 list = e
+                                // update list data
                                 setupRecyclerView(catalog_list)
                             }
                         }, error = object : ErrorCompletion {
@@ -109,67 +131,4 @@ class CatalogListActivity : ParentActivity() {
             }
         }
     }
-
-    class SimpleItemRecyclerViewAdapter(private val mParentActivity: CatalogListActivity,
-                                        private val mValues: Catalogs?,
-                                        private val mTwoPane: Boolean) :
-            RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
-
-        private val mOnClickListener: View.OnClickListener
-
-        init {
-            mOnClickListener = View.OnClickListener { v ->
-                val item = v.tag as Catalog
-                if (mTwoPane) {
-                    val fragment = CatalogDetailFragment().apply {
-                        arguments = Bundle()
-                        arguments.putSerializable(CatalogDetailFragment.ARG_ITEM, item)
-                    }
-                    mParentActivity.supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.catalog_detail_container, fragment)
-                            .commit()
-                } else {
-                    val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
-                        putExtra(CatalogDetailFragment.ARG_ITEM, item)
-                    }
-                    v.context.startActivity(intent)
-                }
-            }
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.catalog_list_content, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = mValues!![position]
-            holder.mIdView.text = item.name
-            holder.mContentView.text = item.price.toString() + " €"
-
-
-
-            with(holder.itemView) {
-                tag = item
-                setOnClickListener(mOnClickListener)
-            }
-        }
-
-        override fun getItemCount(): Int {
-
-            if (mValues !== null ) return mValues.count()
-
-            return 0
-        }
-
-        inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-            val mIdView: TextView = mView.catalog_list_element_name
-            val mContentView: TextView = mView.catalog_list_element_price
-
-        }
-
-    }
-
 }

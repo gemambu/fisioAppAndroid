@@ -10,8 +10,8 @@ data class CatalogData(
         @SerializedName("price")val price: Float,
         @SerializedName("person")val professionalId: String,
         @SerializedName("isActive")val isActive: Boolean,
-        @SerializedName("image")val image: String,
-        val type: CatalogType
+      //  @SerializedName("image")val image: String,
+        var type: CatalogType
 )
 
 

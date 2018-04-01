@@ -1,6 +1,7 @@
-package com.gmb.madridshops.repository.db.dao
+package com.projectx.fisioapp.repository.db.dao
 
 import android.database.Cursor
+
 
 interface DAOReadOps<T> {
     fun query(id: Long): T
@@ -12,8 +13,13 @@ interface DAOReadOps<T> {
 
 interface DAOWirteOps<T> {
     fun insert(element: T, type: String): Long
+<<<<<<< HEAD
     fun insert(element: T): Long
+=======
+    fun insertOrUpdate(element: T, type: String): Long
+>>>>>>> services_and_products_gema
     fun update(id: Long, element: T): Long
+    fun update(id: String, element: T): String
 
     /**
      * Deletes the element passed from DB

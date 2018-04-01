@@ -1,9 +1,9 @@
 package com.projectx.fisioapp.repository.cache
 
 import android.content.Context
-import com.gmb.madridshops.repository.db.DBHelper
-import com.gmb.madridshops.repository.db.buildHelper
-import com.gmb.madridshops.repository.db.dao.CatalogDAO
+import com.projectx.fisioapp.repository.db.DBHelper
+import com.projectx.fisioapp.repository.db.buildHelper
+import com.projectx.fisioapp.repository.db.dao.CatalogDAO
 import com.projectx.fisioapp.repository.BuildConfig
 import com.projectx.fisioapp.repository.db.dao.AppointmentDAO
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
@@ -49,10 +49,10 @@ class CacheIntImpl(context: Context): CacheInteractor {
     }
 
 
-    override fun saveAllCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
-                catalogList.forEach { CatalogDAO(dbHelper).insert(it, type) }
+                catalogList.forEach { CatalogDAO(dbHelper).insertOrUpdate(it, type) }
 
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()
@@ -67,7 +67,55 @@ class CacheIntImpl(context: Context): CacheInteractor {
         }).run()
     }
 
-    override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun insertCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            try {
+                val successInsert = CatalogDAO(dbHelper).insert(item, item.type.name )
+
+                DispatchOnMainThread(Runnable {
+
+                    if(successInsert > 0){
+                        dbHelper.close()
+                        success()
+                    } else {
+                        error("Error inserting")
+                    }
+                    dbHelper.close()
+                })
+            } catch (ex: Exception) {
+                DispatchOnMainThread(Runnable {
+                    error("Error inserting item: " + ex.message.toString())
+                    dbHelper.close()
+                })
+            }
+        }).run()
+    }
+
+    override fun updateCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            try {
+                val successUpdate = CatalogDAO(dbHelper).update(item.databaseId, item)
+
+                DispatchOnMainThread(Runnable {
+
+                    if(successUpdate.length > 0){
+                        dbHelper.close()
+                        success()
+                    } else {
+                        error("Error updating")
+                    }
+                    dbHelper.close()
+                })
+            } catch (ex: Exception) {
+                DispatchOnMainThread(Runnable {
+                    error("Error updating item: " + ex.message.toString())
+                    dbHelper.close()
+                })
+            }
+        }).run()
+    }
+
+    override fun deleteCatalogItem(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             val successDeleting = CatalogDAO(dbHelper).delete(id)
 

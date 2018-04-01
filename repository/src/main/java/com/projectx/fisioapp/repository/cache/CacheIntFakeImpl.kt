@@ -8,6 +8,9 @@ import java.lang.ref.WeakReference
 
 /*class CacheIntFakeImpl(context: Context) : CacheInteractor {
     override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+class CacheIntFakeImpl(context: Context) : CacheInteractor {
+
+    override fun deleteCatalogItem(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
 
     }
 
@@ -44,12 +47,12 @@ import java.lang.ref.WeakReference
                 position.toFloat(),
                 position.toString(),
                 true,
-                "http://myrepo/" + type + ".com",
+               // "http://myrepo/" + type + ".com",
                 CatalogType.SERVICE
         )
     }
 
-    override fun saveAllCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         success()
     }
 
@@ -57,4 +60,12 @@ import java.lang.ref.WeakReference
         success()
     }
 
+}
+    override fun insertCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun updateCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }*/

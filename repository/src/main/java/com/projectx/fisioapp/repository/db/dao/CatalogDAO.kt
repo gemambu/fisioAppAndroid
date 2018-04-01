@@ -1,10 +1,10 @@
-package com.gmb.madridshops.repository.db.dao
+package com.projectx.fisioapp.repository.db.dao
 
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.gmb.madridshops.repository.db.DBCatalogConstants
-import com.gmb.madridshops.repository.db.DBHelper
+import com.projectx.fisioapp.repository.db.DBCatalogConstants
+import com.projectx.fisioapp.repository.db.DBHelper
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
@@ -24,7 +24,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         content.put(DBCatalogConstants.KEY_ENTITY_PRICE, entityData.price)
         content.put(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE, entityData.isActive)
         content.put(DBCatalogConstants.KEY_ENTITY_PROFESSIONAL_ID, entityData.professionalId)
-        content.put(DBCatalogConstants.KEY_ENTITY_IMAGE_URL, entityData.image)
+        //content.put(DBCatalogConstants.KEY_ENTITY_IMAGE_URL, entityData.image)
         content.put(DBCatalogConstants.KEY_ENTITY_TYPE, type)
         return content
     }
@@ -75,7 +75,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
                 cursor.getFloat(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_PRICE)),
                 cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_PROFESSIONAL_ID)),
                 isActive,
-                cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IMAGE_URL)),
+                //cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IMAGE_URL)),
                 type
         )
     }
@@ -109,16 +109,31 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         return result
     }
 
-    override fun insert(element: CatalogData, type: String): Long {
+    override fun insert(element: CatalogData, type: String): Long = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
 
-        val id = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
-        return id
+    override fun insertOrUpdate(element: CatalogData, type: String): Long {
+        var result = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
+
+        if (result.compareTo(-1) == 0){
+            update(element.databaseId, element)
+            result = 1
+        }
+        return result.toLong()
     }
 
+<<<<<<< HEAD
     // Empty implementation as this method is used only for AppointmentDAO
     override fun insert(element: CatalogData): Long {
         return 0
     }
+=======
+    override fun update(id: String, element: CatalogData): String =
+            dbReadWriteOnlyConn.update(
+                    DBCatalogConstants.TABLE_CATALOG,
+                    contentValues(element, element.type.toString()),
+                    DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
+                    arrayOf(id)).toString()
+>>>>>>> services_and_products_gema
 
     override fun update(id: Long, element: CatalogData): Long =
             dbReadWriteOnlyConn.update(

@@ -1,6 +1,6 @@
 package com.projectx.fisioapp.repository.db.constants
 
-import com.gmb.madridshops.repository.db.DBCatalogConstants
+import com.projectx.fisioapp.repository.db.DBCatalogConstants
 
 object DBAppointmentConstants {
 
