@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.domain.interactor.users.authenticateuser
+package com.projectx.fisioapp.domain.interactor.users.getuser
 
 import android.content.Context
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
@@ -8,22 +8,20 @@ import com.projectx.fisioapp.repository.RepositoryInteractor
 import com.projectx.fisioapp.repository.entitymodel.user.UserData
 import java.lang.ref.WeakReference
 
-
-class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
+class GetUserIntImpl(context: Context) : GetUserInteractor {
 
     private val weakContext = WeakReference<Context>(context)
     private val repository: RepositoryInteractor = RepositoryIntImpl(weakContext.get() !!)
 
-    override fun execute(email: String, password: String, success: (user: User, token: String) -> Unit, error: ErrorCompletion) {
-        repository.authenticateUser(
-                email, password,
-                success = { user: UserData, token: String ->
-
-                    val user: User = entityMapper(user)
-                    success(user, token)
-                    }, error = {
-                        error(it)
-                    }
+    override fun execute(token: String, id: String, success: (user: User) -> Unit, error: ErrorCompletion) {
+        repository.getUser(
+                token, id,
+                success = {
+                    val user: User = entityMapper(it)
+                    success(user)
+                }, error = {
+                    error(it)
+                }
         )
     }
 

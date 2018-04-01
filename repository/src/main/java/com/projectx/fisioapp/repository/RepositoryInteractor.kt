@@ -1,15 +1,20 @@
 package com.projectx.fisioapp.repository
 
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.user.UserData
 
 
 interface RepositoryInteractor {
 
     /******** users ********/
     fun authenticateUser(email: String, password: String,
-                         success: (token: String) -> Unit, error: (errorMessage: String) -> Unit)
+                         success: (user: UserData, token: String) -> Unit, error: (errorMessage: String) -> Unit)
+    fun getUser(token: String, id: String,
+                success: (user: UserData) -> Unit, error: (errorMessage: String) -> Unit)
     fun registerUser(name: String, email: String, password: String,
-                     success: (ok: Boolean) -> Unit, error: (errorMessage: String) -> Unit)
+                     success: (ok: Boolean, msg: String) -> Unit, error: (errorMessage: String) -> Unit)
+    fun updateUser(token: String, user: UserData,
+                   success: (ok: Boolean, user: UserData) -> Unit, error: (errorMessage: String) -> Unit)
 
 
     /******** catalog (products and services) ********/

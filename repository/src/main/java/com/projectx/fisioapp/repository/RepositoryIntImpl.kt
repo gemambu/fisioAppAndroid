@@ -5,8 +5,9 @@ import com.projectx.fisioapp.repository.cache.CacheIntImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
+import com.projectx.fisioapp.repository.entitymodel.user.UserData
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
@@ -15,8 +16,8 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.insert.InsertProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.get.GetServicesIntImpl
@@ -25,6 +26,10 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.insert.InsertServiceInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.getuser.GetUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.getuser.GetUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserInteractor
 import retrofit2.Response.success
 import java.lang.ref.WeakReference
 
@@ -34,7 +39,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntImpl(weakContext.get()!!)
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
+    private val getUser: GetUserInteractor = GetUserIntImpl()
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
+    private val updateUser: UpdateUserInteractor = UpdateUserIntImpl()
 
     private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
     private val insertService: InsertServiceInteractor = InsertServiceIntImpl()
@@ -46,11 +53,25 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val deleteProduct: DeleteProductInteractor = DeleteProductIntImpl()
     private val updateProduct: UpdateProductInteractor = UpdateProductIntImpl()
 
+
     /******** users ********/
-    override fun authenticateUser(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun authenticateUser(email: String, password: String, success: (user: UserData, token: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
         // perform network request
         authenticateUser.execute(email, password,
+                success = { user: UserData, token: String ->
+                    success(user, token)
+                }, error = {
+                    error(it)
+                }
+        )
+
+    }
+
+    override fun getUser(token: String, id: String, success: (user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
+
+        // perform network request
+        getUser.execute(token, id,
                 success = {
                     success(it)
                 }, error = {
@@ -60,18 +81,31 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     }
 
-    override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean, msg: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
         // perform network request
         registerUser.execute(name, email, password,
-                success = {
-                    success(it)
+                success = { ok: Boolean, msg: String ->
+                    success(ok, msg)
                 }, error = {
                     error(it)
                 }
         )
 
     }
+
+    override fun updateUser(token: String, user: UserData, success: (ok: Boolean, user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
+
+        // perform network request
+        updateUser.execute(token, user,
+                success = { ok: Boolean, user: UserData ->
+                    success(ok, user)
+                }, error = {
+                    error(it)
+                }
+        )
+    }
+
 
     /******** catalog (products and services) ********/
     override fun countCatalogItems(): Int {
@@ -206,8 +240,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 }, error = {
                     // if no catalog in cache --> network
                     error("Error inserting item: ${item.name}")
-                }
-                )
+                })
     }
 
     private fun updateCatalogInCache(item: CatalogData) {
@@ -244,8 +277,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 })
             }
         }
-
-
 
     }
 

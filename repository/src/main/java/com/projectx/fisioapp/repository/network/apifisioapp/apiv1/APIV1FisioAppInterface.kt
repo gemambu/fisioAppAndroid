@@ -5,11 +5,15 @@ import com.projectx.fisioapp.repository.entitymodel.responses.*
 
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
 
 
 internal interface APIV1FisioAppInterface {
 
     /******** USERS OPERATIONS *********/
+
+    @GET(BuildConfig.FISIOAPP_USER_SERVER_PATH + "/{id}")
+    fun doGetUser(@Header("x-access-token") token: String, @Path("id") id: String): Call<GetUserResponse>
 
     @FormUrlEncoded
     @POST(BuildConfig.FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH)
@@ -18,6 +22,21 @@ internal interface APIV1FisioAppInterface {
     @FormUrlEncoded
     @POST(BuildConfig.FISIOAPP_USERS_REGISTER_SERVER_PATH)
     fun doRegisterUser(@Field("name") name: String, @Field("email") email: String, @Field("password") password: String): Call<RegisterUserResponse>
+
+    @FormUrlEncoded
+    @PUT(BuildConfig.FISIOAPP_USER_SERVER_PATH + "/{id}")
+    fun doUpdateUser(@Header("x-access-token") token: String,
+                     @Path("id") id: String,
+                     @Field("name") name: String,
+                     @Field("lastName") lastName: String,
+                     @Field("email") email: String,
+                     @Field("isProfessional") isProfessional: Boolean,
+                     @Field("fellowshipNumber") fellowshipNumber: String,
+                     @Field("gender") gender: String,
+                     @Field("address") address: String,
+                     @Field("phone") phone: String,
+                     @Field("birthDate") birthDate: Date,
+                     @Field("nationalId") nationalId: String): Call<UpdateUserResponse>
 
 
     /******** SERVICES OPERATIONS *********/

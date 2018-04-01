@@ -4,18 +4,19 @@ import android.content.Context
 import com.projectx.fisioapp.repository.cache.CacheIntFakeImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.user.UserData
 import java.lang.ref.WeakReference
+import java.util.*
 
 
 class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
-
-
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntFakeImpl(weakContext.get() !!)
 
+
     /******** users ********/
-    override fun authenticateUser(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun authenticateUser(email: String, password: String, success: (user: UserData, token: String) -> Unit, error: (errorMessage: String) -> Unit) {
         //var allOk = false
         var allOk = true
 
@@ -23,14 +24,15 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
         // check response from repository
         if (allOk) {
-            val token = createFakeAuthenticateUser()
-            success(token)
+            val user = createFakeUser()
+            val token = createFakeToken()
+            success(user, token)
         } else {
             error("Error while authenticating user")
         }
     }
 
-    override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun getUser(token: String, id: String, success: (user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
         //var allOk = false
         var allOk = true
 
@@ -38,15 +40,65 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
         // check response from repository
         if (allOk) {
+            val user = createFakeUser()
+            success(user)
+        } else {
+            error("Error while authenticating user")
+        }
+    }
+
+    override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean, msg: String) -> Unit, error: (errorMessage: String) -> Unit) {
+        //var allOk = false
+        var allOk = true
+
+        // connect to the repository
+
+        // check response from repository
+        if (allOk) {
+            var msg = "Fake ok"
             var ok = true
-            success(ok)
+            success(ok, msg)
         } else {
             error("Error while getting registering user")
         }
     }
 
-    fun createFakeAuthenticateUser(): String {
-        val token = "AuthenticateUser12345"
+    override fun updateUser(token: String, user: UserData, success: (ok: Boolean, user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
+        //var allOk = false
+        var allOk = true
+
+        // connect to the repository
+
+        // check response from repository
+        if (allOk) {
+            val user = createFakeUser()
+            success(allOk, user)
+        } else {
+            error("Error while authenticating user")
+        }
+    }
+
+    fun createFakeUser(): UserData {
+        val user = UserData(
+                "33",
+                "name",
+                "lastName",
+                "email",
+                true,
+                "fellowshipNumber",
+                "gender",
+                "address",
+                "phone",
+                Date(),
+                "nationalId",
+                "registrationDate",
+                "lastLoginDate"
+        )
+        return user
+    }
+
+    fun createFakeToken(): String {
+        val token = "FakeToken.1234567890"
         return token
     }
 

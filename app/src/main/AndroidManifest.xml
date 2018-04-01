@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projectx.fisioapp">
 
     <!-- Access to internet -->
@@ -42,25 +43,17 @@
             android:value="@integer/google_play_services_version" />
 
         <!-- Activities -->
-        <activity android:name=".app.activity.AppointmentsActivity">
-        </activity>
-        <activity android:name=".app.activity.BlankActivity"></activity>
-        <activity android:name=".app.activity.LoginActivity">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
         <activity
             android:name=".app.activity.CatalogParentActivity"
             android:label="@string/catalog_list"
             android:theme="@style/AppTheme.NoActionBar">
+            <!---->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!---->
         </activity>
         <activity
             android:name=".app.activity.CatalogListActivity"
@@ -79,6 +72,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.projectx.fisioapp.app.activity.CatalogListActivity" />
+        </activity>
+        <activity android:name=".app.activity.LoginActivity">
+        </activity>
+        <activity android:name=".app.activity.UserDetailActivity">
         </activity>
     </application>
 

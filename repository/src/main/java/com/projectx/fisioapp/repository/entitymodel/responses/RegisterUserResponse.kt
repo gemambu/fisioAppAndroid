@@ -1,9 +1,11 @@
 package com.projectx.fisioapp.repository.entitymodel.responses
 
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.Expose
 
 
 class RegisterUserResponse {
-    @SerializedName("ok") var ok: Boolean? = false
-    @SerializedName("resultGetAllServices") var result: String? = ""
+    @Expose
+    var ok: Boolean? = false
+    @Expose
+    var message: String? = ""
 }

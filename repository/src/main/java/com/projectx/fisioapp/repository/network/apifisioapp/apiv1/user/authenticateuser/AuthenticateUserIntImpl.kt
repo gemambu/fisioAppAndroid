@@ -1,7 +1,8 @@
-package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser
+package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser
 
 import android.util.Log
 import com.projectx.fisioapp.repository.entitymodel.responses.AuthenticateUserResponse
+import com.projectx.fisioapp.repository.entitymodel.user.UserData
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 
@@ -10,7 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 internal class AuthenticateUserIntImpl (): AuthenticateUserInteractor {
-    override fun execute(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun execute(email: String, password: String, success: (user: UserData, token: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
         var apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
@@ -22,8 +23,9 @@ internal class AuthenticateUserIntImpl (): AuthenticateUserInteractor {
         callGetToken.enqueue(object : Callback<AuthenticateUserResponse> {
             override fun onResponse(call: Call<AuthenticateUserResponse>, response: Response<AuthenticateUserResponse>) {
                 val responseObject = response.body()
-                val token = responseObject?.token ?: ""
-                success(token)
+                val user = responseObject?.result as UserData
+                val token = responseObject?.token as String
+                success(user, token)
             }
 
             override fun onFailure(call: Call<AuthenticateUserResponse>, t: Throwable?) {
