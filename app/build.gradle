@@ -15,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+
     }
 
     buildTypes {
@@ -27,7 +30,11 @@ android {
 }
 
 dependencies {
+    implementation "com.android.support:support-v4:$appcompat_version"
+    implementation "com.android.support:recyclerview-v7:$appcompat_version"
+    implementation "com.android.support:design:$appcompat_version"
     implementation project(':domain')
+
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -46,5 +53,11 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //coroutines
+    // see: https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md
+    implementation 'org.jetbrains.anko:anko-coroutines:0.10.2'
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
 
 }

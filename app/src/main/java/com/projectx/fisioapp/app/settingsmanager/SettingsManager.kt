@@ -14,12 +14,14 @@ class SettingsManager {
     }
 
     // Fields
+    val KEY_UID = "UID"
     val KEY_TOKEN = "TOKEN"
 
     // Files
     val FILE_USER_PREFERENCES = "USER_PREFERENCES"
 
     val ALL_KEYS_PREFERENCES = arrayOf(
+            KEY_UID,
             KEY_TOKEN
     )
 
