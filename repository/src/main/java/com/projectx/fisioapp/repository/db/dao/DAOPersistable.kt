@@ -13,11 +13,8 @@ interface DAOReadOps<T> {
 
 interface DAOWirteOps<T> {
     fun insert(element: T, type: String): Long
-<<<<<<< HEAD
     fun insert(element: T): Long
-=======
     fun insertOrUpdate(element: T, type: String): Long
->>>>>>> services_and_products_gema
     fun update(id: Long, element: T): Long
     fun update(id: String, element: T): String
 

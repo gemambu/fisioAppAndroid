@@ -4,20 +4,11 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.projectx.fisioapp.repository.db.DBHelper
-import com.projectx.fisioapp.repository.db.dao.DAOPersistable
 import com.projectx.fisioapp.repository.db.constants.DBAppointmentConstants
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import java.util.*
 
-<<<<<<< HEAD
 class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
-
-=======
-class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppointmentData> {
-    override fun insertOrUpdate(element: AppointmentData, type: String): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
->>>>>>> services_and_products_gema
 
     private val dbReadOnlyConn: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteOnlyConn: SQLiteDatabase = dbHelper.writableDatabase
@@ -106,6 +97,8 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppointmentData> {
             "",
             DBAppointmentConstants.KEY_DATE + " ASC")
 
+
+    // ***** Gema's method; used in Appointments to pass the date (not any type) *****
     override fun query(type: String): List<AppoinmentData> {
         val result = ArrayList<AppoinmentData>()
 
@@ -154,8 +147,17 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppointmentData> {
             null,
             null).toLong() >= 0
 
-    override fun update(id: String, element: AppointmentData): String {
+
+
+    // ***** Gema's methods added to interface *****
+    override fun insertOrUpdate(element: AppoinmentData, type: String): Long {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun update(id: String, element: AppoinmentData): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
 
 }
