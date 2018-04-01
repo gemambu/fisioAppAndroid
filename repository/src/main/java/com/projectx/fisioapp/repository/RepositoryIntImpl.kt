@@ -6,20 +6,13 @@ import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
-<<<<<<< HEAD
 import com.projectx.fisioapp.repository.entitymodel.user.UserData
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserInteractor
-=======
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsInteractor
->>>>>>> mergeRodrigo
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
@@ -28,8 +21,6 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.insert.InsertProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.get.GetServicesIntImpl
@@ -38,8 +29,12 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.insert.InsertServiceInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.getuser.GetUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.getuser.GetUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserInteractor
 import retrofit2.Response.success
@@ -111,7 +106,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         )
     }
 
-<<<<<<< HEAD
     override fun updateUser(token: String, user: UserData, success: (ok: Boolean, user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
 
         // perform network request
@@ -124,8 +118,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         )
     }
 
-=======
->>>>>>> mergeRodrigo
 
     /******** catalog (products and services) ********/
     override fun countCatalogItems(): Int {
@@ -258,16 +250,10 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 success = {
                     success("Item ${item.name} inserted successfully")
                 }, error = {
-<<<<<<< HEAD
                     // if no catalog in cache --> network
                     error("Error inserting item: ${item.name}")
                 })
-=======
-            // if no catalog in cache --> network
-            error("Error inserting item: ${item.name}")
-        }
-        )
->>>>>>> mergeRodrigo
+
     }
 
     private fun updateCatalogInCache(item: CatalogData) {
@@ -304,10 +290,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 })
             }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> mergeRodrigo
     }
 
     private fun deleteCatalogItemFromCache(id: String) {
