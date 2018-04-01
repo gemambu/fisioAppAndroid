@@ -5,7 +5,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 
- fun convertList(response: GetCatalogResponse): List<CatalogData> {
+ fun convertList(response: GetCatalogResponse, type: CatalogType): List<CatalogData> {
         var catalogDataList: MutableList<CatalogData> = arrayListOf()
 
 
@@ -19,14 +19,14 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
                     rows!!.map {
                         val row = it
                         val catalog = CatalogData(
-                                row?.id!!,
-                                row?.name!!,
-                                row?.description!!,
-                                row?.price!!.toFloat()!!,
-                                row?.professional!!.id!!,
+                                row.id!!,
+                                row.name!!,
+                                row.description!!,
+                                row.price!!.toFloat(),
+                                row.professional!!.id!!,
                                 //row?.isActive!!,
                                 //row?.image!!,
-                                CatalogType.SERVICE
+                                type
                         )
                         catalogDataList.add(catalog)
                     }

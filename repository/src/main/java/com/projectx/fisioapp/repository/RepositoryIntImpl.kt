@@ -151,9 +151,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 success(it)
 
                             }, error = {
-                        error(it)
-                    })
-                }
+                                error(it)
+                            })
+                        }
                 CatalogType.PRODUCT -> {
                     updateProduct.execute(token,
                             item,
@@ -162,9 +162,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 success(it)
 
                             }, error = {
-                        error(it)
-                    })
-                }
+                                error(it)
+                            })
+                        }
             }
 
         } else {
@@ -175,23 +175,23 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                     insertService.execute(token,
                             item,
                             success = {
-                                insertCatalogInCache(it)
-                                success(it)
+                                insertCatalogInCache(it, success)
+                                //success(it)
 
                             }, error = {
-                        error(it)
-                    })
-                }
+                                error(it)
+                            })
+                        }
                 CatalogType.PRODUCT -> {
                     insertProduct.execute(token,
                             item,
                             success = {
-                                insertCatalogInCache(it)
-                                success(it)
+                                insertCatalogInCache(it, success)
+                                //success(it)
 
                             }, error = {
-                        error(it)
-                    })
+                                error(it)
+                            })
                 }
             }
 
@@ -199,13 +199,13 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     }
 
-    private fun insertCatalogInCache(item: CatalogData) {
+    private fun insertCatalogInCache(item: CatalogData, success: (successMessage: String) -> Unit) {
         cache.insertCatalogItem(item,
                 success = {
-                    success("Service ${item.name} inserted successfully")
+                    success("Item ${item.name} inserted successfully")
                 }, error = {
                     // if no catalog in cache --> network
-                    error("Error inserting service: ${item.name}")
+                    error("Error inserting item: ${item.name}")
                 }
                 )
     }
@@ -213,10 +213,10 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private fun updateCatalogInCache(item: CatalogData) {
         cache.updateCatalogItem(item,
                 success = {
-                    success("Service ${item.name} updated successfully")
+                    success("Item ${item.name} updated successfully")
                 }, error = {
                     // if no catalog in cache --> network
-                    error("Error updating service: ${item.name}")
+                    error("Error updating item: ${item.name}")
                 })
     }
 

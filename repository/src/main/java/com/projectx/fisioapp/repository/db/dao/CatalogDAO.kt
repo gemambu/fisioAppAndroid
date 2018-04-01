@@ -111,6 +111,16 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
 
     override fun insert(element: CatalogData, type: String): Long = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
 
+    override fun insertOrUpdate(element: CatalogData, type: String): Long {
+        var result = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
+
+        if (result.compareTo(-1) == 0){
+            update(element.databaseId, element)
+            result = 1
+        }
+        return result.toLong()
+    }
+
     override fun update(id: String, element: CatalogData): String =
             dbReadWriteOnlyConn.update(
                     DBCatalogConstants.TABLE_CATALOG,

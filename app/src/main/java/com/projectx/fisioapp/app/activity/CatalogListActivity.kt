@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -67,6 +68,7 @@ class CatalogListActivity : ParentActivity() {
                 Router().navigateFromParentActivityToNewCatalogActivity(this, type)
             }
 
+
             if (catalog_detail_container != null) {
                 // The detail container view will be present only in the
                 // large-screen layouts (res/values-w900dp).
@@ -80,9 +82,11 @@ class CatalogListActivity : ParentActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RQ_OPERATION && resultCode == RESULT_OK) {
             getCatalogList(this, true)
+        } else {
+            setupRecyclerView(catalog_list)
         }
     }
 
@@ -101,7 +105,7 @@ class CatalogListActivity : ParentActivity() {
 
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, list, mTwoPane)
         // set two columns with the elements
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
     }
 
     private fun getCatalogList(context: Context, forceUpdate: Boolean) {

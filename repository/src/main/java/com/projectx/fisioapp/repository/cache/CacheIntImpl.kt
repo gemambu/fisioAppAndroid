@@ -51,7 +51,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
-                catalogList.forEach { CatalogDAO(dbHelper).insert(it, type) }
+                catalogList.forEach { CatalogDAO(dbHelper).insertOrUpdate(it, type) }
 
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()
@@ -82,7 +82,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
                 })
             } catch (ex: Exception) {
                 DispatchOnMainThread(Runnable {
-                    error("Error inserting items: " + ex.message.toString())
+                    error("Error inserting item: " + ex.message.toString())
                     dbHelper.close()
                 })
             }
@@ -106,7 +106,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
                 })
             } catch (ex: Exception) {
                 DispatchOnMainThread(Runnable {
-                    error("Error inserting items: " + ex.message.toString())
+                    error("Error updating item: " + ex.message.toString())
                     dbHelper.close()
                 })
             }

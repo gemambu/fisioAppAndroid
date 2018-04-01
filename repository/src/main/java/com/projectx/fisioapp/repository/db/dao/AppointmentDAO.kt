@@ -10,6 +10,9 @@ import com.projectx.fisioapp.repository.entitymodel.appointment.AppointmentData
 import java.util.*
 
 class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppointmentData> {
+    override fun insertOrUpdate(element: AppointmentData, type: String): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private val dbReadOnlyConn: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteOnlyConn: SQLiteDatabase = dbHelper.writableDatabase

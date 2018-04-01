@@ -37,11 +37,6 @@ class SimpleItemRecyclerViewAdapter(private val mParentActivity: CatalogListActi
                         .commit()
             } else {
                 Router().navigateFromParentActivityToDetailCatalogActivity(item, mParentActivity, mParentActivity.type)
-//                val intent = Intent(v.context, CatalogDetailActivity::class.java).apply {
-//                    putExtra(CatalogDetailFragment.ARG_ITEM, item)
-//                    putExtra(EXTRA_CATALOG_TYPE, mParentActivity.type)
-//                }
-//                v.context.startActivity(intent)
             }
         }
     }

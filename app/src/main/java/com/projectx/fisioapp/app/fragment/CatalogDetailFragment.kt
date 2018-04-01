@@ -48,16 +48,6 @@ class CatalogDetailFragment : Fragment() {
         activity_catalog_detail_desc_text.hint = "description"
         activity_catalog_detail_price_text.hint = "20 €"
 
-        activity_catalog_detail_save_bttn.setOnClickListener {
-            val newItem = Catalog("",
-                    activity_catalog_detail_name_text.text.toString(),
-                    activity_catalog_detail_desc_text.text.toString(),
-                    "",
-                    activity_catalog_detail_price_text.text.toString().toFloat(),
-                    BenefitType.valueOf(type.name))
-            catalogItemListener?.onSavePressed(root.rootView, newItem)
-        }
-
         arguments?.let {
 
             if(arguments.containsKey(EXTRA_CATALOG_TYPE)){
@@ -95,7 +85,24 @@ class CatalogDetailFragment : Fragment() {
                     catalogItemListener?.onDeletePressed(root.rootView, mItem!!.id)
                 }
 
+            } else {
+                activity_catalog_detail_save_bttn.setOnClickListener {
+                    Log.d(CatalogDetailFragment::class.java.canonicalName, "Clicked on SAVE")
+                    val newItem = Catalog("",
+                            activity_catalog_detail_name_text.text.toString(),
+                            activity_catalog_detail_desc_text.text.toString(),
+                            "",
+                            activity_catalog_detail_price_text.text.toString().toFloat(),
+                            BenefitType.valueOf(type.name))
+                    catalogItemListener?.onSavePressed(root.rootView, newItem)
+                }
+
+                activity_catalog_detail_delete_bttn.isEnabled = false
+                activity_catalog_detail_delete_bttn.isClickable = false
+
             }
+
+
         }
     }
 

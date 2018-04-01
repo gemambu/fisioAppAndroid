@@ -4,6 +4,7 @@ import android.util.Log
 
 import com.projectx.fisioapp.repository.entitymodel.responses.GetCatalogResponse
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
+import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import com.projectx.fisioapp.repository.entitymodel.catalog.converter.convertList
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
@@ -28,7 +29,7 @@ internal class GetServicesIntImpl (): GetServicesInteractor {
 
                 response.body().let {
                     val response = response.body()
-                    response.let { success(convertList(response!!)) }
+                    response.let { success(convertList(response!!, CatalogType.SERVICE)) }
                 }
 
                 // error(response.message())

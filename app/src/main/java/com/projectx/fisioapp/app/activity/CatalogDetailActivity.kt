@@ -97,7 +97,7 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                     //
                     // http://developer.android.com/design/patterns/navigation.html#up-vs-back
 
-                    navigateUpTo(Intent(this, CatalogListActivity::class.java))
+                    finalizeActivity(Activity.RESULT_CANCELED, Intent())
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
@@ -131,11 +131,6 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
         }
     }
 
-    private fun finalizeActivity(result: Int, intent: Intent) {
-        setResult(result, intent)
-        finish()
-    }
-
     override fun onDeletePressed(view: View, id: String) {
         async(UI) {
 
@@ -164,5 +159,18 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                 ToastIt(view.context, "Error: " + e.localizedMessage )
             }
         }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finalizeActivity(Activity.RESULT_CANCELED, Intent())
+    }
+
+
+
+    private fun finalizeActivity(result: Int, intent: Intent) {
+        setResult(result, intent)
+        finish()
     }
 }
