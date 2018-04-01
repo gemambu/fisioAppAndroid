@@ -1,12 +1,15 @@
-package com.projectx.fisioapp.repository.entitymodel.appointment
+package com.projectx.fisioapp.repository.entitymodel.appointments
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class AppointmentData(
+data class AppoinmentData(
         @SerializedName("_id") val databaseId: String,
         @SerializedName("serviceId") val serviceId: String,
+        @SerializedName("servicePrice") val servicePrice: String,
         @SerializedName("customer")val customerId: String,
+        @SerializedName("customerName")val customerName: String,
+        @SerializedName("address")val address: String,
         @SerializedName("professional")val professionalId: String,
         @SerializedName("isConfirmed")val isConfirmed: Boolean,
         @SerializedName("isCancelled")val isCancelled: Boolean,

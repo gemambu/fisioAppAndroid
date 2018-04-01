@@ -8,7 +8,7 @@ class Row {
     @SerializedName("_id")
     var id: String? = null
     @Expose
-    var professional: Professional? = null
+    var person: Person? = null
     @Expose
     var name: String? = null
     @Expose

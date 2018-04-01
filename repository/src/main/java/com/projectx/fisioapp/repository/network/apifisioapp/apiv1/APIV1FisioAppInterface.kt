@@ -1,8 +1,9 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 
 import com.projectx.fisioapp.repository.BuildConfig
+import com.projectx.fisioapp.repository.entitymodel.appointments.DeleteAppointmentResponse
+import com.projectx.fisioapp.repository.entitymodel.appointments.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.*
-
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -88,4 +89,33 @@ internal interface APIV1FisioAppInterface {
                         @Field("description") description: String,
                         @Field("price") price: Float,
                         @Field("isActive") isActive: Boolean): Call<SaveCatalogResponse>
+
+
+
+
+    /******** APPOINTMENTS OPERATIONS *********/
+    @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
+    fun doGetAppointments(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
+
+    @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH/* + "?dateFrom={date}&dateTo={date}"*/)
+    fun doGetAppointmentsForDate(@Header("x-access-token") token: String, @Query("dateFrom") dateFrom: String, @Query("dateTo") dateTo: String): Call<GetAppointmentsResponse>
+
+
+    @DELETE(BuildConfig.FISIOAPP_APPOINTMENTS_SERVER_PATH + "/{id}")
+    fun doDeleteAppointment(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteAppointmentResponse>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
