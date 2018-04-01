@@ -18,7 +18,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import java.util.*
 
-class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), AppointmentsListFragment.OnSelectedAppointmentListener, CalendarFragment.OnSelectedDateListener {
+class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAppointmentListener, CalendarFragment.OnSelectedDateListener {
 
     //private var list: Appointments? = null
     lateinit var calendarFragment: CalendarFragment

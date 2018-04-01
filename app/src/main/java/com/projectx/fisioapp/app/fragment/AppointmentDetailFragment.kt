@@ -35,9 +35,8 @@ class AppointmentDetailFragment : Fragment() {
     lateinit var time: TextView
     lateinit var price: TextView
     lateinit var address: TextView
+    lateinit var status: TextView
     lateinit var extraInfo: TextView
-
-
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -58,6 +57,13 @@ class AppointmentDetailFragment : Fragment() {
 
             address = root.findViewById(R.id.appointment_detail_address_label)
             address.text = appointmentDetail.address
+
+            status = root.findViewById(R.id.appointment_detail_status)
+            if (appointmentDetail.isConfirmed == true && appointmentDetail.isCancelled == false) {
+                status.text = "Confirmada"
+            } else if (appointmentDetail.isCancelled == true && appointmentDetail.isConfirmed == true) {
+                status.text = "Cancelada"
+            }
 
             extraInfo = root.findViewById(R.id.appointment_detail_extra_info_label)
             if (appointmentDetail.extraInfo.isNotEmpty()){
