@@ -20,7 +20,7 @@ internal class InsertProductIntImpl : InsertProductInteractor {
         /**
          * Insert Product
          */
-        val insertProduct = apiInterfaceLocalhost.doInsertProduct(token, item.name, item.description, item.price)
+        val insertProduct = apiInterfaceLocalhost.doInsertProduct(token, item.name, item.description, item.price, item.isActive)
         insertProduct.enqueue(object : Callback<SaveCatalogResponse> {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
                 val response = response.body()

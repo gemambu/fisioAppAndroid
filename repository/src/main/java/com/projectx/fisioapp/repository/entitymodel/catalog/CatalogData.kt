@@ -9,7 +9,7 @@ data class CatalogData(
         @SerializedName("description")val description: String,
         @SerializedName("price")val price: Float,
         @SerializedName("professional")val professionalId: String,
-        //@SerializedName("isActive")val isActive: Boolean,
+        @SerializedName("isActive")val isActive: Boolean,
       //  @SerializedName("image")val image: String,
         var type: CatalogType
 )

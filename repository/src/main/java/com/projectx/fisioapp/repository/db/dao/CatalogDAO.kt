@@ -22,7 +22,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         content.put(DBCatalogConstants.KEY_ENTITY_NAME, entityData.name)
         content.put(DBCatalogConstants.KEY_ENTITY_DESCRIPTION, entityData.description)
         content.put(DBCatalogConstants.KEY_ENTITY_PRICE, entityData.price)
-        //content.put(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE, entityData.isActive)
+        content.put(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE, entityData.isActive)
         content.put(DBCatalogConstants.KEY_ENTITY_PROFESSIONAL_ID, entityData.professionalId)
         //content.put(DBCatalogConstants.KEY_ENTITY_IMAGE_URL, entityData.image)
         content.put(DBCatalogConstants.KEY_ENTITY_TYPE, type)
@@ -66,7 +66,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
             return null
         }
 
-     //   val isActive = cursor.getInt(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE)) == 1;
+        val isActive = cursor.getInt(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE)) == 1;
         val type : CatalogType = if (cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_TYPE)) === "SERVICE")  CatalogType.SERVICE else CatalogType.PRODUCT
 
         return CatalogData(cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_DATABASE_ID)),
@@ -74,7 +74,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
                 cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_DESCRIPTION)),
                 cursor.getFloat(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_PRICE)),
                 cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_PROFESSIONAL_ID)),
-                //isActive,
+                isActive,
                 //cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IMAGE_URL)),
                 type
         )

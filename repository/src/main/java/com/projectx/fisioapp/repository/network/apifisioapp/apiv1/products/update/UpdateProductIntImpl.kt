@@ -19,7 +19,7 @@ internal class UpdateProductIntImpl: UpdateProductInteractor {
         /**
          * Update Service
          */
-        val updateService = apiInterfaceLocalhost.doUpdateProduct(token, item.databaseId, item.name, item.description, item.price)
+        val updateService = apiInterfaceLocalhost.doUpdateProduct(token, item.databaseId, item.name, item.description, item.price, item.isActive)
         updateService.enqueue(object : Callback<SaveCatalogResponse> {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
                 val response = response.body()

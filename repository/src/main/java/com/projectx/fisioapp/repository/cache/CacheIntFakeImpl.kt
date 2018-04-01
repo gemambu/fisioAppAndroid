@@ -44,7 +44,7 @@ class CacheIntFakeImpl(context: Context) : CacheInteractor {
                 "Description for item " + position.toString(),
                 position.toFloat(),
                 position.toString(),
-                //true,
+                true,
                // "http://myrepo/" + type + ".com",
                 CatalogType.SERVICE
         )

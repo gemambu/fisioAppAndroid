@@ -33,7 +33,8 @@ internal interface APIV1FisioAppInterface {
     fun doInsertService(@Header("x-access-token") token: String,
                         @Field("name") name: String,
                         @Field("description") description: String,
-                        @Field("price") price: Float): Call<SaveCatalogResponse>
+                        @Field("price") price: Float,
+                        @Field("isActive") isActive: Boolean): Call<SaveCatalogResponse>
 
     @FormUrlEncoded
     @PUT(BuildConfig.FISIOAPP_SERVICES_SERVER_PATH + "/{id}")
@@ -41,7 +42,8 @@ internal interface APIV1FisioAppInterface {
                         @Path("id") id: String,
                         @Field("name") name: String,
                         @Field("description") description: String,
-                        @Field("price") price: Float): Call<SaveCatalogResponse>
+                        @Field("price") price: Float,
+                        @Field("isActive") isActive: Boolean): Call<SaveCatalogResponse>
 
 
     /******** PRODUCTS OPERATIONS *********/
@@ -56,7 +58,8 @@ internal interface APIV1FisioAppInterface {
     fun doInsertProduct(@Header("x-access-token") token: String,
                         @Field("name") name: String,
                         @Field("description") description: String,
-                        @Field("price") price: Float): Call<SaveCatalogResponse>
+                        @Field("price") price: Float,
+                        @Field("isActive") isActive: Boolean): Call<SaveCatalogResponse>
 
     @FormUrlEncoded
     @PUT(BuildConfig.FISIOAPP_PRODUCTS_SERVER_PATH + "/{id}")
@@ -64,5 +67,6 @@ internal interface APIV1FisioAppInterface {
                         @Path("id") id: String,
                         @Field("name") name: String,
                         @Field("description") description: String,
-                        @Field("price") price: Float): Call<SaveCatalogResponse>
+                        @Field("price") price: Float,
+                        @Field("isActive") isActive: Boolean): Call<SaveCatalogResponse>
 }

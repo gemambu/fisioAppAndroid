@@ -8,7 +8,7 @@ open class Catalog(val id: String,
                    val description: String,
                    val professionalId: String,
                    val price: Float,
-                   //val isActive: Boolean,
+                   val isActive: Boolean,
                    val type: BenefitType) : Serializable {
     init {
         Catalogs(ArrayList())

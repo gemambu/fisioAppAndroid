@@ -24,7 +24,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
                                 row.description!!,
                                 row.price!!.toFloat(),
                                 row.professional!!.id!!,
-                                //row?.isActive!!,
+                                row.isActive!!,
                                 //row?.image!!,
                                 type
                         )

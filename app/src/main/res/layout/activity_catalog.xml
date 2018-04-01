@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/padding_login_screen"
-    tools:context="com.projectx.fisioapp.app.activity.LoginActivity">
+    tools:context="com.projectx.fisioapp.app.activity.CatalogParentActivity">
 
     <TextView
         android:id="@+id/tvApp"

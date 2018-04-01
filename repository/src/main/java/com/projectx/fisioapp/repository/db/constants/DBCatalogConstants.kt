@@ -10,7 +10,7 @@ object DBCatalogConstants {
     val KEY_ENTITY_NAME = "NAME"
     val KEY_ENTITY_DESCRIPTION = "DESCRIPTION"
     val KEY_ENTITY_PRICE = "PRICE"
-    //val KEY_ENTITY_IS_ACTIVE = "IS_ACTIVE"
+    val KEY_ENTITY_IS_ACTIVE = "IS_ACTIVE"
     val KEY_ENTITY_PROFESSIONAL_ID = "PROFESSIONAL_ID"
     //val KEY_ENTITY_IMAGE_URL = "IMAGE_URL"
     val KEY_ENTITY_TYPE = "TYPE"
@@ -20,7 +20,7 @@ object DBCatalogConstants {
             KEY_ENTITY_NAME,
             KEY_ENTITY_DESCRIPTION,
             KEY_ENTITY_PRICE,
-            //KEY_ENTITY_IS_ACTIVE,
+            KEY_ENTITY_IS_ACTIVE,
             KEY_ENTITY_PROFESSIONAL_ID,
             //KEY_ENTITY_IMAGE_URL,
             KEY_ENTITY_TYPE)
@@ -32,7 +32,7 @@ object DBCatalogConstants {
                     + KEY_ENTITY_NAME + " text not null,"
                     + KEY_ENTITY_DESCRIPTION + " text, "
                     + KEY_ENTITY_PRICE + " real,"
-                    //+ KEY_ENTITY_IS_ACTIVE + " integer,"
+                    + KEY_ENTITY_IS_ACTIVE + " integer,"
                     + KEY_ENTITY_PROFESSIONAL_ID + " string,"
                     //+ KEY_ENTITY_IMAGE_URL + " text, "
                     + KEY_ENTITY_TYPE + " text"

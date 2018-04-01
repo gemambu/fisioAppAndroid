@@ -21,7 +21,7 @@ internal class InsertServiceIntImpl : InsertServiceInteractor {
         /**
          * Insert Service
          */
-        val insertService = apiInterfaceLocalhost.doInsertService(token, item.name, item.description, item.price)
+        val insertService = apiInterfaceLocalhost.doInsertService(token, item.name, item.description, item.price, item.isActive)
         insertService.enqueue(object : Callback<SaveCatalogResponse> {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
                 val response = response.body()

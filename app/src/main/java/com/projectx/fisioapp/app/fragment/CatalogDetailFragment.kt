@@ -46,7 +46,8 @@ class CatalogDetailFragment : Fragment() {
 
         activity_catalog_detail_name_text.hint = "name"
         activity_catalog_detail_desc_text.hint = "description"
-        activity_catalog_detail_price_text.hint = "20 €"
+        activity_catalog_detail_price_text.hint = "20"
+        is_active_box.isChecked = false
 
         arguments?.let {
 
@@ -67,6 +68,8 @@ class CatalogDetailFragment : Fragment() {
                     activity_catalog_detail_name_text.setText(it.name)
                     activity_catalog_detail_desc_text.setText(it.description)
                     activity_catalog_detail_price_text.setText(it.price.toString())
+                    is_active_box.isChecked = it.isActive
+                    activity_catalog_detail_save_bttn.text = "Update"
                 }
 
                 activity_catalog_detail_save_bttn.setOnClickListener {
@@ -76,6 +79,7 @@ class CatalogDetailFragment : Fragment() {
                             activity_catalog_detail_desc_text.text.toString(),
                             mItem!!.professionalId,
                             activity_catalog_detail_price_text.text.toString().toFloat(),
+                            is_active_box.isChecked,
                             BenefitType.valueOf(type.name))
                     catalogItemListener?.onSavePressed(root.rootView, newItem)
                 }
@@ -93,15 +97,16 @@ class CatalogDetailFragment : Fragment() {
                             activity_catalog_detail_desc_text.text.toString(),
                             "",
                             activity_catalog_detail_price_text.text.toString().toFloat(),
+                            is_active_box.isChecked,
                             BenefitType.valueOf(type.name))
                     catalogItemListener?.onSavePressed(root.rootView, newItem)
                 }
 
-                activity_catalog_detail_delete_bttn.isEnabled = false
+
+                activity_catalog_detail_delete_bttn.visibility = View.INVISIBLE
                 activity_catalog_detail_delete_bttn.isClickable = false
 
             }
-
 
         }
     }

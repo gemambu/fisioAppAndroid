@@ -39,7 +39,7 @@ class Mapper {
             catalog.description,
             catalog.professionalId,
             catalog.price,
-            //catalog.isActive,
+            catalog.isActive,
             type)
 
     internal fun mapCatalogToBenefit(item: Catalog) : CatalogData = CatalogData(
@@ -48,7 +48,7 @@ class Mapper {
             item.description,
             item.price,
             item.professionalId,
-           // item.isActive,
+            item.isActive,
             //"",
             getType(item.type))
 
