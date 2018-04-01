@@ -33,8 +33,8 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
         /*if (!checkToken()) {
             Router().navigateFromCalendarActivityToLoginActivity(this)
         } else {
-            calendarFragment = supportFragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
-            appointmentsListFragment = supportFragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
+            calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
+        appointmentsListFragment = fragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
         }*/
 
         calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
