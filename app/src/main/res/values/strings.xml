@@ -4,6 +4,11 @@
     <string name="app_name">FisioApp</string>
     <string name="authenticate">Authenticate</string>
     <string name="blank_activity">Blank Activity</string>
+    <string name="title_service_list">Services</string>
+    <string name="title_service_detail">Service Detail</string>
+    <string name="title_catalog_list">Products</string>
+    <string name="title_catalog_detail">Product Detail</string>
+    <string name="catalog_list_element_image_content">catalog image</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -13,4 +18,6 @@
     <string name="login_name_hint">Name</string>
     <string name="login_email_hint">email</string>
     <string name="login_password_hint">******</string>
+    <string name="catalog_list">Catalog List</string>
+    <string name="catalog_detail_name_label_text">Nombre</string>
 </resources>

@@ -1,11 +1,7 @@
 package com.projectx.fisioapp.app.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.projectx.fisioapp.R
-
-import com.projectx.fisioapp.app.settingsmanager.SettingsManager
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
@@ -15,22 +11,8 @@ import com.projectx.fisioapp.domain.interactor.users.registeruser.RegisterUserIn
 import com.projectx.fisioapp.domain.interactor.users.registeruser.RegisterUserInteractor
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : ParentActivity() {
 
-    val settingsManager = SettingsManager()
-    var token: String
-        get() {
-            val token = settingsManager.getCustomSharedPreference(
-                    this,
-                    settingsManager.FILE_USER_PREFERENCES,
-                    settingsManager.KEY_TOKEN
-            ) as String?
-
-            return token ?: ""
-        }
-        set(value) {
-            settingsManager.setCustomSharedPreference(this, settingsManager.FILE_USER_PREFERENCES, settingsManager.KEY_TOKEN, value)
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         etPass.setText("12345678")
     }
 
-    fun AuthenticateUser() {
+    private fun AuthenticateUser() {
         val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl(this)
         try {
             authenticateUser.execute(
@@ -79,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun RegisterUser() {
+    private fun RegisterUser() {
         val registerUser: RegisterUserInteractor = RegisterUserIntImpl(this)
         try {
             registerUser.execute(
@@ -102,8 +84,5 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun checkToken() {
-        if (token.length != 0) finish()
-    }
 
 }

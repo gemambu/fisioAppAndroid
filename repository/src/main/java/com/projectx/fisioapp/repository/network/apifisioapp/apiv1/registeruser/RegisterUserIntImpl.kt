@@ -2,7 +2,7 @@ package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser
 
 import android.util.Log
 
-import com.projectx.fisioapp.repository.entitymodel.RegisterUserResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.RegisterUserResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 

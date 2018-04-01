@@ -1,7 +1,7 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser
 
 import android.util.Log
-import com.projectx.fisioapp.repository.entitymodel.AuthenticateUserResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.AuthenticateUserResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 

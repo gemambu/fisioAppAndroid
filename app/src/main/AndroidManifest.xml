@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projectx.fisioapp">
 
     <!-- Access to internet -->
@@ -44,16 +42,43 @@
             android:value="@integer/google_play_services_version" />
 
         <!-- Activities -->
-        <activity android:name="com.projectx.fisioapp.app.activity.AppointmentsActivity">
+        <activity android:name=".app.activity.AppointmentsActivity">
+        </activity>
+        <activity android:name=".app.activity.BlankActivity"></activity>
+        <activity android:name=".app.activity.LoginActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".app.activity.CatalogParentActivity"
+            android:label="@string/catalog_list"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.projectx.fisioapp.app.activity.BlankActivity">
+        <activity
+            android:name=".app.activity.CatalogListActivity"
+            android:label="@string/catalog_list"
+            android:parentActivityName=".app.activity.CatalogParentActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.projectx.fisioapp.app.activity.CatalogParentActivity" />
         </activity>
-        <activity android:name="com.projectx.fisioapp.app.activity.LoginActivity">
+        <activity
+            android:name=".app.activity.CatalogDetailActivity"
+            android:label="@string/title_service_detail"
+            android:parentActivityName=".app.activity.CatalogListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.projectx.fisioapp.app.activity.CatalogListActivity" />
         </activity>
     </application>
 

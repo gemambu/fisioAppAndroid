@@ -11,14 +11,14 @@ import com.projectx.fisioapp.app.utils.ToastIt
 
 class AppointmentsActivity : AppCompatActivity() {
 
-    val settingsManager = SettingsManager()
-    var token: String
+    private val settingsManager = SettingsManager()
+    private var token: String
         get() {
-            val token = settingsManager.getCustomSharedPreference(
+            val token = settingsManager.getCustomSharedPreference<String>(
                     this,
                     settingsManager.FILE_USER_PREFERENCES,
                     settingsManager.KEY_TOKEN
-            ) as String?
+            )
 
             return token ?: ""
         }
@@ -35,7 +35,7 @@ class AppointmentsActivity : AppCompatActivity() {
 
     }
 
-    fun checkToken() {
+    private fun checkToken() {
         if (token.length == 0) Router().navigateFromAppointmentsActivitytoLoginActivity(this)
     }
 

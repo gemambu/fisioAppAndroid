@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.entitymodel
+package com.projectx.fisioapp.repository.entitymodel.responses
 
 import com.google.gson.annotations.SerializedName
 
