@@ -9,11 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
-import java.util.*
 
 class AppointmentsListFragment : Fragment() {
 
@@ -54,15 +52,15 @@ class AppointmentsListFragment : Fragment() {
 
         /*for (i in 0..appointments.count()){
             val textView: TextView = appointmentsList.findViewById<TextView>(android.R.id.text1)
-                    //appointmentsList.rootView.findViewById<TextView>(android.R.id.text1)
             val appointment = appointments.get(i)
             textView.setText(appointment.customerName)
         }*/
 
+        //val text = appointmentsList.findViewById<TextView>(android.R.id.text1)
+
         appointmentsList.adapter = adapter
 
     }
-
 
 
     override fun onAttach(context: Context?) {
