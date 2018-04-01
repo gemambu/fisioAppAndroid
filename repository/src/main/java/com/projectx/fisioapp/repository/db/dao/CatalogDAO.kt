@@ -119,7 +119,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         return result.toLong()
     }
 
-    
+
     // Empty implementation as this method is used only for AppointmentDAO
     override fun insert(element: CatalogData): Long {
         return 0

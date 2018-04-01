@@ -8,15 +8,12 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.authenticateuser.AuthenticateUserInteractor
-<<<<<<< HEAD
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getservice.*
-=======
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
@@ -25,7 +22,6 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.insert.InsertProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductInteractor
->>>>>>> services_and_products_gema
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceIntImpl
@@ -47,21 +43,23 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
 
+    // ***** Services *****
     private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
     private val insertService: InsertServiceInteractor = InsertServiceIntImpl()
     private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
     private val updateService: UpdateServiceInteractor = UpdateServiceIntImpl()
 
-    private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
-<<<<<<< HEAD
+    // ***** Appointments *****
     private val getAllAppointments: GetAppointmentsInteractor = GetAppointmentsIntImpl()
     private val getAppointmentsForDate: GetAppointmentsForDateInteractor = GetAppointmentsForDateIntImpl()
     private val deleteAppointment: DeleteAppointmentInteractor = DeleteAppointmentIntImpl()
-=======
+
+    // ***** Products *****
+    private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
     private val insertProduct: InsertProductInteractor = InsertProductIntImpl()
     private val deleteProduct: DeleteProductInteractor = DeleteProductIntImpl()
     private val updateProduct: UpdateProductInteractor = UpdateProductIntImpl()
->>>>>>> services_and_products_gema
+
 
     /******** users ********/
     override fun authenticateUser(email: String, password: String, success: (token: String) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -94,10 +92,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         return cache.countCatalogItems()
     }
 
-<<<<<<< HEAD
 
-    override fun getAllCatalogItems(token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
-=======
     override fun getCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         if(forceUpdate){
@@ -113,7 +108,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
             }
             )
         }
->>>>>>> services_and_products_gema
 
     }
 
@@ -171,9 +165,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 success(it)
 
                             }, error = {
-                                error(it)
-                            })
-                        }
+                        error(it)
+                    })
+                }
                 CatalogType.PRODUCT -> {
                     updateProduct.execute(token,
                             item,
@@ -181,15 +175,10 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 updateCatalogInCache(item)
                                 success(it)
 
-<<<<<<< HEAD
-
-    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
-        deleteService.execute(token, id,
-=======
                             }, error = {
-                                error(it)
-                            })
-                        }
+                        error(it)
+                    })
+                }
             }
 
         } else {
@@ -204,9 +193,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 //success(it)
 
                             }, error = {
-                                error(it)
-                            })
-                        }
+                        error(it)
+                    })
+                }
                 CatalogType.PRODUCT -> {
                     insertProduct.execute(token,
                             item,
@@ -215,8 +204,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 //success(it)
 
                             }, error = {
-                                error(it)
-                            })
+                        error(it)
+                    })
                 }
             }
 
@@ -226,14 +215,13 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     private fun insertCatalogInCache(item: CatalogData, success: (successMessage: String) -> Unit) {
         cache.insertCatalogItem(item,
->>>>>>> services_and_products_gema
                 success = {
                     success("Item ${item.name} inserted successfully")
                 }, error = {
-                    // if no catalog in cache --> network
-                    error("Error inserting item: ${item.name}")
-                }
-                )
+            // if no catalog in cache --> network
+            error("Error inserting item: ${item.name}")
+        }
+        )
     }
 
     private fun updateCatalogInCache(item: CatalogData) {
@@ -241,9 +229,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 success = {
                     success("Item ${item.name} updated successfully")
                 }, error = {
-                    // if no catalog in cache --> network
-                    error("Error updating item: ${item.name}")
-                })
+            // if no catalog in cache --> network
+            error("Error updating item: ${item.name}")
+        })
     }
 
     override fun deleteCatalogData(token: String, id: String, type: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
@@ -270,28 +258,19 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 })
             }
         }
-
-
-
     }
 
-<<<<<<< HEAD
-
-    private fun deleteServiceFromCache(id: String) {
-        cache.deleteService(id,
-=======
     private fun deleteCatalogItemFromCache(id: String) {
         cache.deleteCatalogItem(id,
->>>>>>> services_and_products_gema
                 success = {
                     success("Service $id removed successfully")
                 }, error = {
-<<<<<<< HEAD
             // if no catalog in cache --> network
             error("Error deleting service: $id")
-            }
-        )
+        })
     }
+
+    override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
 
 
@@ -366,14 +345,4 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
             error("Error deleting appointment: $id")
         })
     }
-
-=======
-                    // if no catalog in cache --> network
-                    error("Error deleting service: $id")
-                })
-    }
-
-    override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
->>>>>>> services_and_products_gema
-
 }

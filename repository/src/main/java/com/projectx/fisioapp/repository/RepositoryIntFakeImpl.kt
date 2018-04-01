@@ -7,7 +7,6 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import java.lang.ref.WeakReference
 
 
-<<<<<<< HEAD
 /*class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
     override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 =======
@@ -83,9 +82,7 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
     override fun deleteCatalogData(token: String, id: String, type: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
-<<<<<<< HEAD
-}*/
-=======
+
     }
 }
->>>>>>> services_and_products_gema
+}*/
