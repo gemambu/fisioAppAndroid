@@ -6,7 +6,7 @@ import java.util.*
 open class Appointment (val id: String,
                         val servicePrice: String,
                         val customerName: String,
-                        val customerAddress: String,
+                        val address: String,
                         val isConfirmed: Boolean,
                         val isCancelled: Boolean,
                         val date: Date,

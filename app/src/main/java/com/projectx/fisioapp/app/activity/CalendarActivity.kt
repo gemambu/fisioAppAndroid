@@ -12,6 +12,7 @@ import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDateIntImpl
 import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDateInteractor
+import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -80,8 +81,8 @@ class CalendarActivity : /*AppCompatActivity(),*/ ParentActivity(), Appointments
 
 
     // ***** Fragment AppointmentsList listener *****
-    override fun onSelectedAppointment(date: Date) {
-        Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
+    override fun onSelectedAppointment(appointment: Appointment) {
+        Router().navigateFromCalendarActivityToAppointmentDetailActivity(this, appointment)
 
         /*val fragment = AppointmentDetailFragment.newInstance()
         fragmentManager.beginTransaction()

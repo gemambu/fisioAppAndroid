@@ -4,6 +4,7 @@ import android.content.Intent
 import com.projectx.fisioapp.app.activity.*
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
+import com.projectx.fisioapp.domain.model.Appointment
 
 
 class Router {
@@ -20,8 +21,10 @@ class Router {
         main.startActivity(Intent(main, BlankActivity::class.java))
     }
 
-    fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity){
-        main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
+    fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity, appointment: Appointment){
+        val intent = AppointmentDetailActivity.newInstance(main.baseContext, appointment)
+        main.startActivity(intent)
+        //main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
     }
 
     fun navigateFromCalendarActivityToLoginActivity(main: CalendarActivity) {

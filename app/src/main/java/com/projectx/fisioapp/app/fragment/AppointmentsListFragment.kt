@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
@@ -38,7 +39,7 @@ class AppointmentsListFragment : Fragment() {
             appointmentsList.adapter = adapter
             appointmentsList.setOnItemClickListener { parent, view, position, id ->
                 val appointment = appointments?.get(position)
-                onSelectedAppointmentListener?.onSelectedAppointment(appointment!!.date)
+                onSelectedAppointmentListener?.onSelectedAppointment(appointment!!)
             }
         }
 
@@ -49,7 +50,17 @@ class AppointmentsListFragment : Fragment() {
     fun setAppointmentsList(appointments: Appointments){
         this.appointments = appointments
         adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, this.appointments!!.toArray())
+
+
+        /*for (i in 0..appointments.count()){
+            val textView: TextView = appointmentsList.findViewById<TextView>(android.R.id.text1)
+                    //appointmentsList.rootView.findViewById<TextView>(android.R.id.text1)
+            val appointment = appointments.get(i)
+            textView.setText(appointment.customerName)
+        }*/
+
         appointmentsList.adapter = adapter
+
     }
 
 
@@ -77,7 +88,7 @@ class AppointmentsListFragment : Fragment() {
 
 
     interface OnSelectedAppointmentListener {
-        fun onSelectedAppointment(date: Date)
+        fun onSelectedAppointment(appointment: Appointment)
     }
 
 }

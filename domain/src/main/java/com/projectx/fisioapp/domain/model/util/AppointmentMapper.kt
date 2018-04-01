@@ -22,7 +22,7 @@ class AppointmentMapper {
             appointment.databaseId,
             appointment.servicePrice,
             appointment.customerName,
-            appointment.customerAddress,
+            appointment.address,
             appointment.isConfirmed,
             appointment.isCancelled,
             appointment.date,
