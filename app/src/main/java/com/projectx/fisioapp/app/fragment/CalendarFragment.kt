@@ -38,11 +38,8 @@ class CalendarFragment : Fragment() {
     fun setCalendarListener(calendar: CalendarView){
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             //Note that months are indexed from 0. So, 0 means january, 1 means February, 2 means march etc.
-            /*val sb = StringBuilder()
-            sb.append(dayOfMonth).append(month + 1).append(year)
-            val date = sb.toString()*/
             val month = month + 1
-            val date: String = "$year-$month-$dayOfMonth) "
+            val date: String = "$year-$month-$dayOfMonth"
             onSelectedDateListener?.onSelectedDate(date)
         }
     }

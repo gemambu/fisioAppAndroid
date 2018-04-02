@@ -66,7 +66,7 @@ class AppointmentDetailFragment : Fragment() {
             }
 
             extraInfo = root.findViewById(R.id.appointment_detail_extra_info_label)
-            if (appointmentDetail.extraInfo.isNotEmpty()){
+            if (appointmentDetail.extraInfo.isNotEmpty() && appointmentDetail.extraInfo != "false"){
                 extraInfo.text = appointmentDetail.extraInfo
             } else {
                 extraInfo.text = "No extra info provided"
