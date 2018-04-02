@@ -24,7 +24,7 @@ fun convertList(response: GetCatalogResponse, type: CatalogType): List<CatalogDa
                             row.description!!,
                             row.price!!.toFloat(),
                             // CHANGING PROFESSIONAL X PERSON
-                            row.person!!.id!!,
+                            row.professional!!.id!!,
                             row.isActive!!,
                             //row?.image!!,
                             type
