@@ -97,8 +97,10 @@ internal interface APIV1FisioAppInterface {
     @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
     fun doGetAppointments(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
 
-    @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH/* + "?dateFrom={date}&dateTo={date}"*/)
-    fun doGetAppointmentsForDate(@Header("x-access-token") token: String, @Query("dateFrom") dateFrom: String, @Query("dateTo") dateTo: String): Call<GetAppointmentsResponse>
+    @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
+    fun doGetAppointmentsForDate(@Header("x-access-token") token: String,
+                                 @Query("dateFrom") dateFrom: String,
+                                 @Query("dateTo") dateTo: String): Call<GetAppointmentsResponse>
 
 
     @DELETE(BuildConfig.FISIOAPP_APPOINTMENTS_SERVER_PATH + "/{id}")
