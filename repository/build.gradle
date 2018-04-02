@@ -25,14 +25,19 @@ android {
             buildConfigField "String", "FISIOAPP_TESTS_DB_NAME", '"FisioAppTests.sqlite"'
 
             // Server
+
             buildConfigField "String", "HTTP_SERVER", "\"http://192.168.1.41:3000\""
 
             // Files
-            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/users/authenticate" + "?\""
-            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/users/register" + "?\""
+            buildConfigField "String", "FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH", "\"/apiv1/appointments/professional\""
             buildConfigField "String", "FISIOAPP_APPOINTMENTS_SERVER_PATH", "\"/apiv1/appointments\""
-            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/users/products\""
-            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/users/services\""
+            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/products\""
+            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/services\""
+            buildConfigField "String", "FISIOAPP_USER_SERVER_PATH", "\"/apiv1/users\""
+            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/login\""
+            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/register\""
+            buildConfigField "String", "FISIOAPP_USERS_SERVER_PATH", "\"/apiv1/users\""
+
         }
         release {
             // DB
@@ -43,11 +48,14 @@ android {
             buildConfigField "String", "HTTP_SERVER", "\"http://192.168.1.41:3000\""
 
             //Files
-            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/users/authenticate" + "?\""
-            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/users/register" + "?\""
+            buildConfigField "String", "FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH", "\"/apiv1/appointments/professional\""
             buildConfigField "String", "FISIOAPP_APPOINTMENTS_SERVER_PATH", "\"/apiv1/appointments\""
-            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/users/products\""
-            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/users/services\""
+            buildConfigField "String", "FISIOAPP_PRODUCTS_SERVER_PATH", "\"/apiv1/products\""
+            buildConfigField "String", "FISIOAPP_SERVICES_SERVER_PATH", "\"/apiv1/services\""
+            buildConfigField "String", "FISIOAPP_USER_SERVER_PATH", "\"/apiv1/users\""
+            buildConfigField "String", "FISIOAPP_USERS_AUTHENTICATE_SERVER_PATH", "\"/apiv1/login\""
+            buildConfigField "String", "FISIOAPP_USERS_REGISTER_SERVER_PATH", "\"/apiv1/register\""
+            buildConfigField "String", "FISIOAPP_USERS_SERVER_PATH", "\"/apiv1/users\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
