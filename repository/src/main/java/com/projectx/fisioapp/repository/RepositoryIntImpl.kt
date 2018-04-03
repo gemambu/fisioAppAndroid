@@ -3,11 +3,16 @@ package com.projectx.fisioapp.repository
 import android.content.Context
 import com.projectx.fisioapp.repository.cache.CacheIntImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
+import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import com.projectx.fisioapp.repository.entitymodel.user.UserData
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
@@ -16,8 +21,6 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.insert.InsertProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.update.UpdateProductInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.delete.DeleteServiceInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.get.GetServicesIntImpl
@@ -26,8 +29,12 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.inser
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.insert.InsertServiceInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.services.update.UpdateServiceInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.authenticateuser.AuthenticateUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.getuser.GetUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.getuser.GetUserInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.registeruser.RegisterUserInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserInteractor
 import retrofit2.Response.success
@@ -43,11 +50,18 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
     private val updateUser: UpdateUserInteractor = UpdateUserIntImpl()
 
+    // ***** Services *****
     private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
     private val insertService: InsertServiceInteractor = InsertServiceIntImpl()
     private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
     private val updateService: UpdateServiceInteractor = UpdateServiceIntImpl()
 
+    // ***** Appointments *****
+    private val getAllAppointments: GetAppointmentsInteractor = GetAppointmentsIntImpl()
+    private val getAppointmentsForDate: GetAppointmentsForDateInteractor = GetAppointmentsForDateIntImpl()
+    private val deleteAppointment: DeleteAppointmentInteractor = DeleteAppointmentIntImpl()
+
+    // ***** Products *****
     private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
     private val insertProduct: InsertProductInteractor = InsertProductIntImpl()
     private val deleteProduct: DeleteProductInteractor = DeleteProductIntImpl()
@@ -78,7 +92,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                     error(it)
                 }
         )
-
     }
 
     override fun registerUser(name: String, email: String, password: String, success: (ok: Boolean, msg: String) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -91,7 +104,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                     error(it)
                 }
         )
-
     }
 
     override fun updateUser(token: String, user: UserData, success: (ok: Boolean, user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
@@ -111,6 +123,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     override fun countCatalogItems(): Int {
         return cache.countCatalogItems()
     }
+
 
     override fun getCatalogItems(forceUpdate: Boolean, token: String, type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
@@ -157,9 +170,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 )
             }
         }
-
-
     }
+
 
     private fun saveCatalog(list: List<CatalogData>, type: String) {
         cache.saveCatalogItems(type, list, success = {
@@ -185,9 +197,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 success(it)
 
                             }, error = {
-                                error(it)
-                            })
-                        }
+                        error(it)
+                    })
+                }
                 CatalogType.PRODUCT -> {
                     updateProduct.execute(token,
                             item,
@@ -196,9 +208,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 success(it)
 
                             }, error = {
-                                error(it)
-                            })
-                        }
+                        error(it)
+                    })
+                }
             }
 
         } else {
@@ -213,9 +225,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 //success(it)
 
                             }, error = {
-                                error(it)
-                            })
-                        }
+                        error(it)
+                    })
+                }
                 CatalogType.PRODUCT -> {
                     insertProduct.execute(token,
                             item,
@@ -224,8 +236,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                                 //success(it)
 
                             }, error = {
-                                error(it)
-                            })
+                        error(it)
+                    })
                 }
             }
 
@@ -241,6 +253,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                     // if no catalog in cache --> network
                     error("Error inserting item: ${item.name}")
                 })
+
     }
 
     private fun updateCatalogInCache(item: CatalogData) {
@@ -248,9 +261,9 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 success = {
                     success("Item ${item.name} updated successfully")
                 }, error = {
-                    // if no catalog in cache --> network
-                    error("Error updating item: ${item.name}")
-                })
+            // if no catalog in cache --> network
+            error("Error updating item: ${item.name}")
+        })
     }
 
     override fun deleteCatalogData(token: String, id: String, type: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit){
@@ -277,7 +290,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 })
             }
         }
-
     }
 
     private fun deleteCatalogItemFromCache(id: String) {
@@ -285,11 +297,84 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
                 success = {
                     success("Service $id removed successfully")
                 }, error = {
-                    // if no catalog in cache --> network
-                    error("Error deleting service: $id")
-                })
+            // if no catalog in cache --> network
+            error("Error deleting service: $id")
+        })
     }
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
 
+
+
+    /******** Appointments ********/
+
+    override fun getAllAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+        cache.getAllAppointments(success = {
+                success(it)
+        }, error = {
+            populateCacheWithAppointments(token, success, error)
+        })
+    }
+
+    override fun getAppointmentsForDate(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+        cache.getAppointmentsForDate(date, success = {
+            success(it)
+        }, error = {
+            populateCacheWithAppointmentsForDate(token, date, success, error)
+        })
+    }
+
+
+    override fun deleteAppointment(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+        deleteAppointment.execute(token, id, success = {
+            deleteAppointmentFromCache(id)
+            if (it == true) {
+                success("Appointment $id removed successfully")
+            }
+        }, error = {
+            error(it)
+        })
+    }
+
+
+    /******** Appointments Utils ********/
+    private fun populateCacheWithAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit){
+        getAllAppointments.execute(token,
+                success = {
+                    saveAppointments(it)
+                    success(it)
+                }, error = {
+            error(it)
+        })
+    }
+
+
+    private fun populateCacheWithAppointmentsForDate(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
+        getAppointmentsForDate.execute(token, date,
+                success = {
+                    saveAppointments(it)
+                    success(it)
+
+        }, error = {
+            error(it)
+        })
+    }
+
+
+    private fun saveAppointments(list: List<AppoinmentData>) {
+        cache.saveAllAppointments(list, success = {
+            success(list)
+        }, error = {
+            error("Something happened on the way to heaven!")
+        })
+    }
+
+
+    private fun deleteAppointmentFromCache(id: String) {
+        cache.deleteAppointment(id, success = {
+            success("Appointment $id removed successfully")
+        }, error = {
+            error("Error deleting appointment: $id")
+        })
+    }
 }

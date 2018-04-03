@@ -58,7 +58,7 @@ class CatalogListActivity : ParentActivity() {
         }
 
         if (!checkToken()) {
-            Router().navigateFromCatalogListActivitytoLoginActivity(this)
+            Router().navigateFromeCatalogListActivitytoLoginActivity(this)
         } else {
 
             setSupportActionBar(toolbar)

@@ -102,9 +102,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         while (cursor.moveToNext()) {
             val entity = entityFromCursor(cursor)!!
             result.add(entity)
-
         }
-
 
         return result
     }
@@ -120,6 +118,13 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         }
         return result.toLong()
     }
+
+
+    // Empty implementation as this method is used only for AppointmentDAO
+    override fun insert(element: CatalogData): Long {
+        return 0
+    }
+
 
     override fun update(id: String, element: CatalogData): String =
             dbReadWriteOnlyConn.update(

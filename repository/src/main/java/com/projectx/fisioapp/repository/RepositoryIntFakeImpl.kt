@@ -1,7 +1,7 @@
 package com.projectx.fisioapp.repository
 
 import android.content.Context
-import com.projectx.fisioapp.repository.cache.CacheIntFakeImpl
+//import com.projectx.fisioapp.repository.cache.CacheIntFakeImpl
 import com.projectx.fisioapp.repository.cache.CacheInteractor
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.user.UserData
@@ -9,7 +9,11 @@ import java.lang.ref.WeakReference
 import java.util.*
 
 
+/*class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
+    override fun deleteService(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
+=======
 class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
+>>>>>>> services_and_products_gema
 
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntFakeImpl(weakContext.get() !!)
@@ -130,5 +134,7 @@ class RepositoryIntFakeImpl(val context: Context): RepositoryInteractor {
 
     override fun deleteCatalogData(token: String, id: String, type: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
 
+
     }
 }
+}*/

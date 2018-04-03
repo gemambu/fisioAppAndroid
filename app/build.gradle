@@ -30,11 +30,10 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
     implementation "com.android.support:support-v4:$appcompat_version"
     implementation "com.android.support:recyclerview-v7:$appcompat_version"
     implementation "com.android.support:design:$appcompat_version"
-    implementation project(':domain')
-
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
