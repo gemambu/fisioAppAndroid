@@ -5,13 +5,33 @@ import com.projectx.fisioapp.app.activity.*
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
+import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.app.utils.RQ_OPERATION
 import com.projectx.fisioapp.domain.model.Catalog
 
 
 class Router {
 
-    fun navigateFromCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
+
+    fun navigateFromAppointmentsActivitytoLoginActivity (main: CalendarActivity) {
+        main.startActivity(Intent(main, LoginActivity::class.java))
+    }
+
+    fun navigateFromLoginActivitytoAppointmentsActivity (main: LoginActivity) {
+        main.startActivity(Intent(main, CalendarActivity::class.java))
+    }
+
+    fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity, appointment: Appointment){
+        val intent = AppointmentDetailActivity.newInstance(main.baseContext, appointment)
+        main.startActivity(intent)
+        //main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
+    }
+
+    fun navigateFromCalendarActivityToLoginActivity(main: CalendarActivity) {
+        main.startActivity(Intent(main, LoginActivity::class.java))
+    }
+
+    fun navigateFromeCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }
 

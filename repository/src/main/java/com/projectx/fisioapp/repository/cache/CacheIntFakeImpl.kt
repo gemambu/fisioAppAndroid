@@ -6,6 +6,8 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import java.lang.ref.WeakReference
 
 
+/*class CacheIntFakeImpl(context: Context) : CacheInteractor {
+    override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
 class CacheIntFakeImpl(context: Context) : CacheInteractor {
 
     override fun deleteCatalogItem(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {
@@ -58,6 +60,7 @@ class CacheIntFakeImpl(context: Context) : CacheInteractor {
         success()
     }
 
+}
     override fun insertCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -65,4 +68,4 @@ class CacheIntFakeImpl(context: Context) : CacheInteractor {
     override fun updateCatalogItem(item: CatalogData, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-}
+}*/
