@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.app.router
 
+import android.app.Activity
 import android.content.Intent
 import com.projectx.fisioapp.app.activity.*
 import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
@@ -61,4 +62,32 @@ class Router {
         intent.putExtra(EXTRA_CATALOG_TYPE, type)
         mainActivity.startActivityForResult(intent, RQ_OPERATION)
     }
+
+    // Navigation in tabs
+    fun moveToLoginActivity (main: Activity) {
+        main.startActivity(Intent(main, LoginActivity::class.java))
+    }
+
+    fun moveToAboutMeActivity (main: Activity) {
+        main.startActivity(Intent(main, UserDetailActivity::class.java))
+    }
+
+    fun moveToCalendarActivity (main: Activity) {
+        main.startActivity(Intent(main, CalendarActivity::class.java))
+    }
+
+    fun moveToProductsActivity(main: Activity) {
+        moveToDetailActivity(main, CatalogType.PRODUCT)
+    }
+
+    fun moveToServicesActivity(main: Activity) {
+        moveToDetailActivity(main, CatalogType.SERVICE)
+    }
+
+    private fun moveToDetailActivity(mainActivity: Activity, type: CatalogType) {
+        val intent = Intent(mainActivity, CatalogListActivity::class.java)
+        intent.putExtra(EXTRA_CATALOG_TYPE, type)
+        mainActivity.startActivityForResult(intent, RQ_OPERATION)
+    }
+
 }
