@@ -2,10 +2,11 @@ package com.projectx.fisioapp.app.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
-import com.projectx.fisioapp.app.fragment.CalendarFragment
+import com.projectx.fisioapp.app.fragment.*
+import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
@@ -16,7 +17,6 @@ import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
-import java.util.*
 
 class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAppointmentListener, CalendarFragment.OnSelectedDateListener {
 
@@ -28,7 +28,7 @@ class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAp
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         /*if (!checkToken()) {
             Router().navigateFromCalendarActivityToLoginActivity(this)
@@ -39,8 +39,8 @@ class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAp
 
         calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
         appointmentsListFragment = fragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
-    }
 
+    }
 
     private fun getAppointmentsForDate(context: Context, date: String) {
         async(UI){
@@ -63,8 +63,6 @@ class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAp
             }
         }
     }
-
-
 
 
     // ***** Back button enabled *****
@@ -103,4 +101,5 @@ class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAp
     override fun onSelectedDate(date: String) {
         getAppointmentsForDate(this, date)
     }
+
 }

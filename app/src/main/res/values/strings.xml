@@ -9,9 +9,10 @@
     <string name="title_catalog_detail">Product Detail</string>
     <string name="catalog_list_element_image_content">catalog image</string>
 
-    <string name="register">Register</string>
-    <string name="login">LogIn</string>
+    <string name="button_register">Register</string>
+    <string name="button_login">LogIn</string>
     <string name="login_title">Login</string>
+    <string name="register_title">Register</string>
     <string name="login_name_hint">Name</string>
     <string name="login_email_hint">email</string>
     <string name="login_password_hint">******</string>

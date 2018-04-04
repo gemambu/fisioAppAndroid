@@ -1,9 +1,12 @@
 package com.projectx.fisioapp.app.activity
 
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.projectx.fisioapp.R
+import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
+import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserIntImpl
