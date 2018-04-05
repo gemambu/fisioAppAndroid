@@ -104,7 +104,7 @@ class LoginActivity : ParentActivity(),
                             ToastIt(baseContext, "TK: $token")
                             ToastIt(baseContext, "uId: $uId")
                             if (checkToken()) ToastIt(this, "Finish?")
-                        } catch (e: Exception) {
+                        } catch (e: Throwable) {
                             ToastIt(this, "Error: " + e.localizedMessage )
                         }
                     }, error = object : ErrorCompletion {
@@ -123,7 +123,6 @@ class LoginActivity : ParentActivity(),
                     success = { ok: Boolean, msg: String ->
                         try {
                             if (ok) {
-                                    ToastIt(baseContext, "User created")
                                     ToastIt(baseContext, "You can press 'Login' to start")
                             } else {
                                 ToastIt(baseContext, "Success/error: Try again")

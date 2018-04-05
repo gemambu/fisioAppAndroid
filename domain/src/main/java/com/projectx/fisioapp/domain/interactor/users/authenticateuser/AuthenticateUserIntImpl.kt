@@ -20,9 +20,9 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
                 success = { user: UserData, token: String ->
 
                     val user: User = entityMapper(user)
-                    success(user, token)
+                        success(user, token)
                     }, error = {
-                        error(it)
+                        error.errorCompletion(it)
                     }
         )
     }
