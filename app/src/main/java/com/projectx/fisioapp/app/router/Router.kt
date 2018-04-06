@@ -72,6 +72,10 @@ class Router {
         main.startActivity(Intent(main, UserDetailActivity::class.java))
     }
 
+    fun moveToAboutUsActivity (main: Activity) {
+        main.startActivity(Intent(main, AboutUsActivity::class.java))
+    }
+
     fun moveToCalendarActivity (main: Activity) {
         main.startActivity(Intent(main, CalendarActivity::class.java))
     }

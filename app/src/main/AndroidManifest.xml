@@ -42,18 +42,15 @@
 
         <!-- Activities -->
 
-        <activity android:name=".app.activity.AppointmentDetailActivity">
-        </activity>
-
-        <activity android:name=".app.activity.CalendarActivity">
-        </activity>
-
+        <activity
+            android:name=".app.activity.AboutUsActivity"
+            android:label="About us ..." />
+        <activity android:name=".app.activity.AppointmentDetailActivity" />
+        <activity android:name=".app.activity.CalendarActivity" />
         <activity
             android:name=".app.activity.CatalogParentActivity"
             android:label="@string/catalog_list"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".app.activity.CatalogListActivity"
             android:label="@string/catalog_list"
@@ -63,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.projectx.fisioapp.app.activity.CatalogParentActivity" />
         </activity>
-
         <activity
             android:name=".app.activity.CatalogDetailActivity"
             android:label="@string/title_service_detail"
@@ -73,17 +69,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.projectx.fisioapp.app.activity.CatalogListActivity" />
         </activity>
-
-        <activity android:name=".app.activity.LoginActivity">
+        <activity android:name=".app.activity.LoginActivity"
+            android:label="Welcome to FisioApp">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".app.activity.UserDetailActivity">
-        </activity>
-
+        <activity
+            android:name=".app.activity.UserDetailActivity"
+            android:label="User Details" />
     </application>
 
 </manifest>

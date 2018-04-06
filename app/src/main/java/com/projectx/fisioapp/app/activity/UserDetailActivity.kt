@@ -1,12 +1,10 @@
 package com.projectx.fisioapp.app.activity
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.content.ContextCompat
+import android.view.MenuItem
 import android.view.View
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
-import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserIntImpl
@@ -26,10 +24,21 @@ class UserDetailActivity : ParentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
 
+        //Back button
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         setListeners()
 
         getUser()
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun setListeners() {

@@ -5,6 +5,8 @@ import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.view.Menu
+import android.view.MenuItem
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.adapter.SectionsPagerAdapter
 import com.projectx.fisioapp.app.fragment.LoginFragment
@@ -73,6 +75,23 @@ class LoginActivity : ParentActivity(),
             false
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.statusbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.user_details -> {
+                Router().moveToAboutMeActivity(this)
+            }
+            R.id.about_us -> {
+                Router().moveToAboutUsActivity(this)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupViewPager(viewPager: ViewPager?) {

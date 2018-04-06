@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".app.activity.LoginActivity">
+    tools:context="com.projectx.fisioapp.app.activity.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/navigation_top_bar_height"
             android:id="@+id/relLayoutTopBar"
             android:layout_alignParentTop="true">
 
@@ -55,7 +55,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/navigation_bottom_bar_height"
             android:id="@+id/relLayoutBotBar"
             android:layout_alignParentBottom="true">
 
