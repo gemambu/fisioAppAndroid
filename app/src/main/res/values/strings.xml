@@ -15,7 +15,9 @@
     <string name="register_title">Register</string>
     <string name="the_team">Project X Team:</string>
     <string name="the_team_members">- Alan Casas\n- Carlos Company\n- Gema Martínez\n- Rodrigo Limpias</string>
-    <string name="title_activity_about_us">AboutUsActivity</string>
+    <string name="title_activity_about_us">About us</string>
+    <string name="title_activity_login">Welcome to FisioApp</string>
+    <string name="title_activity_user_details">User Details</string>
     <string name="title_catalog_detail">Product Detail</string>
     <string name="title_catalog_list">Products</string>
     <string name="title_service_detail">Service Detail</string>

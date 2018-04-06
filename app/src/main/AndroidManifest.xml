@@ -44,13 +44,17 @@
 
         <activity
             android:name=".app.activity.AboutUsActivity"
-            android:label="About us ..." />
-        <activity android:name=".app.activity.AppointmentDetailActivity" />
-        <activity android:name=".app.activity.CalendarActivity" />
+            android:label="@string/title_activity_about_us">
+        </activity>
+        <activity android:name=".app.activity.AppointmentDetailActivity">
+        </activity>
+        <activity android:name=".app.activity.CalendarActivity">
+        </activity>
         <activity
             android:name=".app.activity.CatalogParentActivity"
             android:label="@string/catalog_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".app.activity.CatalogListActivity"
             android:label="@string/catalog_list"
@@ -70,7 +74,7 @@
                 android:value="com.projectx.fisioapp.app.activity.CatalogListActivity" />
         </activity>
         <activity android:name=".app.activity.LoginActivity"
-            android:label="Welcome to FisioApp">
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -78,7 +82,8 @@
         </activity>
         <activity
             android:name=".app.activity.UserDetailActivity"
-            android:label="User Details" />
+            android:label="@string/title_activity_user_details">
+        </activity>
     </application>
 
 </manifest>
