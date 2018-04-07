@@ -3,7 +3,7 @@ package com.projectx.fisioapp.repository.entitymodel.appointments
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-import com.projectx.fisioapp.repository.entitymodel.catalog.Person
+import com.projectx.fisioapp.repository.entitymodel.common.Person
 import java.util.*
 
 class AppoinmentRow{
