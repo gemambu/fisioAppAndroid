@@ -4,14 +4,18 @@ import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import com.projectx.fisioapp.R
+import com.projectx.fisioapp.app.activity.CalendarActivity
+import com.projectx.fisioapp.app.adapter.AppointmentItemRecyclerViewAdapter
+import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
+import kotlinx.android.synthetic.main.appointment_list.*
 
 class AppointmentsListFragment : Fragment() {
 
@@ -21,10 +25,8 @@ class AppointmentsListFragment : Fragment() {
 
 
     lateinit var root: View
-    lateinit var appointmentsList: ListView
     private var appointments: Appointments? = null
-    private var list = emptyArray<Appointment>()
-    lateinit var adapter: ArrayAdapter<Appointment>
+    lateinit var mParent: CalendarActivity
     private var onSelectedAppointmentListener: OnSelectedAppointmentListener? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -32,34 +34,24 @@ class AppointmentsListFragment : Fragment() {
 
         inflater?.let{
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
-            appointmentsList = root.findViewById<ListView>(R.id.fisio_appointments_list)
-            adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_2, list)
-            appointmentsList.adapter = adapter
-            appointmentsList.setOnItemClickListener { parent, view, position, id ->
-                val appointment = appointments?.get(position)
-                onSelectedAppointmentListener?.onSelectedAppointment(appointment!!)
-            }
+//            appointmentsList.setOnItemClickListener { parent, view, position, id ->
+//                val appointment = appointments?.get(position)
+//                onSelectedAppointmentListener?.onSelectedAppointment(appointment!!)
+//            }
         }
 
         return root
     }
 
+    fun setupRecyclerView(recyclerView: RecyclerView, list: Appointments) {
+
+        recyclerView.adapter = AppointmentItemRecyclerViewAdapter(mParent, list)
+        // set two columns with the elements
+        recyclerView.layoutManager = GridLayoutManager(mParent.baseContext, 1) as RecyclerView.LayoutManager?
+    }
 
     fun setAppointmentsList(appointments: Appointments){
         this.appointments = appointments
-        adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, this.appointments!!.toArray())
-
-
-        /*for (i in 0..appointments.count()){
-            val textView: TextView = appointmentsList.findViewById<TextView>(android.R.id.text1)
-            val appointment = appointments.get(i)
-            textView.setText(appointment.customerName)
-        }*/
-
-        //val text = appointmentsList.findViewById<TextView>(android.R.id.text1)
-
-        appointmentsList.adapter = adapter
-
     }
 
 
@@ -87,6 +79,10 @@ class AppointmentsListFragment : Fragment() {
 
     interface OnSelectedAppointmentListener {
         fun onSelectedAppointment(appointment: Appointment)
+    }
+
+    fun setParent(calendarActivity: CalendarActivity) {
+        mParent = calendarActivity
     }
 
 }

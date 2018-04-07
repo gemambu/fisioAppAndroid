@@ -1,18 +1,15 @@
 package com.projectx.fisioapp.app.activity
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
-import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
@@ -63,7 +60,7 @@ class CatalogListActivity : ParentActivity() {
         toolbar.title = title
 
         if (!checkToken()) {
-            Router().navigateFromeCatalogListActivitytoLoginActivity(this)
+            Router().navigateFromCatalogListActivitytoLoginActivity(this)
         }
 
     }

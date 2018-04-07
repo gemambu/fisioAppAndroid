@@ -2,11 +2,12 @@ package com.projectx.fisioapp.app.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.projectx.fisioapp.R
+import com.projectx.fisioapp.app.adapter.AppointmentItemRecyclerViewAdapter
 import com.projectx.fisioapp.app.fragment.*
-import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
@@ -15,6 +16,7 @@ import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDa
 import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDateInteractor
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
+import kotlinx.android.synthetic.main.appointment_list.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
@@ -22,15 +24,12 @@ class CalendarActivity : ParentActivity(),
         AppointmentsListFragment.OnSelectedAppointmentListener,
         CalendarFragment.OnSelectedDateListener {
 
-    //private var list: Appointments? = null
     lateinit var calendarFragment: CalendarFragment
     lateinit var appointmentsListFragment: AppointmentsListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
-
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (!checkToken()) {
             Router().navigateFromCalendarActivityToLoginActivity(this)
@@ -43,6 +42,7 @@ class CalendarActivity : ParentActivity(),
 
         calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
         appointmentsListFragment = fragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
+        appointmentsListFragment.setParent(this)
     }
 
     private fun getAppointmentsForDate(context: Context, date: String) {
@@ -53,8 +53,8 @@ class CalendarActivity : ParentActivity(),
                 getAppointmentsForDate.execute(token, date,
                         success = object : SuccessCompletion<Appointments> {
                             override fun successCompletion(e: Appointments) {
-                                //list = e
                                 appointmentsListFragment.setAppointmentsList(e)
+                                appointmentsListFragment.setupRecyclerView(appointment_list, e)
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
@@ -66,6 +66,8 @@ class CalendarActivity : ParentActivity(),
             }
         }
     }
+
+
 
 
     // ***** Back button enabled *****
@@ -83,22 +85,7 @@ class CalendarActivity : ParentActivity(),
     // ***** Fragment AppointmentsList listener *****
     override fun onSelectedAppointment(appointment: Appointment) {
         Router().navigateFromCalendarActivityToAppointmentDetailActivity(this, appointment)
-
-        /*val fragment = AppointmentDetailFragment.newInstance()
-        fragmentManager.beginTransaction()
-                .replace(R.id.appointments_fragment, fragment)
-                .commit()*/
-
-        /*if(resources.getBoolean(R.bool.screen_not_sw600) == false){
-            Router().navigateFromCalendarActivityToAppointmentDetailActivity(this)
-        } else if(resources.getBoolean(R.bool.screen_is_sw600) == false){
-            val fragment = AppointmentDetailFragment.newInstance()
-            fragmentManager.beginTransaction()
-                    .add(R.id.appointments_fragment, fragment)
-                    .commit()
-        }*/
     }
-
 
     // ***** CalendarFragment listener *****
     override fun onSelectedDate(date: String) {

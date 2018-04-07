@@ -25,14 +25,13 @@ class Router {
     fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity, appointment: Appointment){
         val intent = AppointmentDetailActivity.newInstance(main.baseContext, appointment)
         main.startActivity(intent)
-        //main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
     }
 
     fun navigateFromCalendarActivityToLoginActivity(main: CalendarActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }
 
-    fun navigateFromeCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
+    fun navigateFromCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }
 

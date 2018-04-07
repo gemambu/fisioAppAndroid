@@ -15,12 +15,6 @@ import com.projectx.fisioapp.domain.model.Catalog
 import com.projectx.fisioapp.domain.model.util.BenefitType
 import kotlinx.android.synthetic.main.fragment_catalog_detail.*
 
-/**
- * A fragment representing a single Service detail screen.
- * This fragment is either contained in a [ServiceListActivity]
- * in two-pane mode (on tablets) or a [ServiceDetailActivity]
- * on handsets.
- */
 class CatalogDetailFragment : Fragment() {
 
     /**

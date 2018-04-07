@@ -26,7 +26,7 @@ class Appointments(val appointments: MutableList<Appointment>): Aggregate<Appoin
 
     override fun all(): List<Appointment> = appointments
 
-    override fun get(position: Int): Appointment = appointments[position]
+    override operator fun get(position: Int): Appointment = appointments[position]
 
     override fun add(element: Appointment) {
         appointments.add(element)
