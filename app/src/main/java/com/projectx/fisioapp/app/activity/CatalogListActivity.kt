@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -58,29 +59,32 @@ class CatalogListActivity : ParentActivity() {
             refreshData()
         }
 
+        setSupportActionBar(toolbar)
+        toolbar.title = title
+
         if (!checkToken()) {
             Router().navigateFromeCatalogListActivitytoLoginActivity(this)
-        } else {
-
-            setSupportActionBar(toolbar)
-            toolbar.title = title
-
-            catalog_list_add_element.setOnClickListener { view ->
-                Router().navigateFromParentActivityToNewCatalogActivity(this, type)
-            }
-
-
-            if (catalog_detail_container != null) {
-                // The detail container view will be present only in the
-                // large-screen layouts (res/values-w900dp).
-                // If this view is present, then the
-                // activity should be in two-pane mode.
-                mTwoPane = true
-            }
-
-            getCatalogList(this, false)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        catalog_list_add_element.setOnClickListener { view ->
+            Router().navigateFromParentActivityToNewCatalogActivity(this, type)
+        }
+
+
+        if (catalog_detail_container != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true
+        }
+
+        getCatalogList(this, false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

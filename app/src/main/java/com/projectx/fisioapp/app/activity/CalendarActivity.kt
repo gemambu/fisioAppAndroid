@@ -18,7 +18,9 @@ import com.projectx.fisioapp.domain.model.Appointments
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
-class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAppointmentListener, CalendarFragment.OnSelectedDateListener {
+class CalendarActivity : ParentActivity(),
+        AppointmentsListFragment.OnSelectedAppointmentListener,
+        CalendarFragment.OnSelectedDateListener {
 
     //private var list: Appointments? = null
     lateinit var calendarFragment: CalendarFragment
@@ -30,16 +32,17 @@ class CalendarActivity : ParentActivity(), AppointmentsListFragment.OnSelectedAp
 
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        /*if (!checkToken()) {
+        if (!checkToken()) {
             Router().navigateFromCalendarActivityToLoginActivity(this)
-        } else {
-            calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
-        appointmentsListFragment = fragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
-        }*/
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         calendarFragment = fragmentManager.findFragmentById(R.id.calendar_fragment) as CalendarFragment
         appointmentsListFragment = fragmentManager.findFragmentById(R.id.appointments_fragment) as AppointmentsListFragment
-
     }
 
     private fun getAppointmentsForDate(context: Context, date: String) {

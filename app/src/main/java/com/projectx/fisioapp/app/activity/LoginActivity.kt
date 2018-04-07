@@ -40,13 +40,13 @@ class LoginActivity : ParentActivity(),
         mViewPager = container as ViewPager
         setupViewPager(mViewPager)
 
-        val tabLayout = findViewById(R.id.tabs) as TabLayout
+        val tabLayout = findViewById<TabLayout>(R.id.tabs) as TabLayout
         tabLayout.setupWithViewPager(mViewPager)
 
         tabLayout.getTabAt(0)!!.setIcon(R.drawable.ic_tab_login)
         tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_tab_register)
 
-        val bottomNavigationView = findViewById(R.id.bottomNavView_bar) as BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavView_bar) as BottomNavigationView
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
 
         val menu = bottomNavigationView.menu

@@ -33,7 +33,7 @@ class AppointmentsListFragment : Fragment() {
         inflater?.let{
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
             appointmentsList = root.findViewById<ListView>(R.id.fisio_appointments_list)
-            adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_1, list)
+            adapter = ArrayAdapter<Appointment>(activity, android.R.layout.simple_list_item_2, list)
             appointmentsList.adapter = adapter
             appointmentsList.setOnItemClickListener { parent, view, position, id ->
                 val appointment = appointments?.get(position)
