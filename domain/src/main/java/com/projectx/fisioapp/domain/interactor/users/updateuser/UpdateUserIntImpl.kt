@@ -24,13 +24,13 @@ class UpdateUserIntImpl(context: Context) : UpdateUserInteractor {
                     val user: User = entityMapper(userData)
                     success(ok, user)
                 }, error = {
-                    error(it)
+                    error.errorCompletion(it)
                 }
         )
     }
 
     private fun entityMapper(userData: UserData): User {
-        val user = User(
+        return User(
                 userData.id,
                 userData.name,
                 userData.lastName,
@@ -45,11 +45,10 @@ class UpdateUserIntImpl(context: Context) : UpdateUserInteractor {
                 userData.registrationDate,
                 userData.lastLoginDate
         )
-        return user
     }
 
     private fun entityMapper(user: User): UserData {
-        val userData = UserData(
+        return UserData(
                 user.id,
                 user.name,
                 user.lastName,
@@ -64,7 +63,6 @@ class UpdateUserIntImpl(context: Context) : UpdateUserInteractor {
                 user.registrationDate,
                 user.lastLoginDate
         )
-        return userData
     }
 
 }

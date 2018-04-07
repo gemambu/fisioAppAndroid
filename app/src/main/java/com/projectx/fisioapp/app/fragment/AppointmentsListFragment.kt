@@ -34,10 +34,6 @@ class AppointmentsListFragment : Fragment() {
 
         inflater?.let{
             root = it.inflate(R.layout.fragment_appointments_list, container, false)
-//            appointmentsList.setOnItemClickListener { parent, view, position, id ->
-//                val appointment = appointments?.get(position)
-//                onSelectedAppointmentListener?.onSelectedAppointment(appointment!!)
-//            }
         }
 
         return root

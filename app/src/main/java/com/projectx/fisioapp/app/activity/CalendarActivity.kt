@@ -16,6 +16,7 @@ import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDa
 import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDateInteractor
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
+import kotlinx.android.synthetic.main.activity_catalog_list.*
 import kotlinx.android.synthetic.main.appointment_list.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -34,6 +35,9 @@ class CalendarActivity : ParentActivity(),
         if (!checkToken()) {
             Router().navigateFromCalendarActivityToLoginActivity(this)
         }
+
+        title = getString(R.string.calendar_title)
+
 
     }
 

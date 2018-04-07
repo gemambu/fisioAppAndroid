@@ -50,18 +50,25 @@ class CatalogListActivity : ParentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_list)
 
-        type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
+        if (!checkToken()) {
+            Router().navigateFromCatalogListActivitytoLoginActivity(this)
+        }
 
         swipeLayout.setOnRefreshListener {
             refreshData()
         }
 
-        setSupportActionBar(toolbar)
-        toolbar.title = title
 
-        if (!checkToken()) {
-            Router().navigateFromCatalogListActivitytoLoginActivity(this)
+        type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
+
+        when(type){
+            CatalogType.PRODUCT -> toolbar.title = getString(R.string.catalog_products_title)
+            CatalogType.SERVICE -> toolbar.title = getString(R.string.catalog_services_title)
         }
+
+        setSupportActionBar(toolbar)
+
+
 
     }
 

@@ -20,7 +20,7 @@ class GetUserIntImpl(context: Context) : GetUserInteractor {
                     val user: User = entityMapper(it)
                     success(user)
                 }, error = {
-                    error(it)
+                    error.errorCompletion(it)
                 }
         )
     }
