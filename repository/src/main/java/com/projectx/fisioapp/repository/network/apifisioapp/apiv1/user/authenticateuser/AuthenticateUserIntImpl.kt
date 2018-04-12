@@ -30,7 +30,6 @@ internal class AuthenticateUserIntImpl (): AuthenticateUserInteractor {
 
             override fun onFailure(call: Call<AuthenticateUserResponse>, t: Throwable?) {
                 call.cancel()
-                Log.d("App: ", t?.localizedMessage ?: "Conection to server not available")
                 error(t?.localizedMessage ?: "Conection to server not available")
             }
 

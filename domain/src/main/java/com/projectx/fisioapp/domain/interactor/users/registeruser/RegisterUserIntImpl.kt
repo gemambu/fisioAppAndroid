@@ -6,6 +6,7 @@ import com.projectx.fisioapp.repository.RepositoryIntImpl
 import com.projectx.fisioapp.repository.RepositoryInteractor
 import java.lang.ref.WeakReference
 
+
 class RegisterUserIntImpl(context: Context) : RegisterUserInteractor {
 
     private val weakContext = WeakReference<Context>(context)
@@ -17,7 +18,7 @@ class RegisterUserIntImpl(context: Context) : RegisterUserInteractor {
                 success = { ok: Boolean, msg: String ->
                     success(ok, msg)
                 }, error = {
-                    error(it)
+                    error.errorCompletion(it)
                 }
         )
     }

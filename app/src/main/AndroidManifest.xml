@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projectx.fisioapp">
 
     <!-- Access to internet -->
@@ -37,29 +36,25 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/GOOGLE_MAPS_API_KEY" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <!-- Activities -->
 
+        <activity
+            android:name=".app.activity.AboutUsActivity"
+            android:label="@string/title_activity_about_us">
+        </activity>
         <activity android:name=".app.activity.AppointmentDetailActivity">
         </activity>
-
         <activity android:name=".app.activity.CalendarActivity">
         </activity>
-
         <activity
             android:name=".app.activity.CatalogParentActivity"
             android:label="@string/catalog_list"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
         <activity
             android:name=".app.activity.CatalogListActivity"
             android:label="@string/catalog_list"
@@ -69,7 +64,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.projectx.fisioapp.app.activity.CatalogParentActivity" />
         </activity>
-
         <activity
             android:name=".app.activity.CatalogDetailActivity"
             android:label="@string/title_service_detail"
@@ -79,13 +73,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.projectx.fisioapp.app.activity.CatalogListActivity" />
         </activity>
-
-        <activity android:name=".app.activity.LoginActivity">
+        <activity android:name=".app.activity.LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity android:name=".app.activity.UserDetailActivity">
+        <activity
+            android:name=".app.activity.UserDetailActivity"
+            android:label="@string/title_activity_user_details">
         </activity>
-
     </application>
 
 </manifest>

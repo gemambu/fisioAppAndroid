@@ -45,16 +45,12 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
     private val weakContext = WeakReference<Context>(context)
     private val cache: CacheInteractor = CacheIntImpl(weakContext.get()!!)
+
+    // ***** Users *****
     private val authenticateUser: AuthenticateUserInteractor = AuthenticateUserIntImpl()
     private val getUser: GetUserInteractor = GetUserIntImpl()
     private val registerUser: RegisterUserInteractor = RegisterUserIntImpl()
     private val updateUser: UpdateUserInteractor = UpdateUserIntImpl()
-
-    // ***** Services *****
-    private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
-    private val insertService: InsertServiceInteractor = InsertServiceIntImpl()
-    private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
-    private val updateService: UpdateServiceInteractor = UpdateServiceIntImpl()
 
     // ***** Appointments *****
     private val getAllAppointments: GetAppointmentsInteractor = GetAppointmentsIntImpl()
@@ -66,6 +62,12 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val insertProduct: InsertProductInteractor = InsertProductIntImpl()
     private val deleteProduct: DeleteProductInteractor = DeleteProductIntImpl()
     private val updateProduct: UpdateProductInteractor = UpdateProductIntImpl()
+
+    // ***** Services *****
+    private val getAllServices: GetServicesInteractor = GetServicesIntImpl()
+    private val insertService: InsertServiceInteractor = InsertServiceIntImpl()
+    private val deleteService: DeleteServiceInteractor = DeleteServiceIntImpl()
+    private val updateService: UpdateServiceInteractor = UpdateServiceIntImpl()
 
 
     /******** users ********/
@@ -303,7 +305,6 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     }
 
     override fun deleteAllCatalogItems(success: () -> Unit, error: (errorMessage: String) -> Unit) = cache.deleteAllCatalogItems(success, error)
-
 
 
     /******** Appointments ********/

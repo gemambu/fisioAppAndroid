@@ -48,14 +48,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // Google Maps
-    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.google.android.gms:play-services-maps:12.0.1'
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //coroutines
     // see: https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md
-    implementation 'org.jetbrains.anko:anko-coroutines:0.10.2'
+    implementation 'org.jetbrains.anko:anko-coroutines:0.10.3'
 
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
 
