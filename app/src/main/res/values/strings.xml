@@ -8,9 +8,9 @@
     <string name="catalog_detail_name_label_text">Nombre</string>
     <string name="catalog_list">Catalog List</string>
     <string name="catalog_list_element_image_content">catalog image</string>
-    <string name="login_email_hint">email</string>
+    <string name="login_email_hint">Email</string>
     <string name="login_name_hint">Name</string>
-    <string name="login_password_hint">******</string>
+    <string name="login_password_hint">Password</string>
     <string name="login_title">Login</string>
     <string name="register_title">Register</string>
     <string name="the_team">Project X Team:</string>
