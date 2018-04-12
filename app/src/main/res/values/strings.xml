@@ -3,19 +3,23 @@
 <resources>
     <string name="app_name">FisioApp</string>
     <string name="authenticate">Authenticate</string>
-    <string name="title_service_list">Services</string>
-    <string name="title_service_detail">Service Detail</string>
-    <string name="title_catalog_list">Products</string>
-    <string name="title_catalog_detail">Product Detail</string>
-    <string name="catalog_list_element_image_content">catalog image</string>
-
     <string name="button_register">Register</string>
     <string name="button_login">LogIn</string>
+    <string name="catalog_detail_name_label_text">Nombre</string>
+    <string name="catalog_list">Catalog List</string>
+    <string name="catalog_list_element_image_content">catalog image</string>
+    <string name="login_email_hint">email</string>
+    <string name="login_name_hint">Name</string>
+    <string name="login_password_hint">******</string>
     <string name="login_title">Login</string>
     <string name="register_title">Register</string>
-    <string name="login_name_hint">Name</string>
-    <string name="login_email_hint">email</string>
-    <string name="login_password_hint">******</string>
-    <string name="catalog_list">Catalog List</string>
-    <string name="catalog_detail_name_label_text">Nombre</string>
+    <string name="the_team">Project X Team:</string>
+    <string name="the_team_members">- Alan Casas\n- Carlos Company\n- Gema Martínez\n- Rodrigo Limpias</string>
+    <string name="title_activity_about_us">About us</string>
+    <string name="title_activity_login">Welcome to FisioApp</string>
+    <string name="title_activity_user_details">User Details</string>
+    <string name="title_catalog_detail">Product Detail</string>
+    <string name="title_catalog_list">Products</string>
+    <string name="title_service_detail">Service Detail</string>
+    <string name="title_service_list">Services</string>
 </resources>
