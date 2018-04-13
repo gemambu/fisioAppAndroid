@@ -6,6 +6,9 @@
     <dimen name="activity_screen_width_null">0dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="form_cell_border">1dp</dimen>
+    <dimen name="form_cell_padding">10dp</dimen>
+    <dimen name="form_cell_radius">7dp</dimen>
     <dimen name="item_width">200dp</dimen>
     <dimen name="layout_width_height_none">0dp</dimen>
     <dimen name="login_screen_title_text_size">25sp</dimen>

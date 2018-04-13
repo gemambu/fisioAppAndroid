@@ -3,8 +3,8 @@
 
     <!-- Default -->
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorAccent">#ff4081</color>
 
     <!-- Dark Screen -->
     <color name="login_screen_background">#444444</color>
@@ -12,7 +12,7 @@
     <color name="login_screen_hint_color">#52afaa</color>
 
     <!-- Menu & Tabs -->
-    <color name="colorWhite">#fff</color>
-    <color name="colorGrey">#c3c3c3 </color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrey">#c3c3c3</color>
 
 </resources>

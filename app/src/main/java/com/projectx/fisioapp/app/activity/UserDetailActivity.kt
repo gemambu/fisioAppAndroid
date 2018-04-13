@@ -43,11 +43,6 @@ class UserDetailActivity : ParentActivity() {
 
     fun setListeners() {
 
-        btnCancel.setOnClickListener {
-            ToastIt(this, "Cancel changes")
-            finish()
-        }
-
         btnSave.setOnClickListener {
             updateUser()
         }
