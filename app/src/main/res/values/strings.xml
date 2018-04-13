@@ -22,4 +22,18 @@
     <string name="title_catalog_list">Products</string>
     <string name="title_service_detail">Service Detail</string>
     <string name="title_service_list">Services</string>
+    <string name="form_user_details_name">Name</string>
+    <string name="form_user_details_last_name">Last name</string>
+    <string name="form_user_details_email">Email</string>
+    <string name="form_user_details_address">Address</string>
+    <string name="form_user_details_phone">Phone</string>
+    <string name="form_user_details_birthdate">Birthdate</string>
+    <string name="form_user_details_national_id">National ID</string>
+    <string name="form_user_details_fellowship_id">Fellowship ID</string>
+    <string name="form_user_details_since">Since</string>
+    <string name="form_user_details_last_login">Last login</string>
+    <string name="form_user_details_professional">Professional</string>
+    <string name="form_user_details_gender">Gender</string>
+    <string name="form_user_details_female">Female</string>
+    <string name="form_user_details_male">Male</string>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,422 +7,406 @@
     android:layout_height="match_parent"
     tools:context="com.projectx.fisioapp.app.activity.UserDetailActivity">
 
-    <ImageView
-        android:id="@+id/ivLeftColumn"
-        android:layout_width="@dimen/layout_width_height_none"
-        android:layout_height="@dimen/layout_width_height_none"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/rbMale"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollFormArea"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.32" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/lblName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Name"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayoutForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="John" />
+            <ImageView
+                android:id="@+id/ivLeftColumn"
+                android:layout_width="@dimen/layout_width_height_none"
+                android:layout_height="@dimen/layout_width_height_none"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutForm"
+                app:layout_constraintEnd_toStartOf="@+id/leftColumnGuideline"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayoutForm"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayoutForm" />
 
-    <TextView
-        android:id="@+id/lblLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Last name"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtName"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <android.support.constraint.Guideline
+                android:id="@+id/leftColumnGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.32" />
 
-    <TextView
-        android:id="@+id/txtLastName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtName"
-        app:layout_constraintTop_toTopOf="@+id/lblLastName"
-        tools:text="Doe" />
+            <TextView
+                android:id="@+id/lblName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin_default"
+                android:layout_marginTop="@dimen/activity_margin_wide"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:text="@string/form_user_details_name"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintEnd_toStartOf="@+id/leftColumnGuideline"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Email"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtLastName"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/leftColumnGuideline"
+                app:layout_constraintTop_toTopOf="@+id/lblName"
+                tools:text="John" />
 
-    <TextView
-        android:id="@+id/txtEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtLastName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtLastName"
-        app:layout_constraintTop_toTopOf="@+id/lblEmail"
-        tools:text="johndoe@invalid.com" />
+            <TextView
+                android:id="@+id/lblLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_last_name"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtName"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Address"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtLastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtName"
+                app:layout_constraintTop_toTopOf="@+id/lblLastName"
+                tools:text="Doe" />
 
-    <TextView
-        android:id="@+id/txtAddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtEmail"
-        app:layout_constraintTop_toTopOf="@+id/lblAddress"
-        tools:text="My address, 33" />
+            <TextView
+                android:id="@+id/lblEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_email"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtLastName"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Phone"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddress"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtLastName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtLastName"
+                app:layout_constraintTop_toTopOf="@+id/lblEmail"
+                tools:text="johndoe@invalid.com" />
 
-    <TextView
-        android:id="@+id/txtPhone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtAddress"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtAddress"
-        app:layout_constraintTop_toTopOf="@+id/lblPhone"
-        tools:text="+34 626 626 626" />
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_address"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblBirthdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Birthdate"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtPhone"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtEmail"
+                app:layout_constraintTop_toTopOf="@+id/lblAddress"
+                tools:text="My address, 33" />
 
-    <TextView
-        android:id="@+id/txtBirthdate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtPhone"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtPhone"
-        app:layout_constraintTop_toTopOf="@+id/lblBirthdate"
-        tools:text="1/1/2000" />
+            <TextView
+                android:id="@+id/lblPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_phone"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblNationalID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="National ID"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtBirthdate"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtAddress"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtAddress"
+                app:layout_constraintTop_toTopOf="@+id/lblPhone"
+                tools:text="+34 626 626 626" />
 
-    <TextView
-        android:id="@+id/txtNationalID"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtBirthdate"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtBirthdate"
-        app:layout_constraintTop_toTopOf="@+id/lblNationalID"
-        tools:text="12345678Z" />
+            <TextView
+                android:id="@+id/lblBirthdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_birthdate"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtPhone"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblFellowshipNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Fellowship ID"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtNationalID"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtBirthdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtPhone"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtPhone"
+                app:layout_constraintTop_toTopOf="@+id/lblBirthdate"
+                tools:text="1/1/2000" />
 
-    <TextView
-        android:id="@+id/txtFellowshipNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtNationalID"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtNationalID"
-        app:layout_constraintTop_toTopOf="@+id/lblFellowshipNumber"
-        tools:text="12345678Z" />
+            <TextView
+                android:id="@+id/lblNationalID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_national_id"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtBirthdate"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblRegistrationDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Since"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtFellowshipNumber"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtNationalID"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtBirthdate"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtBirthdate"
+                app:layout_constraintTop_toTopOf="@+id/lblNationalID"
+                tools:text="12345678Z" />
 
-    <TextView
-        android:id="@+id/txtRegistrationDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtFellowshipNumber"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/txtFellowshipNumber"
-        app:layout_constraintTop_toTopOf="@+id/lblRegistrationDate"
-        tools:text="1/1/2018" />
+            <TextView
+                android:id="@+id/lblFellowshipNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_fellowship_id"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtNationalID"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblLastLoginDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Last login"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtRegistrationDate"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtFellowshipNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtNationalID"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtNationalID"
+                app:layout_constraintTop_toTopOf="@+id/lblFellowshipNumber"
+                tools:text="12345678Z" />
 
-    <TextView
-        android:id="@+id/txtLastLoginDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/txtRegistrationDate"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtRegistrationDate"
-        app:layout_constraintTop_toTopOf="@+id/lblLastLoginDate"
-        tools:text="1/4/2018" />
+            <TextView
+                android:id="@+id/lblRegistrationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_since"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtFellowshipNumber"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblProfessional"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Profesional"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/txtLastLoginDate"
-        app:layout_goneMarginStart="8dp"
-        app:layout_goneMarginTop="16dp" />
+            <EditText
+                android:id="@+id/txtRegistrationDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtFellowshipNumber"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/txtFellowshipNumber"
+                app:layout_constraintTop_toTopOf="@+id/lblRegistrationDate"
+                tools:text="1/1/2018" />
 
-    <Switch
-        android:id="@+id/swProfesional"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/lblProfessional"
-        app:layout_constraintEnd_toEndOf="@+id/txtLastLoginDate"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtLastLoginDate"
-        app:layout_constraintTop_toTopOf="@+id/lblProfessional" />
+            <TextView
+                android:id="@+id/lblLastLoginDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_last_login"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtRegistrationDate"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <TextView
-        android:id="@+id/lblGender"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/gradient_left_column_fields"
-        android:paddingLeft="@dimen/activity_margin_wide"
-        android:paddingRight="@dimen/activity_margin_default"
-        android:text="Gender"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-        app:layout_constraintTop_toBottomOf="@+id/swProfesional" />
+            <EditText
+                android:id="@+id/txtLastLoginDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/txtRegistrationDate"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtRegistrationDate"
+                app:layout_constraintTop_toTopOf="@+id/lblLastLoginDate"
+                tools:text="1/4/2018" />
 
-    <RadioButton
-        android:id="@+id/rbFemale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/lblGender"
-        app:layout_constraintEnd_toStartOf="@+id/rbMale"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/swProfesional"
-        app:layout_constraintTop_toTopOf="@+id/lblGender" />
+            <TextView
+                android:id="@+id/lblProfessional"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_professional"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/txtLastLoginDate"
+                app:layout_goneMarginStart="8dp"
+                app:layout_goneMarginTop="16dp" />
 
-    <RadioButton
-        android:id="@+id/rbMale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Male"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="@+id/swProfesional"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/rbFemale"
-        app:layout_constraintTop_toTopOf="@+id/rbFemale" />
+            <Switch
+                android:id="@+id/swProfesional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@+id/lblProfessional"
+                app:layout_constraintEnd_toEndOf="@+id/txtLastLoginDate"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtLastLoginDate"
+                app:layout_constraintTop_toTopOf="@+id/lblProfessional" />
 
-    <Button
+            <TextView
+                android:id="@+id/lblGender"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient_left_column_fields"
+                android:paddingStart="@dimen/activity_margin_wide"
+                android:paddingEnd="@dimen/activity_margin_default"
+                android:text="@string/form_user_details_gender"
+                android:textAppearance="@android:style/TextAppearance.Inverse"
+                app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
+                app:layout_constraintTop_toBottomOf="@+id/swProfesional" />
+
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/form_user_details_female"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@+id/lblGender"
+                app:layout_constraintEnd_toStartOf="@+id/rbMale"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/swProfesional"
+                app:layout_constraintTop_toTopOf="@+id/lblGender" />
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/form_user_details_male"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/swProfesional"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rbFemale"
+                app:layout_constraintTop_toTopOf="@+id/rbFemale" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnSave"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="SAVE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCancel"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbMale"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_save" />
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="CANCEL"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnSave"
-        app:layout_constraintTop_toTopOf="@+id/btnSave" />
-
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
