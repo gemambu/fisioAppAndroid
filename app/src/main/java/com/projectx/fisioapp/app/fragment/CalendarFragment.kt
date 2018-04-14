@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import com.projectx.fisioapp.R
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Suppress("DEPRECATION")
 class CalendarFragment : Fragment() {
@@ -27,13 +25,10 @@ class CalendarFragment : Fragment() {
         calendarView = root?.findViewById(R.id.fisio_calendar)
         calendarView?.firstDayOfWeek = 2
 
-        calendarView?.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        calendarView?.setOnDateChangeListener { _, year, month, dayOfMonth ->
             //Note that months are indexed from 0. So, 0 means january, 1 means February, 2 means march etc.
-            val month = month + 1
-            val date = "$year-$month-$dayOfMonth"
-
-            //val parsedDate = Date(year, month, dayOfMonth)
-
+            val updatedMonth = month + 1
+            val date = "$year-$updatedMonth-$dayOfMonth"
 
             onSelectedDateListener?.onSelectedDate(date)
         }

@@ -62,13 +62,11 @@ class CatalogListActivity : ParentActivity() {
             CatalogType.SERVICE -> title = getString(R.string.catalog_services_title)
         }
 
-        //Back button
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         swipeLayout.setOnRefreshListener {
             refreshData()
         }
+
+        addBottomBar(this)
 
     }
 
@@ -104,7 +102,6 @@ class CatalogListActivity : ParentActivity() {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                true
             }
         }
         return super.onOptionsItemSelected(item)
@@ -125,7 +122,7 @@ class CatalogListActivity : ParentActivity() {
 
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, list, mTwoPane)
         // set two columns with the elements
-        recyclerView.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
     }
 
     private fun getCatalogList(context: Context, forceUpdate: Boolean) {

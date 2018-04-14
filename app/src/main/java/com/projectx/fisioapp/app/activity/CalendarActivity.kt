@@ -36,6 +36,7 @@ class CalendarActivity : ParentActivity(),
 
         title = getString(R.string.calendar_title)
 
+        addBottomBar(this)
 
     }
 

@@ -49,31 +49,7 @@ class LoginActivity : ParentActivity(),
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavView_bar) as BottomNavigationView
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
 
-        val menu = bottomNavigationView.menu
-        val menuItem = menu.getItem(0)
-        menuItem.isChecked = true
-
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.ic_menu_login -> {
-                    //Router().moveToLoginActivity(this)
-                }
-                R.id.ic_menu_aboutme -> {
-                    Router().moveToAboutMeActivity(this)
-                }
-                R.id.ic_menu_calendar -> {
-                    Router().moveToCalendarActivity(this)
-                }
-                R.id.ic_menu_products -> {
-                    Router().moveToProductsActivity(this)
-                }
-                R.id.ic_menu_services -> {
-                    Router().moveToServicesActivity(this)
-                }
-            }
-
-            false
-        }
+        addBottomBar(this)
 
     }
 
