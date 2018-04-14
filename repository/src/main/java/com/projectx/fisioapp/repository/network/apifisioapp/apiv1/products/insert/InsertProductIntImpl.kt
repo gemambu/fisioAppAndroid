@@ -23,11 +23,11 @@ internal class InsertProductIntImpl : InsertProductInteractor {
         val insertProduct = apiInterfaceLocalhost.doInsertProduct(token, item.name, item.description, item.price, item.isActive)
         insertProduct.enqueue(object : Callback<SaveCatalogResponse> {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
-                val response = response.body()
-                if (response !== null){
-                    val completeItem = response.result!!
+                val backResponse = response.body()
+                if (backResponse !== null){
+                    val completeItem = backResponse.result!!
                     completeItem.type = CatalogType.PRODUCT
-                    response.result.let { success(completeItem) }
+                    backResponse.result.let { success(completeItem) }
 
                 }
             }

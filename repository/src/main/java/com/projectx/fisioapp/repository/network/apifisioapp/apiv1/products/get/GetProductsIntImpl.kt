@@ -25,9 +25,9 @@ internal class GetProductsIntImpl(): GetProductsInteractor {
         val callGetProducts = apiInterfaceLocalhost.doGetProducts(token)
         callGetProducts.enqueue(object : Callback<GetCatalogResponse> {
             override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
-                val response = response.body()
+                val backResponse = response.body()
 
-                response.let { success(convertList(response!!, CatalogType.PRODUCT)) }
+                backResponse.let { success(convertList(backResponse!!, CatalogType.PRODUCT)) }
 
             }
 

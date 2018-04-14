@@ -135,7 +135,7 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
         val result: Long = 1
         val foundAppointment = query(element.databaseId)
 
-        if (foundAppointment != null && foundAppointment.isNotEmpty()) {
+        if (foundAppointment.isNotEmpty()) {
             update(element.databaseId, element)
             return result
         }

@@ -21,8 +21,8 @@ class UpdateUserIntImpl(context: Context) : UpdateUserInteractor {
         repository.updateUser(
                 token, userData,
                 success = { ok: Boolean, userData: UserData ->
-                    val user: User = entityMapper(userData)
-                    success(ok, user)
+                    val finalUser: User = entityMapper(userData)
+                    success(ok, finalUser)
                 }, error = {
                     error.errorCompletion(it)
                 }

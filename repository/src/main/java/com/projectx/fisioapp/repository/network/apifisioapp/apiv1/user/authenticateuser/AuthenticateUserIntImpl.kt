@@ -21,8 +21,8 @@ internal class AuthenticateUserIntImpl (): AuthenticateUserInteractor {
         callGetToken.enqueue(object : Callback<AuthenticateUserResponse> {
             override fun onResponse(call: Call<AuthenticateUserResponse>, response: Response<AuthenticateUserResponse>) {
                 val responseObject = response.body()
-                val user = responseObject!!.result as UserData
-                val token = responseObject!!.token as String
+                val user = responseObject?.result as UserData
+                val token = responseObject?.token as String
                 success(user, token)
             }
 

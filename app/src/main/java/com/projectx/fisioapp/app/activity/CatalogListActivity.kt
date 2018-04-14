@@ -73,7 +73,7 @@ class CatalogListActivity : ParentActivity() {
     override fun onResume() {
         super.onResume()
 
-        catalog_list_add_element.setOnClickListener { view ->
+        catalog_list_add_element.setOnClickListener { _ ->
             Router().navigateFromParentActivityToNewCatalogActivity(this, type)
         }
 

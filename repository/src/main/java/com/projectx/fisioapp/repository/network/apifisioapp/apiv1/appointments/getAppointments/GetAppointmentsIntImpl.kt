@@ -20,8 +20,8 @@ internal class GetAppointmentsIntImpl (): GetAppointmentsInteractor {
         callGetAppointments.enqueue(object : Callback<GetAppointmentsResponse> {
 
             override fun onResponse(call: Call<GetAppointmentsResponse>, response: Response<GetAppointmentsResponse>) {
-                val response = response.body()
-                response.let { success(convertAppointments(response!!)) }
+                val backResponse = response.body()
+                backResponse.let { success(convertAppointments(backResponse!!)) }
             }
 
 

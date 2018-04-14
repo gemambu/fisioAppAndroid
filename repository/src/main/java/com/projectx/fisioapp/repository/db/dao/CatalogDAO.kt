@@ -102,7 +102,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         val result: Long = 1
         val foundIntem = query(element.databaseId)
 
-        if(foundIntem != null && foundIntem.isNotEmpty()){
+        if(foundIntem.isNotEmpty()){
             update(element.databaseId, element)
             return result
         }

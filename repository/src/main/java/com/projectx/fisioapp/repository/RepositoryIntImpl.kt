@@ -115,8 +115,8 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
 
         // perform network request
         updateUser.execute(token, user,
-                success = { ok: Boolean, user: UserData ->
-                    success(ok, user)
+                success = { ok: Boolean, userData: UserData ->
+                    success(ok, userData)
                 }, error = {
                     error(it)
                 }

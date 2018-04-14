@@ -19,9 +19,9 @@ internal class UpdateAppointmentIntImpl(): UpdateAppointmentInteractor {
         confirmAppointment.enqueue(object : Callback<UpdateAppointmentResponse> {
 
             override fun onResponse(call: Call<UpdateAppointmentResponse>?, response: Response<UpdateAppointmentResponse>) {
-                val response = response.body()
+                val backResponse = response.body()
 
-                response.let { success(converterDeleteAppointment(response!!)) }
+                backResponse.let { success(converterDeleteAppointment(backResponse!!)) }
             }
 
             override fun onFailure(call: Call<UpdateAppointmentResponse>, t: Throwable?) {

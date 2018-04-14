@@ -25,9 +25,9 @@ class UpdateUserIntImpl() : UpdateUserInteractor {
         updateUser.enqueue(object : Callback<UpdateUserResponse> {
 
             override fun onResponse(call: Call<UpdateUserResponse>, response: Response<UpdateUserResponse>) {
-                val response = response.body()
-                val ok = response?.ok ?: false
-                val userData = response?.result as UserData
+                val backResponse = response.body()
+                val ok = backResponse?.ok ?: false
+                val userData = backResponse?.result as UserData
                 if (ok) success(ok, userData)
             }
 

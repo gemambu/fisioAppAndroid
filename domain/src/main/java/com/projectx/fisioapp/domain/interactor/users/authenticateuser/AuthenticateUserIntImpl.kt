@@ -19,8 +19,8 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
                 email, password,
                 success = { user: UserData, token: String ->
 
-                    val user: User = entityMapper(user)
-                        success(user, token)
+                    val userData: User = entityMapper(user)
+                        success(userData, token)
                     }, error = {
                         error.errorCompletion(it)
                     }

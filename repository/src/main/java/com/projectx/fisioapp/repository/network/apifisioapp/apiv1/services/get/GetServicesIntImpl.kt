@@ -26,13 +26,10 @@ internal class GetServicesIntImpl (): GetServicesInteractor {
         callGetServices.enqueue(object : Callback<GetCatalogResponse> {
             override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
 
-
                 response.body().let {
-                    val response = response.body()
-                    response.let { success(convertList(response!!, CatalogType.SERVICE)) }
+                    val backResponse = response.body()
+                    backResponse.let { success(convertList(backResponse!!, CatalogType.SERVICE)) }
                 }
-
-                // error(response.message())
 
             }
 
