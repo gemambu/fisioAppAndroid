@@ -7,12 +7,14 @@ import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 import com.projectx.fisioapp.repository.entitymodel.user.UserData
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.deleteAppointment.DeleteAppointmentInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsForDateInteractor
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsIntImpl
-import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments.GetAppointmentsInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.deleteAppointment.DeleteAppointmentIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.deleteAppointment.DeleteAppointmentInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.getAppointments.GetAppointmentsForDateIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.getAppointments.GetAppointmentsForDateInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.getAppointments.GetAppointmentsIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.getAppointments.GetAppointmentsInteractor
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.updateAppointment.UpdateAppointmentIntImpl
+import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.updateAppointment.UpdateAppointmentInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductIntImpl
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.delete.DeleteProductInteractor
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.products.get.GetProductsIntImpl
@@ -39,6 +41,7 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.Up
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserInteractor
 import retrofit2.Response.success
 import java.lang.ref.WeakReference
+import java.util.*
 
 
 class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
@@ -56,6 +59,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     private val getAllAppointments: GetAppointmentsInteractor = GetAppointmentsIntImpl()
     private val getAppointmentsForDate: GetAppointmentsForDateInteractor = GetAppointmentsForDateIntImpl()
     private val deleteAppointment: DeleteAppointmentInteractor = DeleteAppointmentIntImpl()
+    private val updateAppointment: UpdateAppointmentInteractor = UpdateAppointmentIntImpl()
 
     // ***** Products *****
     private val getAllProducts: GetProductsInteractor = GetProductsIntImpl()
@@ -329,7 +333,7 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
     override fun deleteAppointment(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
         deleteAppointment.execute(token, id, success = {
             deleteAppointmentFromCache(id)
-            if (it == true) {
+            if (it) {
                 success("Appointment $id removed successfully")
             }
         }, error = {
@@ -337,8 +341,34 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         })
     }
 
+    override fun updateAppointment(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (appointment: AppoinmentData) -> Unit, error: (errorMessage: String) -> Unit) {
+        updateAppointment.execute(token,
+                id,
+                isConfirmed,
+                isCancelled,
+                success = {
+                    updateAppointmentInCache(id, isConfirmed, isCancelled)
+                    success(it)
+
+                }, error = {
+            error(it)
+        })
+    }
+
+
+
+    private fun updateAppointmentInCache(id: String, isConfirmed: Boolean, isCancelled: Boolean) {
+        cache.updateAppointment(id, isConfirmed, isCancelled,
+                success = {
+                    success("Appointment $id} updated successfully")
+                }, error = {
+            kotlin.error("Error updating item: $id")
+        })
+    }
+
 
     /******** Appointments Utils ********/
+
     private fun populateCacheWithAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit){
         getAllAppointments.execute(token,
                 success = {

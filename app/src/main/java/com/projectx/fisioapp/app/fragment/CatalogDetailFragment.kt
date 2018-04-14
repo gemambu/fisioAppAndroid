@@ -21,8 +21,8 @@ class CatalogDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var mItem: Catalog? = null
-    lateinit var type: CatalogType
-    var catalogItemListener: CatalogItemListener? = null
+    private lateinit var type: CatalogType
+    private var catalogItemListener: CatalogItemListener? = null
     private lateinit var root: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +41,7 @@ class CatalogDetailFragment : Fragment() {
         activity_catalog_detail_name_text.hint = "name"
         activity_catalog_detail_desc_text.hint = "description"
         activity_catalog_detail_price_text.hint = "20"
+
         is_active_box.isChecked = false
 
         arguments?.let {
@@ -55,10 +56,8 @@ class CatalogDetailFragment : Fragment() {
                 // to load content from a content provider.
                 mItem = arguments.getSerializable(ARG_ITEM) as Catalog
 
-
-
                 mItem?.let {
-                    //activity.toolbar_layout?.title = it.content
+
                     activity_catalog_detail_name_text.setText(it.name)
                     activity_catalog_detail_desc_text.setText(it.description)
                     activity_catalog_detail_price_text.setText(it.price.toString())

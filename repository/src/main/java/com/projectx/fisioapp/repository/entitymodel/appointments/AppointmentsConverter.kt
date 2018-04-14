@@ -1,5 +1,8 @@
 package com.projectx.fisioapp.repository.entitymodel.appointments
 
+import com.projectx.fisioapp.repository.entitymodel.responses.GetAppointmentsResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.UpdateAppointmentResponse
+
 fun convertAppointments(response: GetAppointmentsResponse): List<AppoinmentData> {
     var appointmentsList: MutableList<AppoinmentData> = arrayListOf()
 
@@ -36,8 +39,8 @@ fun convertAppointments(response: GetAppointmentsResponse): List<AppoinmentData>
 }
 
 
-fun converterDeleteAppointment(response: DeleteAppointmentResponse): Boolean {
-    var appointmentDeleted: Boolean = false
+fun converterDeleteAppointment(response: UpdateAppointmentResponse): Boolean {
+    var appointmentDeleted = false
 
 
     response.ok.let {

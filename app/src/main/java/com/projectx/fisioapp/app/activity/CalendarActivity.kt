@@ -2,12 +2,10 @@ package com.projectx.fisioapp.app.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.adapter.AppointmentItemRecyclerViewAdapter
-import com.projectx.fisioapp.app.fragment.*
+import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
+import com.projectx.fisioapp.app.fragment.CalendarFragment
 import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.ToastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
@@ -16,7 +14,6 @@ import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDa
 import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDateInteractor
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
-import kotlinx.android.synthetic.main.activity_catalog_list.*
 import kotlinx.android.synthetic.main.appointment_list.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -25,7 +22,8 @@ class CalendarActivity : ParentActivity(),
         AppointmentsListFragment.OnSelectedAppointmentListener,
         CalendarFragment.OnSelectedDateListener {
 
-    lateinit var calendarFragment: CalendarFragment
+
+    private lateinit var calendarFragment: CalendarFragment
     lateinit var appointmentsListFragment: AppointmentsListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,12 +55,14 @@ class CalendarActivity : ParentActivity(),
                 getAppointmentsForDate.execute(token, date,
                         success = object : SuccessCompletion<Appointments> {
                             override fun successCompletion(e: Appointments) {
-                                appointmentsListFragment.setAppointmentsList(e)
+                                appointmentsListFragment.setAppointmentsList(e.appointments)
                                 appointmentsListFragment.setupRecyclerView(appointment_list, e)
+
+                                //appointmentsListFragment.setupRecyclerView(appointment_list, e.appointments)
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(baseContext, "$errorMessage")
+                        ToastIt(baseContext, errorMessage)
                     }
                 })
             } catch (e: Exception) {
@@ -71,15 +71,12 @@ class CalendarActivity : ParentActivity(),
         }
     }
 
-
-
-
     // ***** Back button enabled *****
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                true
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

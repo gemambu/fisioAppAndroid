@@ -7,6 +7,7 @@ import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import android.widget.Toast
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
@@ -54,21 +55,20 @@ class CatalogListActivity : ParentActivity() {
             Router().navigateFromCatalogListActivitytoLoginActivity(this)
         }
 
-        swipeLayout.setOnRefreshListener {
-            refreshData()
-        }
-
-
         type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
 
         when(type){
-            CatalogType.PRODUCT -> toolbar.title = getString(R.string.catalog_products_title)
-            CatalogType.SERVICE -> toolbar.title = getString(R.string.catalog_services_title)
+            CatalogType.PRODUCT -> title = getString(R.string.catalog_products_title)
+            CatalogType.SERVICE -> title = getString(R.string.catalog_services_title)
         }
 
-        setSupportActionBar(toolbar)
+        //Back button
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+        swipeLayout.setOnRefreshListener {
+            refreshData()
+        }
 
     }
 
@@ -97,6 +97,17 @@ class CatalogListActivity : ParentActivity() {
         } else {
             setupRecyclerView(catalog_list)
         }
+    }
+
+    // ***** Back button enabled *****
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun refreshData() {
@@ -132,7 +143,7 @@ class CatalogListActivity : ParentActivity() {
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(baseContext, "$errorMessage")
+                        ToastIt(baseContext, errorMessage)
                     }
                 })
             } catch (e: Exception) {

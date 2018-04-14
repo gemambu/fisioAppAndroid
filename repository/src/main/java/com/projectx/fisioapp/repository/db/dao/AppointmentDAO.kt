@@ -6,12 +6,14 @@ import android.database.sqlite.SQLiteDatabase
 import com.projectx.fisioapp.repository.db.DBHelper
 import com.projectx.fisioapp.repository.db.constants.DBAppointmentConstants
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
     private val dbReadOnlyConn: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteOnlyConn: SQLiteDatabase = dbHelper.writableDatabase
+
 
     private fun contentValues(entityData: AppoinmentData): ContentValues {
         val content = ContentValues()
@@ -29,6 +31,16 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
         content.put(DBAppointmentConstants.KEY_LATITUDE, entityData.latitude)
         content.put(DBAppointmentConstants.KEY_LONGITUDE, entityData.longitude)
         content.put(DBAppointmentConstants.KEY_EXTRA_INFO, entityData.extraInfo)
+
+        return content
+    }
+
+    private fun contentValues(id: String, isConfirmed: Boolean, isCancelled: Boolean): ContentValues {
+        val content = ContentValues()
+
+        content.put(DBAppointmentConstants.KEY_DATABASE_ID, id)
+        content.put(DBAppointmentConstants.KEY_IS_CONFIRMED, isConfirmed)
+        content.put(DBAppointmentConstants.KEY_IS_CANCELLED, isCancelled)
 
         return content
     }
@@ -72,7 +84,8 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
         val isConfirmed = cursor.getInt(cursor.getColumnIndex(DBAppointmentConstants.KEY_IS_CONFIRMED)) == 1
         val isCancelled = cursor.getInt(cursor.getColumnIndex(DBAppointmentConstants.KEY_IS_CANCELLED)) == 1
-        val date = cursor.getInt(cursor.getColumnIndex(DBAppointmentConstants.KEY_DATE))
+        val date = cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_DATE))
+
         return AppoinmentData(cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_SERVICE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_SERVICE_PRICE)),
@@ -82,7 +95,7 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_PROFESSIONAL_ID)),
                 isConfirmed,
                 isCancelled,
-                Date(date.toLong()),
+                getDate(date),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_LATITUDE)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_LONGITUDE)),
                 cursor.getString(cursor.getColumnIndex(DBAppointmentConstants.KEY_EXTRA_INFO))
@@ -98,13 +111,12 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
             DBAppointmentConstants.KEY_DATE + " ASC")
 
 
-    // ***** Gema's method; used in Appointments to pass the date (not any type) *****
     override fun query(type: String): List<AppoinmentData> {
         val result = ArrayList<AppoinmentData>()
 
         val cursor = dbReadOnlyConn.query(DBAppointmentConstants.TABLE_APPOINTMENT,
                 DBAppointmentConstants.ALL_COLUMNS,
-                DBAppointmentConstants.KEY_DATE + " = ?",
+                DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
                 arrayOf(type),
                 "",
                 "",
@@ -113,7 +125,6 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
         while (cursor.moveToNext()) {
             val entity = entityFromCursor(cursor)!!
             result.add(entity)
-
         }
 
         return result
@@ -122,7 +133,6 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
     override fun insert(element: AppoinmentData, type: String): Long = dbReadWriteOnlyConn.insert(DBAppointmentConstants.TABLE_APPOINTMENT, null, contentValues(element))
 
     override fun insert(element: AppoinmentData): Long = dbReadWriteOnlyConn.insert(DBAppointmentConstants.TABLE_APPOINTMENT, null, contentValues(element))
-
 
     override fun update(id: Long, element: AppoinmentData): Long =
             dbReadWriteOnlyConn.update(
@@ -148,16 +158,60 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
             null).toLong() >= 0
 
 
-
-    // ***** Gema's methods added to interface *****
     override fun insertOrUpdate(element: AppoinmentData, type: String): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        var result: Long = 1
+        var foundAppointment = query(element.databaseId)
+
+        if (foundAppointment != null && foundAppointment.size > 0) {
+            update(element.databaseId, element)
+            return result
+        }
+
+
+        return dbReadWriteOnlyConn.insert(DBAppointmentConstants.TABLE_APPOINTMENT, null, contentValues(element))
+
     }
 
-    override fun update(id: String, element: AppoinmentData): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun update(id: String, element: AppoinmentData): String =
+            dbReadWriteOnlyConn.update(
+                    DBAppointmentConstants.TABLE_APPOINTMENT,
+                    contentValues(element),
+                    DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
+                    arrayOf(id)).toString()
+
+
+    /* Specific methods for AppointmentDao */
+
+    fun update(id: String, confirmed: Boolean, cancelled: Boolean): Long {
+        return dbReadWriteOnlyConn.update(
+                DBAppointmentConstants.TABLE_APPOINTMENT,
+                contentValues(id, confirmed, cancelled),
+                DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
+                arrayOf(id)).toLong()
+    }
+
+    fun queryDate(type: String): List<AppoinmentData> {
+        val result = ArrayList<AppoinmentData>()
+
+        val cursor = dbReadOnlyConn.query(DBAppointmentConstants.TABLE_APPOINTMENT,
+                DBAppointmentConstants.ALL_COLUMNS,
+                "strftime('%Y-%m-%d', ?) = ?",
+                arrayOf(type),
+                "",
+                "",
+                DBAppointmentConstants.KEY_DATE + " ASC")
+
+        while (cursor.moveToNext()) {
+            val entity = entityFromCursor(cursor)!!
+            result.add(entity)
+
+        }
+
+        return result
     }
 
 
+    private fun getDate(date: String): Date = SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy").parse(date)
 
 }

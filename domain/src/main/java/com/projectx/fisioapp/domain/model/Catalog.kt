@@ -18,7 +18,7 @@ open class Catalog(val id: String,
 /**
  *
  */
-class Catalogs(val catalogs: MutableList<Catalog>) : Aggregate<Catalog> {
+class Catalogs(private val catalogs: MutableList<Catalog>) : Aggregate<Catalog> {
     override fun count() = catalogs.size
 
     override fun all() = catalogs

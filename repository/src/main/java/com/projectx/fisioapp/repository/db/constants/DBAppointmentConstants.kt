@@ -48,7 +48,7 @@ object DBAppointmentConstants {
                     + KEY_PROFESSIONAL_ID + " text not null,"
                     + KEY_IS_CONFIRMED + " integer,"
                     + KEY_IS_CANCELLED + " integer,"
-                    + KEY_DATE + " integer, "
+                    + KEY_DATE + " text, "
                     + KEY_LATITUDE + " real,"
                     + KEY_LONGITUDE + " real, "
                     + KEY_EXTRA_INFO + " text"

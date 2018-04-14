@@ -17,15 +17,14 @@ fun convertList(response: GetCatalogResponse, type: CatalogType): List<CatalogDa
             rows.let {
 
                 rows!!.map {
-                    val row = it
                     val catalog = CatalogData(
-                            row.id!!,
-                            row.name!!,
-                            row.description!!,
-                            row.price!!.toFloat(),
+                            it.id!!,
+                            it.name!!,
+                            it.description!!,
+                            it.price!!.toFloat(),
                             // CHANGING PROFESSIONAL X PERSON
-                            row.professional!!.id!!,
-                            row.isActive!!,
+                            it.professional!!.id!!,
+                            it.isActive!!,
                             //row?.image!!,
                             type
                     )

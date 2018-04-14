@@ -35,20 +35,6 @@ class Router {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }
 
-    fun navigateFromParentActivityToServicesActivity(mainActivity: CatalogParentActivity) {
-        navigateToDetailActivity(mainActivity, CatalogType.SERVICE)
-    }
-
-    fun navigateFromParentActivityToProductsActivity(mainActivity: CatalogParentActivity) {
-        navigateToDetailActivity(mainActivity, CatalogType.PRODUCT)
-    }
-
-    private fun navigateToDetailActivity(mainActivity: CatalogParentActivity, type: CatalogType) {
-        val intent = Intent(mainActivity, CatalogListActivity::class.java)
-        intent.putExtra(EXTRA_CATALOG_TYPE, type)
-        mainActivity.startActivityForResult(intent, RQ_OPERATION)
-    }
-
     fun navigateFromParentActivityToDetailCatalogActivity(item: Catalog, mainActivity: CatalogListActivity, type: CatalogType) {
         val intent = Intent(mainActivity, CatalogDetailActivity::class.java)
         intent.putExtra(EXTRA_CATALOG_TYPE, type)

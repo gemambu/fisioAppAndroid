@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.getAppointments
+package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.getAppointments
 
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 

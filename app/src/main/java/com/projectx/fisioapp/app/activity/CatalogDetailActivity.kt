@@ -27,22 +27,33 @@ import kotlinx.coroutines.experimental.async
  * item details are presented side-by-side with a list of items
  * in a [CatalogListActivity].
  */
-class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
+class CatalogDetailActivity : ParentActivity(), CatalogItemListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_detail)
+
+        //Back button
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val arguments = Bundle()
 
         if(intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM) != null){
             arguments.putSerializable(CatalogDetailFragment.ARG_ITEM,
                     intent.getSerializableExtra(CatalogDetailFragment.ARG_ITEM))
+
         }
 
-        if(intent.getSerializableExtra(EXTRA_CATALOG_TYPE) != null){
+        val type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE)
+        if(type != null){
             arguments.putSerializable(EXTRA_CATALOG_TYPE,
-                    intent.getSerializableExtra(EXTRA_CATALOG_TYPE))
+                    type)
+
+            when(type as CatalogType){
+                CatalogType.SERVICE -> title = "Service detail"
+                CatalogType.PRODUCT -> title = "Product detail"
+            }
         }
 
 
@@ -52,41 +63,9 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                 .replace(R.id.activity_list_detail_fragment, fragment)
                 .commit()
 
-
-
-        /*
-        //setSupportActionBar(detail_toolbar)
-
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
-
-        // Show the Up button in the action bar.
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            val arguments = Bundle()
-            arguments.putString(CatalogDetailFragment.ARG_ITEM,
-                    intent.getStringExtra(CatalogDetailFragment.ARG_ITEM))
-            val fragment = CatalogDetailFragment()
-            fragment.arguments = arguments
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.activity_list_detail_fragment, fragment)
-                    .commit()
-        }*/
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem) =
             when (item.itemId) {
@@ -113,7 +92,7 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                         item,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
-                                ToastIt(view.context, "$e")
+                                ToastIt(view.context, e)
 
                                 val intent = Intent()
                                 intent.putExtra("result", -1)
@@ -121,7 +100,7 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(view.context, "$errorMessage")
+                        ToastIt(view.context, errorMessage)
                         finalizeActivity(Activity.RESULT_CANCELED, Intent())
                     }
                 })
@@ -142,7 +121,7 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                         type.name,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
-                                ToastIt(view.context, "$e")
+                                ToastIt(view.context, e)
 
                                 val intent = Intent()
                                 intent.putExtra("result", -1)
@@ -150,7 +129,7 @@ class CatalogDetailActivity : CatalogParentActivity(), CatalogItemListener {
                             }
                         }, error = object : ErrorCompletion {
                             override fun errorCompletion(errorMessage: String) {
-                                ToastIt(view.context, "$errorMessage")
+                                ToastIt(view.context, errorMessage)
 
                                 finalizeActivity(Activity.RESULT_CANCELED, Intent())
                             }

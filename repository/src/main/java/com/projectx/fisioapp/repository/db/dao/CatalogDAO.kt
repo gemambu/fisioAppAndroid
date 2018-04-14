@@ -66,7 +66,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
             return null
         }
 
-        val isActive = cursor.getInt(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE)) == 1;
+        val isActive = cursor.getInt(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE)) == 1
         val type : CatalogType = if (cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_TYPE)) === "SERVICE")  CatalogType.SERVICE else CatalogType.PRODUCT
 
         return CatalogData(cursor.getString(cursor.getColumnIndex(DBCatalogConstants.KEY_ENTITY_DATABASE_ID)),
@@ -116,14 +116,11 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
             update(element.databaseId, element)
             result = 1
         }
-        return result.toLong()
+        return result
     }
 
 
-    // Empty implementation as this method is used only for AppointmentDAO
-    override fun insert(element: CatalogData): Long {
-        return 0
-    }
+
 
 
     override fun update(id: String, element: CatalogData): String =
@@ -156,5 +153,9 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
             null,
             null).toLong() >= 0
 
+    // Empty implementation as this method is used only for AppointmentDAO
+    override fun insert(element: CatalogData): Long {
+        return 0
+    }
 
 }

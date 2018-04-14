@@ -3,26 +3,26 @@ package com.projectx.fisioapp.domain.interactor.appointments
 import android.content.Context
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
-import com.projectx.fisioapp.domain.model.Appointments
+import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.util.AppointmentMapper
 import com.projectx.fisioapp.repository.RepositoryIntImpl
 import com.projectx.fisioapp.repository.RepositoryInteractor
 import java.lang.ref.WeakReference
-import java.util.*
 
-class GetAppointmentsForDateIntImpl(context: Context) : GetAppointmentsForDateInteractor {
+class UpdateAppointmentIntImpl(context: Context) : UpdateAppointmentInteractor {
 
     private val weakContext = WeakReference<Context>(context)
     private val repository: RepositoryInteractor = RepositoryIntImpl(weakContext.get()!!)
 
-    override fun execute(token: String, date: String, success: SuccessCompletion<Appointments>, error: ErrorCompletion) {
+    override fun execute(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: SuccessCompletion<Appointment>, error: ErrorCompletion) {
 
-        repository.getAppointmentsForDate(token, date,
+        repository.updateAppointment(token, id, isConfirmed, isCancelled,
                 success = {
-                    val appointments: Appointments = AppointmentMapper().appointmentsListMapper(it)
-                    success.successCompletion(appointments)
+                    val appointment: Appointment = AppointmentMapper().appointmentMapper(it)
+                    success.successCompletion(appointment)
                 }, error = {
                     error.errorCompletion(it)
-        })
+                })
     }
+
 }
