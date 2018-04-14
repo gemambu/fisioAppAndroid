@@ -15,7 +15,7 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
     private val dbReadOnlyConn: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteOnlyConn: SQLiteDatabase = dbHelper.writableDatabase
 
-    private fun contentValues(entityData: CatalogData, type: String): ContentValues {
+    private fun contentValues(entityData: CatalogData): ContentValues {
         val content = ContentValues()
 
         content.put(DBCatalogConstants.KEY_ENTITY_DATABASE_ID, entityData.databaseId)
@@ -25,15 +25,10 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         content.put(DBCatalogConstants.KEY_ENTITY_IS_ACTIVE, entityData.isActive)
         content.put(DBCatalogConstants.KEY_ENTITY_PROFESSIONAL_ID, entityData.professionalId)
         //content.put(DBCatalogConstants.KEY_ENTITY_IMAGE_URL, entityData.image)
-        content.put(DBCatalogConstants.KEY_ENTITY_TYPE, type)
+        content.put(DBCatalogConstants.KEY_ENTITY_TYPE, entityData.type.name)
         return content
     }
 
-    override fun query(id: Long): CatalogData {
-        val cursor = queryCursor(id)
-        cursor.moveToFirst()
-        return entityFromCursor(cursor)!!
-    }
 
     override fun count(): Int {
         val cursor = dbReadOnlyConn.rawQuery(DBCatalogConstants.QUERY_COUNT, null)
@@ -48,6 +43,25 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
                 DBCatalogConstants.ALL_COLUMNS,
                 null,
                 null,
+                "",
+                "",
+                DBCatalogConstants.KEY_ENTITY_NAME + " ASC")
+
+        while (cursor.moveToNext()) {
+            val entity = entityFromCursor(cursor)!!
+            result.add(entity)
+        }
+
+        return result
+    }
+
+    override fun query(id: String): List<CatalogData> {
+        val result = ArrayList<CatalogData>()
+
+        val cursor = dbReadOnlyConn.query(DBCatalogConstants.TABLE_CATALOG,
+                DBCatalogConstants.ALL_COLUMNS,
+                DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
+                arrayOf(id),
                 "",
                 "",
                 DBCatalogConstants.KEY_ENTITY_NAME + " ASC")
@@ -80,15 +94,45 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         )
     }
 
-    override fun queryCursor(id: Long): Cursor = dbReadOnlyConn.query(DBCatalogConstants.TABLE_CATALOG,
-            DBCatalogConstants.ALL_COLUMNS,
-            DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
-            arrayOf(id.toString()),
-            "",
-            "",
-            DBCatalogConstants.KEY_ENTITY_NAME + " ASC")
 
-    override fun query(type: String): List<CatalogData> {
+    override fun insert(element: CatalogData, type: String): Long = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element))
+
+    override fun insertOrUpdate(element: CatalogData): Long {
+
+        var result: Long = 1
+        var foundIntem = query(element.databaseId)
+
+        if(foundIntem != null && foundIntem.isNotEmpty()){
+            update(element.databaseId, element)
+            return result
+        }
+        return dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element))
+
+    }
+
+    override fun update(id: String, element: CatalogData): String =
+            dbReadWriteOnlyConn.update(
+                    DBCatalogConstants.TABLE_CATALOG,
+                    contentValues(element),
+                    DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
+                    arrayOf(id)).toString()
+
+    override fun delete(id: String): String = dbReadWriteOnlyConn.delete(DBCatalogConstants.TABLE_CATALOG,
+            DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
+            arrayOf(id)).toString()
+
+    override fun deleteAll(): Boolean = dbReadWriteOnlyConn.delete(DBCatalogConstants.TABLE_CATALOG,
+            null,
+            null).toLong() >= 0
+
+    // Empty implementation as this method is used only for AppointmentDAO
+    override fun insert(element: CatalogData): Long {
+        return 0
+    }
+
+    // Specific functions for CatalogDao
+
+    fun queryType(type: String): List<CatalogData> {
         val result = ArrayList<CatalogData>()
 
         val cursor = dbReadOnlyConn.query(DBCatalogConstants.TABLE_CATALOG,
@@ -105,57 +149,6 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
         }
 
         return result
-    }
-
-    override fun insert(element: CatalogData, type: String): Long = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
-
-    override fun insertOrUpdate(element: CatalogData, type: String): Long {
-        var result = dbReadWriteOnlyConn.insert(DBCatalogConstants.TABLE_CATALOG, null, contentValues(element, type))
-
-        if (result.compareTo(-1) == 0){
-            update(element.databaseId, element)
-            result = 1
-        }
-        return result
-    }
-
-
-
-
-
-    override fun update(id: String, element: CatalogData): String =
-            dbReadWriteOnlyConn.update(
-                    DBCatalogConstants.TABLE_CATALOG,
-                    contentValues(element, element.type.toString()),
-                    DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
-                    arrayOf(id)).toString()
-
-    override fun update(id: Long, element: CatalogData): Long =
-            dbReadWriteOnlyConn.update(
-                    DBCatalogConstants.TABLE_CATALOG,
-                    contentValues(element, element.type.toString()),
-                    DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
-                    arrayOf(id.toString())).toLong()
-
-
-    override fun delete(element: CatalogData): String = if (element.databaseId == "") "" else delete(element.databaseId)
-
-
-    override fun delete(id: String): String = dbReadWriteOnlyConn.delete(DBCatalogConstants.TABLE_CATALOG,
-            DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
-            arrayOf(id)).toString()
-
-    override fun delete(id: Long): Long = dbReadWriteOnlyConn.delete(DBCatalogConstants.TABLE_CATALOG,
-            DBCatalogConstants.KEY_ENTITY_DATABASE_ID + " = ?",
-            arrayOf(id.toString())).toLong()
-
-    override fun deleteAll(): Boolean = dbReadWriteOnlyConn.delete(DBCatalogConstants.TABLE_CATALOG,
-            null,
-            null).toLong() >= 0
-
-    // Empty implementation as this method is used only for AppointmentDAO
-    override fun insert(element: CatalogData): Long {
-        return 0
     }
 
 }

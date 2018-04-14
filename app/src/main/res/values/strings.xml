@@ -8,9 +8,9 @@
     <string name="catalog_detail_name_label_text">Nombre</string>
     <string name="catalog_list">Catalog List</string>
     <string name="catalog_list_element_image_content">catalog image</string>
-    <string name="login_email_hint">email</string>
+    <string name="login_email_hint">Email</string>
     <string name="login_name_hint">Name</string>
-    <string name="login_password_hint">******</string>
+    <string name="login_password_hint">Password</string>
     <string name="login_title">Login</string>
     <string name="register_title">Register</string>
     <string name="the_team">Project X Team:</string>
@@ -25,4 +25,18 @@
     <string name="catalog_products_title">Products</string>
     <string name="catalog_services_title">Services</string>
     <string name="calendar_title">Calendar</string>
+    <string name="form_user_details_name">Name</string>
+    <string name="form_user_details_last_name">Last name</string>
+    <string name="form_user_details_email">Email</string>
+    <string name="form_user_details_address">Address</string>
+    <string name="form_user_details_phone">Phone</string>
+    <string name="form_user_details_birthdate">Birthdate</string>
+    <string name="form_user_details_national_id">National ID</string>
+    <string name="form_user_details_fellowship_id">Fellowship ID</string>
+    <string name="form_user_details_since">Since</string>
+    <string name="form_user_details_last_login">Last login</string>
+    <string name="form_user_details_professional">Professional</string>
+    <string name="form_user_details_gender">Gender</string>
+    <string name="form_user_details_female">Female</string>
+    <string name="form_user_details_male">Male</string>
 </resources>

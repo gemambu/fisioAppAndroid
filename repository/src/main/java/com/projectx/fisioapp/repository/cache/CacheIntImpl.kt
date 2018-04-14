@@ -40,7 +40,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun getAllCatalogItems(type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         Thread(Runnable {
-            val entityList = CatalogDAO(dbHelper).query(type)
+            val entityList = CatalogDAO(dbHelper).queryType(type)
 
             if (entityList.isNotEmpty()) {
                 success(entityList)
@@ -55,7 +55,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
-                catalogList.forEach { CatalogDAO(dbHelper).insertOrUpdate(it, type) }
+                catalogList.forEach { CatalogDAO(dbHelper).insertOrUpdate(it) }
 
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()
@@ -201,7 +201,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
-                appointmentsList.forEach {AppointmentDAO(dbHelper).insertOrUpdate(it, "")}
+                appointmentsList.forEach {AppointmentDAO(dbHelper).insertOrUpdate(it)}
 
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()

@@ -45,12 +45,6 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
         return content
     }
 
-    override fun query(id: Long): AppoinmentData {
-        val cursor = queryCursor(id)
-        cursor.moveToFirst()
-        return entityFromCursor(cursor)!!
-    }
-
     override fun count(): Int {
         val cursor = dbReadOnlyConn.rawQuery(DBAppointmentConstants.QUERY_COUNT, null)
         cursor.moveToFirst()
@@ -102,22 +96,14 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
         )
     }
 
-    override fun queryCursor(id: Long): Cursor = dbReadOnlyConn.query(DBAppointmentConstants.TABLE_APPOINTMENT,
-            DBAppointmentConstants.ALL_COLUMNS,
-            DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
-            arrayOf(id.toString()),
-            "",
-            "",
-            DBAppointmentConstants.KEY_DATE + " ASC")
 
-
-    override fun query(type: String): List<AppoinmentData> {
+    override fun query(id: String): List<AppoinmentData> {
         val result = ArrayList<AppoinmentData>()
 
         val cursor = dbReadOnlyConn.query(DBAppointmentConstants.TABLE_APPOINTMENT,
                 DBAppointmentConstants.ALL_COLUMNS,
                 DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
-                arrayOf(type),
+                arrayOf(id),
                 "",
                 "",
                 DBAppointmentConstants.KEY_DATE + " ASC")
@@ -134,31 +120,17 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
     override fun insert(element: AppoinmentData): Long = dbReadWriteOnlyConn.insert(DBAppointmentConstants.TABLE_APPOINTMENT, null, contentValues(element))
 
-    override fun update(id: Long, element: AppoinmentData): Long =
-            dbReadWriteOnlyConn.update(
-                    DBAppointmentConstants.TABLE_APPOINTMENT,
-                    contentValues(element),
-                    DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
-                    arrayOf(id.toString())).toLong()
-
-
-    override fun delete(element: AppoinmentData): String = if (element.databaseId == "") "" else delete(element.databaseId)
-
-
-    override fun delete(id: String): String = dbReadWriteOnlyConn.delete(DBAppointmentConstants.TABLE_APPOINTMENT,
+        override fun delete(id: String): String = dbReadWriteOnlyConn.delete(DBAppointmentConstants.TABLE_APPOINTMENT,
             DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
             arrayOf(id)).toString()
 
-    override fun delete(id: Long): Long = dbReadWriteOnlyConn.delete(DBAppointmentConstants.TABLE_APPOINTMENT,
-            DBAppointmentConstants.KEY_DATABASE_ID + " = ?",
-            arrayOf(id.toString())).toLong()
 
     override fun deleteAll(): Boolean = dbReadWriteOnlyConn.delete(DBAppointmentConstants.TABLE_APPOINTMENT,
             null,
             null).toLong() >= 0
 
 
-    override fun insertOrUpdate(element: AppoinmentData, type: String): Long {
+    override fun insertOrUpdate(element: AppoinmentData): Long {
 
         var result: Long = 1
         var foundAppointment = query(element.databaseId)
