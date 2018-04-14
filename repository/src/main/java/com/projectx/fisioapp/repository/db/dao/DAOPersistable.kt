@@ -1,7 +1,5 @@
 package com.projectx.fisioapp.repository.db.dao
 
-import android.database.Cursor
-
 
 interface DAOReadOps<T> {
     fun query(): List<T>

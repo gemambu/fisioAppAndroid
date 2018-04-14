@@ -17,7 +17,7 @@
         android:id="@+id/appointment_list_content_field"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appointment_list_id"

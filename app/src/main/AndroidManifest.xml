@@ -67,6 +67,7 @@
             android:name=".app.activity.UserDetailActivity"
             android:label="@string/title_activity_user_details">
         </activity>
+        <activity android:name=".app.activity.ParentActivity" />
     </application>
 
 </manifest>

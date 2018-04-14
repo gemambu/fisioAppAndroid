@@ -12,7 +12,7 @@ import retrofit2.Response
 internal  class DeleteAppointmentIntImpl: DeleteAppointmentInteractor {
     override fun execute(token: String, id: String, success: (result: Boolean) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         val deleteAppointment = apiInterfaceLocalhost.doDeleteAppointment(token, id)

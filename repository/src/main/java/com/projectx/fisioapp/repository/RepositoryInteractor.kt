@@ -3,7 +3,6 @@ package com.projectx.fisioapp.repository
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.user.UserData
-import java.util.*
 
 
 interface RepositoryInteractor {

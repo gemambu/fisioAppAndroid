@@ -72,7 +72,7 @@ class AppointmentDetailActivity : ParentActivity(), AppointmentDetailListener {
 
     override fun onSavePressed(view: View, item: Appointment) {
         async(UI) {
-            var updateAppointment: UpdateAppointmentInteractor = UpdateAppointmentIntImpl(view.context)
+            val updateAppointment: UpdateAppointmentInteractor = UpdateAppointmentIntImpl(view.context)
 
             try {
                 updateAppointment.execute(

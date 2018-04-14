@@ -8,7 +8,6 @@ import com.projectx.fisioapp.domain.model.util.AppointmentMapper
 import com.projectx.fisioapp.repository.RepositoryIntImpl
 import com.projectx.fisioapp.repository.RepositoryInteractor
 import java.lang.ref.WeakReference
-import java.util.*
 
 class GetAppointmentsForDateIntImpl(context: Context) : GetAppointmentsForDateInteractor {
 

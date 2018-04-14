@@ -3,8 +3,8 @@ package com.projectx.fisioapp.repository.db.dao
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.projectx.fisioapp.repository.db.DBCatalogConstants
 import com.projectx.fisioapp.repository.db.DBHelper
+import com.projectx.fisioapp.repository.db.constants.DBCatalogConstants
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
@@ -99,8 +99,8 @@ class CatalogDAO(dbHelper: DBHelper) : DAOPersistable<CatalogData> {
 
     override fun insertOrUpdate(element: CatalogData): Long {
 
-        var result: Long = 1
-        var foundIntem = query(element.databaseId)
+        val result: Long = 1
+        val foundIntem = query(element.databaseId)
 
         if(foundIntem != null && foundIntem.isNotEmpty()){
             update(element.databaseId, element)

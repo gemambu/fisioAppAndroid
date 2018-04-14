@@ -28,7 +28,7 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
     }
 
     private fun entityMapper(userData: UserData): User {
-        val user = User(
+        return User(
                 userData.id,
                 userData.name,
                 userData.lastName,
@@ -43,7 +43,6 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
                 userData.registrationDate,
                 userData.lastLoginDate
         )
-        return user
     }
 
 }

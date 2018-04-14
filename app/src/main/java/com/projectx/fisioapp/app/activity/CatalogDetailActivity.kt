@@ -50,9 +50,9 @@ class CatalogDetailActivity : ParentActivity(), CatalogItemListener {
             arguments.putSerializable(EXTRA_CATALOG_TYPE,
                     type)
 
-            when(type as CatalogType){
-                CatalogType.SERVICE -> title = "Service detail"
-                CatalogType.PRODUCT -> title = "Product detail"
+            title = when(type as CatalogType){
+                CatalogType.SERVICE -> "Service detail"
+                CatalogType.PRODUCT -> "Product detail"
             }
         }
 

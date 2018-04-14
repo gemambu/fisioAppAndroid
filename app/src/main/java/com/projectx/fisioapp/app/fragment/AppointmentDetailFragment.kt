@@ -64,7 +64,7 @@ class AppointmentDetailFragment : Fragment() {
         if (appointmentDetail.extraInfo.isNotEmpty() && appointmentDetail.extraInfo != "false"){
             appointment_detail_extra_info_label.text = appointmentDetail.extraInfo
         } else {
-            appointment_detail_extra_info_label.text = "No extra info provided"
+            appointment_detail_extra_info_label.text = getString(R.string.no_extra_info)
         }
 
         //mapImage = root.findViewById(R.id.appointment_detail_map_image)
@@ -75,7 +75,7 @@ class AppointmentDetailFragment : Fragment() {
 
             val uri = Uri.parse("google.navigation:q=${appointmentDetail.latitude},${appointmentDetail.longitude}&mode=w")
             val mapIntent = Intent(Intent.ACTION_VIEW, uri)
-            mapIntent.setPackage("com.google.android.apps.maps")
+            mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
         })
 

@@ -41,7 +41,6 @@ import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.Up
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.user.update.UpdateUserInteractor
 import retrofit2.Response.success
 import java.lang.ref.WeakReference
-import java.util.*
 
 
 class RepositoryIntImpl(val context: Context) : RepositoryInteractor {

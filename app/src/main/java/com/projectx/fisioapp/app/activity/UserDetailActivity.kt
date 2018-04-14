@@ -17,8 +17,8 @@ import java.util.*
 
 class UserDetailActivity : ParentActivity() {
 
-    lateinit var user: User
-    var userWithChanges: User? = null
+    private lateinit var user: User
+    private var userWithChanges: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,26 +41,26 @@ class UserDetailActivity : ParentActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun setListeners() {
+    private fun setListeners() {
 
         btnSave.setOnClickListener {
             updateUser()
         }
 
         rbFemale.setOnClickListener {
-            rbFemale.isChecked = if(rbFemale.isChecked) true else false
+            rbFemale.isChecked = rbFemale.isChecked
             rbMale.isChecked = !rbFemale.isChecked
         }
 
         rbMale.setOnClickListener {
-            rbMale.isChecked = if(rbMale.isChecked) true else false
+            rbMale.isChecked = rbMale.isChecked
             rbFemale.isChecked = !rbMale.isChecked
         }
 
     }
 
-    fun getUser() {
-        var getUser: GetUserInteractor = GetUserIntImpl(this)
+    private fun getUser() {
+        val getUser: GetUserInteractor = GetUserIntImpl(this)
 
         try {
             getUser.execute(
@@ -79,9 +79,9 @@ class UserDetailActivity : ParentActivity() {
         }
     }
 
-    fun updateUser() {
+    private fun updateUser() {
 
-        var checkFields = getFieldsOrErrors()
+        val checkFields = getFieldsOrErrors()
         if (checkFields.second != null) {
             ToastIt(this, "Fields with errors")
             return
@@ -94,7 +94,7 @@ class UserDetailActivity : ParentActivity() {
 
         userWithChanges = checkFields.first
 
-        var updateUser: UpdateUserInteractor = UpdateUserIntImpl(this)
+        val updateUser: UpdateUserInteractor = UpdateUserIntImpl(this)
 
         try {
             updateUser.execute(
@@ -118,7 +118,7 @@ class UserDetailActivity : ParentActivity() {
         }
     }
 
-    fun fillBackgroundColorForFileds(fields: List<String>) {
+    private fun fillBackgroundColorForFileds(fields: List<String>) {
 
         val allFields : MutableList<View> = mutableListOf(lblName, lblLastName, lblLastName, lblEmail, lblAddress, lblPhone, lblBirthdate, lblNationalID, lblFellowshipNumber,lblRegistrationDate, lblLastLoginDate, lblProfessional, lblGender)
         allFields.map { it.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields) }
@@ -141,7 +141,7 @@ class UserDetailActivity : ParentActivity() {
     }
 
 
-    fun fillFileds(user: User) {
+    private fun fillFileds(user: User) {
         txtName.setText(user.name)
         txtLastName.setText(user.lastName)
         txtEmail.setText(user.email)
@@ -162,17 +162,15 @@ class UserDetailActivity : ParentActivity() {
         }
     }
 
-    fun getFieldsOrErrors(): Pair<User?, List<String>?> {
-        var fieldsWithErrors: MutableList<String> = mutableListOf()
+    private fun getFieldsOrErrors(): Pair<User?, List<String>?> {
+        val fieldsWithErrors: MutableList<String> = mutableListOf()
 
         lateinit var gender: String
-            if (rbFemale.isChecked) {
-                gender = "female"
-            } else if (rbMale.isChecked) {
-                gender = "male"
-            } else {
-                fieldsWithErrors.add("lblGender")
-            }
+        when {
+            rbFemale.isChecked -> gender = "female"
+            rbMale.isChecked -> gender = "male"
+            else -> fieldsWithErrors.add("lblGender")
+        }
 
         fillBackgroundColorForFileds(fieldsWithErrors)
 

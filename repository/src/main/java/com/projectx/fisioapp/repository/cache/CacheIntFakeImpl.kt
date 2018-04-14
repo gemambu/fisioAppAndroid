@@ -1,10 +1,5 @@
 package com.projectx.fisioapp.repository.cache
 
-import android.content.Context
-import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
-import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
-import java.lang.ref.WeakReference
-
 
 /*class CacheIntFakeImpl(context: Context) : CacheInteractor {
     override fun deleteService(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit) {

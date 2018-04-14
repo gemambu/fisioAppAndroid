@@ -15,14 +15,9 @@ import com.projectx.fisioapp.domain.model.Appointments
 
 class AppointmentsListFragment : Fragment() {
 
-    companion object {
-        var listData: MutableList<Appointment>? = null
-    }
-
     private var appointments: List<Appointment>? = null
-    lateinit var root: View
-    lateinit var mParent: CalendarActivity
-    private var onSelectedAppointmentListener: OnSelectedAppointmentListener? = null
+    private lateinit var root: View
+    private lateinit var mParent: CalendarActivity
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,7 +32,7 @@ class AppointmentsListFragment : Fragment() {
     fun setupRecyclerView(recyclerView: RecyclerView, list: Appointments) {
 
         recyclerView.adapter = AppointmentItemRecyclerViewAdapter(mParent, list)
-        recyclerView.layoutManager = GridLayoutManager(mParent.baseContext, 1) as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = GridLayoutManager(mParent.baseContext, 1)
     }
 
     fun setParent(calendarActivity: CalendarActivity) {

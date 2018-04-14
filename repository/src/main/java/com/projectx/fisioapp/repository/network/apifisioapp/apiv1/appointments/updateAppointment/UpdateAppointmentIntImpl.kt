@@ -12,7 +12,7 @@ import retrofit2.Response
 internal class UpdateAppointmentIntImpl(): UpdateAppointmentInteractor {
     override fun execute(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (result: Boolean) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         val confirmAppointment = apiInterfaceLocalhost.doUpdateAppointment(token, id, isConfirmed, isCancelled)

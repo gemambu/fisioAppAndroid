@@ -15,7 +15,7 @@ import retrofit2.Response
 internal class InsertServiceIntImpl : InsertServiceInteractor {
     override fun execute(token: String, item: CatalogData, success: (successMessage: CatalogData) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
@@ -26,7 +26,7 @@ internal class InsertServiceIntImpl : InsertServiceInteractor {
             override fun onResponse(call: Call<SaveCatalogResponse>, response: Response<SaveCatalogResponse>) {
                 val response = response.body()
                 if (response !== null){
-                    var completeItem = response.result!!
+                    val completeItem = response.result!!
                     completeItem.type = CatalogType.SERVICE
                     response.result.let { success(completeItem) }
                 }

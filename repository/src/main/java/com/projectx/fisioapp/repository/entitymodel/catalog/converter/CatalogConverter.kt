@@ -6,7 +6,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 
 fun convertList(response: GetCatalogResponse, type: CatalogType): List<CatalogData> {
-    var catalogDataList: MutableList<CatalogData> = arrayListOf()
+    val catalogDataList: MutableList<CatalogData> = arrayListOf()
 
 
     response.result.let {

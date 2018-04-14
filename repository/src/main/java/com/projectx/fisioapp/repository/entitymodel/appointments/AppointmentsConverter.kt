@@ -4,7 +4,7 @@ import com.projectx.fisioapp.repository.entitymodel.responses.GetAppointmentsRes
 import com.projectx.fisioapp.repository.entitymodel.responses.UpdateAppointmentResponse
 
 fun convertAppointments(response: GetAppointmentsResponse): List<AppoinmentData> {
-    var appointmentsList: MutableList<AppoinmentData> = arrayListOf()
+    val appointmentsList: MutableList<AppoinmentData> = arrayListOf()
 
     response.result.let{
 
@@ -26,8 +26,8 @@ fun convertAppointments(response: GetAppointmentsResponse): List<AppoinmentData>
                             it.isConfirmed!!,
                             it.isCancelled!!,
                             it.date!!,
-                            it.latitude.toString()!!,
-                            it.longitude.toString()!!,
+                            it.latitude.toString(),
+                            it.longitude.toString(),
                             it.extraInfo!!
                     )
                     appointmentsList.add(appointment)

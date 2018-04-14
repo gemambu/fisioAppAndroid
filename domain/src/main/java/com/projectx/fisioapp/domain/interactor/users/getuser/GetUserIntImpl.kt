@@ -26,7 +26,7 @@ class GetUserIntImpl(context: Context) : GetUserInteractor {
     }
 
     private fun entityMapper(userData: UserData): User {
-        val user = User(
+        return User(
                 userData.id,
                 userData.name,
                 userData.lastName,
@@ -41,7 +41,6 @@ class GetUserIntImpl(context: Context) : GetUserInteractor {
                 userData.registrationDate,
                 userData.lastLoginDate
         )
-        return user
     }
 
 }

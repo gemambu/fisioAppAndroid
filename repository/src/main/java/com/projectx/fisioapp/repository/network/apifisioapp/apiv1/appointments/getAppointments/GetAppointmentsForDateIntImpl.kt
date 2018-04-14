@@ -2,20 +2,18 @@ package com.projectx.fisioapp.repository.network.apifisioapp.apiv1.appointments.
 
 import android.util.Log
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
-import com.projectx.fisioapp.repository.entitymodel.responses.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.entitymodel.appointments.convertAppointments
+import com.projectx.fisioapp.repository.entitymodel.responses.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppClient
 import com.projectx.fisioapp.repository.network.apifisioapp.apiv1.APIV1FisioAppInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 
 class GetAppointmentsForDateIntImpl : GetAppointmentsForDateInteractor {
     override fun execute(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         // val dateFrom = SimpleDateFormat("yyyy/MM/dd");

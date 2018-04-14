@@ -132,10 +132,10 @@ class AppointmentDAO(dbHelper: DBHelper) : DAOPersistable<AppoinmentData> {
 
     override fun insertOrUpdate(element: AppoinmentData): Long {
 
-        var result: Long = 1
-        var foundAppointment = query(element.databaseId)
+        val result: Long = 1
+        val foundAppointment = query(element.databaseId)
 
-        if (foundAppointment != null && foundAppointment.size > 0) {
+        if (foundAppointment != null && foundAppointment.isNotEmpty()) {
             update(element.databaseId, element)
             return result
         }

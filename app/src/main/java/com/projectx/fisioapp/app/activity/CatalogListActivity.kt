@@ -57,9 +57,9 @@ class CatalogListActivity : ParentActivity() {
 
         type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
 
-        when(type){
-            CatalogType.PRODUCT -> title = getString(R.string.catalog_products_title)
-            CatalogType.SERVICE -> title = getString(R.string.catalog_services_title)
+        title = when(type){
+            CatalogType.PRODUCT -> getString(R.string.catalog_products_title)
+            CatalogType.SERVICE -> getString(R.string.catalog_services_title)
         }
 
         swipeLayout.setOnRefreshListener {
@@ -114,7 +114,7 @@ class CatalogListActivity : ParentActivity() {
 
         Handler().postDelayed({
             Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
-            swipeLayout.setRefreshing(false)
+            swipeLayout.isRefreshing = false
         }, 4000)
     }
 

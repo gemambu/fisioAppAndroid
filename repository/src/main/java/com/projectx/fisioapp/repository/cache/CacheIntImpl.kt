@@ -101,7 +101,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
 
                 DispatchOnMainThread(Runnable {
 
-                    if(successUpdate.length > 0){
+                    if(successUpdate.isNotEmpty()){
                         dbHelper.close()
                         success()
                     } else {
@@ -123,7 +123,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
             val successDeleting = CatalogDAO(dbHelper).delete(id)
 
             DispatchOnMainThread(Runnable {
-                if (successDeleting.length > 0) {
+                if (successDeleting.isNotEmpty()) {
                     success()
                 } else {
                     error("Error deleting")
@@ -173,7 +173,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     fun fromISO8601UTC(dateStr: String): Date? {
         val tz = TimeZone.getTimeZone("UTC")
         val df = SimpleDateFormat("yyyy-MM-dd")
-        df.setTimeZone(tz)
+        df.timeZone = tz
 
         try {
             return df.parse(dateStr)
@@ -238,7 +238,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
             val successDeleting = AppointmentDAO(dbHelper).delete(id)
 
             DispatchOnMainThread(Runnable {
-                if (successDeleting.length > 0) {
+                if (successDeleting.isNotEmpty()) {
                     success()
                 } else {
                     error("Error deleting")

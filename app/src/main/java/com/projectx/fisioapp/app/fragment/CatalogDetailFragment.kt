@@ -62,7 +62,7 @@ class CatalogDetailFragment : Fragment() {
                     activity_catalog_detail_desc_text.setText(it.description)
                     activity_catalog_detail_price_text.setText(it.price.toString())
                     is_active_box.isChecked = it.isActive
-                    activity_catalog_detail_save_bttn.text = "Update"
+                    activity_catalog_detail_save_bttn.text = getString(R.string.catalog_update)
                 }
 
                 activity_catalog_detail_save_bttn.setOnClickListener {

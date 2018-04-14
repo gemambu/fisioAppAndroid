@@ -1,7 +1,5 @@
 package com.projectx.fisioapp.repository.db.constants
 
-import com.projectx.fisioapp.repository.db.DBCatalogConstants
-
 object DBAppointmentConstants {
 
     val TABLE_APPOINTMENT = "APPOINTMENT"
