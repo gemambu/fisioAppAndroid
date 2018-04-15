@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/custom_background"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp">
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/custom_background">
 
     <ImageView
         android:id="@+id/catalog_list_element_image"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@drawable/custom_background">
+        >
         <TextView
             android:id="@+id/catalog_list_element_name"
             android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceListItem"
             android:layout_gravity="start"
+            android:textColor="@color/colorPrimaryDark"
             tools:text="My name"/>
         <TextView
             android:id="@+id/catalog_list_element_price"
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_gravity="end"
             tools:text="50 €"/>
     </LinearLayout>

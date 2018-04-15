@@ -1,9 +1,9 @@
 package com.projectx.fisioapp.app.activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
@@ -52,6 +52,32 @@ open class ParentActivity : AppCompatActivity() {
 
     protected fun checkUId(): Boolean {
         return uId.length !== 0
+    }
+
+    fun checkOptionSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.user_details -> {
+                Router().moveToAboutMeActivity(this)
+            }
+            R.id.about_us -> {
+                Router().moveToAboutUsActivity(this)
+            }
+            R.id.logout -> {
+                AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.logout))
+                        .setMessage(getString(R.string.menu_exit_message))
+                        .setNegativeButton(getString(R.string.menu_logout_cancel), { dialog, _ ->
+                            dialog.dismiss()
+                        })
+                        .setPositiveButton(getString(R.string.menu_logout_exit), { dialog, _ ->
+                            token = ""
+                            Router().moveToLoginActivity(this)
+                            dialog.dismiss()
+                        })
+                        .show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
