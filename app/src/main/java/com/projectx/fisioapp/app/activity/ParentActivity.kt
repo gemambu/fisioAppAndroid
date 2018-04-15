@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
