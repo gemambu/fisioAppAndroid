@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
@@ -13,12 +14,14 @@ import com.projectx.fisioapp.domain.interactor.users.updateuser.UpdateUserIntImp
 import com.projectx.fisioapp.domain.interactor.users.updateuser.UpdateUserInteractor
 import com.projectx.fisioapp.domain.model.User
 import kotlinx.android.synthetic.main.activity_user_detail.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class UserDetailActivity : ParentActivity() {
 
     lateinit var user: User
     var userWithChanges: User? = null
+    var calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +58,24 @@ class UserDetailActivity : ParentActivity() {
         rbMale.setOnClickListener {
             rbMale.isChecked = if(rbMale.isChecked) true else false
             rbFemale.isChecked = !rbMale.isChecked
+        }
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, monthOfYear)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateBirthdateInView()
+        }
+
+        // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
+        btnCalendar.setOnClickListener {
+            DatePickerDialog(this@UserDetailActivity,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
     }
@@ -194,6 +215,12 @@ class UserDetailActivity : ParentActivity() {
                 txtLastLoginDate.text.toString()
         )
         return Pair(user, null)
+    }
+
+    private fun updateBirthdateInView() {
+        val myFormat = "dd/MM/yyyy" // Choose the format you need
+        val sdf = SimpleDateFormat(myFormat)
+        txtBirthdate.setText(sdf.format(calendar.getTime()))
     }
 
 }
