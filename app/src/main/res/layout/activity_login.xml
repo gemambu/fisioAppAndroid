@@ -53,6 +53,7 @@
 
         </RelativeLayout>
 
+        <!--
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigation_bottom_bar_height"
@@ -69,6 +70,7 @@
             </android.support.design.widget.BottomNavigationView>
 
         </RelativeLayout>
+        -->
 
     </RelativeLayout>
 

@@ -46,10 +46,12 @@ class LoginActivity : ParentActivity(),
         tabLayout.getTabAt(0)!!.setIcon(R.drawable.ic_tab_login)
         tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_tab_register)
 
+        /*
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavView_bar) as BottomNavigationView
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
 
         addBottomBar(this)
+        */
 
     }
 

@@ -99,18 +99,6 @@ class CatalogListActivity : ParentActivity() {
         }
     }
 
-    // ***** Back button enabled *****
-    /*
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-    */
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.statusbar_menu, menu)
         return true
@@ -128,12 +116,12 @@ class CatalogListActivity : ParentActivity() {
                 AlertDialog.Builder(this)
                         .setTitle(getString(R.string.logout))
                         .setMessage(getString(R.string.menu_exit_message))
-                        .setPositiveButton("LOGOUT", { dialog, _ ->
-                            token = ""
-                            Router().moveToLoginActivity(this)
+                        .setNegativeButton(getString(R.string.menu_logout_cancel), { dialog, _ ->
                             dialog.dismiss()
                         })
-                        .setNegativeButton("CANCEL", { dialog, _ ->
+                        .setPositiveButton(getString(R.string.menu_logout_exit), { dialog, _ ->
+                            token = ""
+                            Router().moveToLoginActivity(this)
                             dialog.dismiss()
                         })
                         .show()

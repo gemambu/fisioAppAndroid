@@ -74,19 +74,6 @@ class CalendarActivity : ParentActivity(),
         }
     }
 
-    // ***** Back button enabled *****
-    /*
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-    */
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.statusbar_menu, menu)
         return true
@@ -104,12 +91,12 @@ class CalendarActivity : ParentActivity(),
                 AlertDialog.Builder(this)
                         .setTitle(getString(R.string.logout))
                         .setMessage(getString(R.string.menu_exit_message))
+                        .setNegativeButton("CANCEL", { dialog, _ ->
+                            dialog.dismiss()
+                        })
                         .setPositiveButton("LOGOUT", { dialog, _ ->
                             token = ""
                             Router().moveToLoginActivity(this)
-                            dialog.dismiss()
-                        })
-                        .setNegativeButton("CANCEL", { dialog, _ ->
                             dialog.dismiss()
                         })
                         .show()
