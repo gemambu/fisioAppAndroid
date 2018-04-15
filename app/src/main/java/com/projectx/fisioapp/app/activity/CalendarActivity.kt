@@ -60,8 +60,6 @@ class CalendarActivity : ParentActivity(),
                             override fun successCompletion(e: Appointments) {
                                 appointmentsListFragment.setAppointmentsList(e.appointments)
                                 appointmentsListFragment.setupRecyclerView(appointment_list, e)
-
-                                //appointmentsListFragment.setupRecyclerView(appointment_list, e.appointments)
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
