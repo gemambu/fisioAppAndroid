@@ -16,7 +16,7 @@ import retrofit2.Response
 internal class GetServicesIntImpl (): GetServicesInteractor {
     override fun execute(token: String, success: (catalogItems: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
@@ -26,13 +26,10 @@ internal class GetServicesIntImpl (): GetServicesInteractor {
         callGetServices.enqueue(object : Callback<GetCatalogResponse> {
             override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
 
-
                 response.body().let {
-                    val response = response.body()
-                    response.let { success(convertList(response!!, CatalogType.SERVICE)) }
+                    val backResponse = response.body()
+                    backResponse.let { success(convertList(backResponse!!, CatalogType.SERVICE)) }
                 }
-
-                // error(response.message())
 
             }
 

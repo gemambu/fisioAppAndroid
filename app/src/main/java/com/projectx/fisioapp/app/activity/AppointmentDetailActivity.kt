@@ -3,13 +3,21 @@ package com.projectx.fisioapp.app.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentDetailFragment
+import com.projectx.fisioapp.app.fragment.AppointmentDetailListener
+import com.projectx.fisioapp.app.utils.toastIt
+import com.projectx.fisioapp.domain.interactor.ErrorCompletion
+import com.projectx.fisioapp.domain.interactor.SuccessCompletion
+import com.projectx.fisioapp.domain.interactor.appointments.UpdateAppointmentIntImpl
+import com.projectx.fisioapp.domain.interactor.appointments.UpdateAppointmentInteractor
 import com.projectx.fisioapp.domain.model.Appointment
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 
-class AppointmentDetailActivity : AppCompatActivity() {
+class AppointmentDetailActivity : ParentActivity(), AppointmentDetailListener {
 
     companion object {
         private val EXTRA_APPOINTMENT = "EXTRA_APPOINTMENT"
@@ -39,27 +47,32 @@ class AppointmentDetailActivity : AppCompatActivity() {
                     .commit()
         }
 
-            /*if (resources.getBoolean(R.bool.screen_sw400) != true) {
+    }
 
-                setContentView(R.layout.activity_appointment_detail)
+    override fun onSavePressed(view: View, item: Appointment) {
+        async(UI) {
+            val updateAppointment: UpdateAppointmentInteractor = UpdateAppointmentIntImpl(view.context)
 
-                if (fragmentManager.findFragmentById(R.id.appointment_detail_fragment) == null) {
-                    val fragment = AppointmentDetailFragment.newInstance()
-                    fragmentManager.beginTransaction()
-                            .add(R.id.appointment_detail_fragment, fragment)
-                            .commit()
-                }
-            } else {
-
-                setContentView(R.layout.activity_calendar)
-                if (fragmentManager.findFragmentById(R.id.appointments_fragment) == null) {
-                    val fragment = AppointmentDetailFragment.newInstance()
-                    fragmentManager.beginTransaction()
-                            .add(R.id.appointments_fragment, fragment)
-                            .commit()
-                }
-            }*/
-
+            try {
+                updateAppointment.execute(
+                        token,
+                        item.id,
+                        item.isConfirmed,
+                        item.isCancelled,
+                        success = object : SuccessCompletion<String> {
+                            override fun successCompletion(e: String) {
+                                toastIt(view.context, e)
+                            }
+                        },
+                        error = object : ErrorCompletion {
+                            override fun errorCompletion(errorMessage: String) {
+                                toastIt(view.context, errorMessage)
+                            }
+                        })
+            } catch (e: Exception) {
+                toastIt(view.context, "Error: " + e.localizedMessage )
+            }
+        }
     }
 
 
@@ -67,9 +80,10 @@ class AppointmentDetailActivity : AppCompatActivity() {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                true
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 }

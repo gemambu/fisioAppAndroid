@@ -1,4 +1,4 @@
-package com.projectx.fisioapp.repository.db
+package com.projectx.fisioapp.repository.db.constants
 
 
 object DBCatalogConstants {

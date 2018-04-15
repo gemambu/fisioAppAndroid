@@ -18,7 +18,7 @@ class AppointmentMapper {
     }
 
 
-    private fun appointmentMapper(appointment: AppoinmentData): Appointment = Appointment(
+    fun appointmentMapper(appointment: AppoinmentData): Appointment = Appointment(
             appointment.databaseId,
             appointment.servicePrice,
             appointment.customerName,

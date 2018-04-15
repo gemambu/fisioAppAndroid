@@ -16,7 +16,7 @@ import retrofit2.Response
 internal class GetProductsIntImpl(): GetProductsInteractor {
     override fun execute(token: String, success: (catalogItems: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
@@ -25,9 +25,9 @@ internal class GetProductsIntImpl(): GetProductsInteractor {
         val callGetProducts = apiInterfaceLocalhost.doGetProducts(token)
         callGetProducts.enqueue(object : Callback<GetCatalogResponse> {
             override fun onResponse(call: Call<GetCatalogResponse>, response: Response<GetCatalogResponse>) {
-                val response = response.body()
+                val backResponse = response.body()
 
-                response.let { success(convertList(response!!, CatalogType.PRODUCT)) }
+                backResponse.let { success(convertList(backResponse!!, CatalogType.PRODUCT)) }
 
             }
 

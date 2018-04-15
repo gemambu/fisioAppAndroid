@@ -6,7 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserIntImpl
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserInteractor
@@ -19,9 +19,9 @@ import java.util.*
 
 class UserDetailActivity : ParentActivity() {
 
-    lateinit var user: User
-    var userWithChanges: User? = null
-    var calendar = Calendar.getInstance()
+    private lateinit var user: User
+    private var userWithChanges: User? = null
+    private var calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,19 +44,19 @@ class UserDetailActivity : ParentActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun setListeners() {
+    private fun setListeners() {
 
         btnSave.setOnClickListener {
             updateUser()
         }
 
         rbFemale.setOnClickListener {
-            rbFemale.isChecked = if(rbFemale.isChecked) true else false
+            rbFemale.isChecked = rbFemale.isChecked
             rbMale.isChecked = !rbFemale.isChecked
         }
 
         rbMale.setOnClickListener {
-            rbMale.isChecked = if(rbMale.isChecked) true else false
+            rbMale.isChecked = rbMale.isChecked
             rbFemale.isChecked = !rbMale.isChecked
         }
 
@@ -80,8 +80,8 @@ class UserDetailActivity : ParentActivity() {
 
     }
 
-    fun getUser() {
-        var getUser: GetUserInteractor = GetUserIntImpl(this)
+    private fun getUser() {
+        val getUser: GetUserInteractor = GetUserIntImpl(this)
 
         try {
             getUser.execute(
@@ -92,30 +92,30 @@ class UserDetailActivity : ParentActivity() {
                         fillFileds(it)
                     }, error = object : ErrorCompletion {
                         override fun errorCompletion(errorMessage: String) {
-                            ToastIt(baseContext, errorMessage)
+                            toastIt(baseContext, errorMessage)
                         }
                     })
         } catch (e: Exception) {
-            ToastIt(this, "Error: " + e.localizedMessage )
+            toastIt(this, "Error: " + e.localizedMessage )
         }
     }
 
-    fun updateUser() {
+    private fun updateUser() {
 
-        var checkFields = getFieldsOrErrors()
+        val checkFields = getFieldsOrErrors()
         if (checkFields.second != null) {
-            ToastIt(this, "Fields with errors")
+            toastIt(this, "Fields with errors")
             return
         }
 
         if (checkFields.first == null) {
-            ToastIt(this, "No user information available")
+            toastIt(this, "No user information available")
             return
         }
 
         userWithChanges = checkFields.first
 
-        var updateUser: UpdateUserInteractor = UpdateUserIntImpl(this)
+        val updateUser: UpdateUserInteractor = UpdateUserIntImpl(this)
 
         try {
             updateUser.execute(
@@ -124,22 +124,22 @@ class UserDetailActivity : ParentActivity() {
                     success = { ok: Boolean, user: User ->
                         if (ok) {
                             fillFileds(user)
-                            ToastIt(this, "User updated")
+                            toastIt(this, "User updated")
                         }
                         else {
-                            ToastIt(this, "Success/error")
+                            toastIt(this, "Success/error")
                         }
                     }, error = object : ErrorCompletion {
                         override fun errorCompletion(errorMessage: String) {
-                            ToastIt(baseContext, errorMessage)
+                            toastIt(baseContext, errorMessage)
                         }
                     })
         } catch (e: Exception) {
-            ToastIt(this, "Error: " + e.localizedMessage )
+            toastIt(this, "Error: " + e.localizedMessage )
         }
     }
 
-    fun fillBackgroundColorForFileds(fields: List<String>) {
+    private fun fillBackgroundColorForFileds(fields: List<String>) {
 
         val allFields : MutableList<View> = mutableListOf(lblName, lblLastName, lblLastName, lblEmail, lblAddress, lblPhone, lblBirthdate, lblNationalID, lblFellowshipNumber,lblRegistrationDate, lblLastLoginDate, lblProfessional, lblGender)
         allFields.map { it.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields) }
@@ -156,23 +156,23 @@ class UserDetailActivity : ParentActivity() {
                 "lblFellowshipNumber" -> lblFellowshipNumber.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields_error)
                 "lblProfessional" -> lblProfessional.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields_error)
                 "lblGender" -> lblGender.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields_error)
-                else -> ToastIt(this, it)
+                else -> toastIt(this, it)
             }
         }
     }
 
 
-    fun fillFileds(user: User) {
+    private fun fillFileds(user: User) {
         txtName.setText(user.name)
         txtLastName.setText(user.lastName)
         txtEmail.setText(user.email)
         txtAddress.setText(user.address)
         txtPhone.setText(user.phone)
-        txtBirthdate.setText(user.birthDate.toString())
+        txtBirthdate.setText(formatDateToString(user.birthDate))
         txtNationalID.setText(user.nationalId)
         txtFellowshipNumber.setText(user.fellowshipNumber)
-        txtRegistrationDate.setText(user.registrationDate)
-        txtLastLoginDate.setText(user.lastLoginDate)
+        txtRegistrationDate.setText(formatDateToString(user.registrationDate))
+        txtLastLoginDate.setText(formatDateToString(user.lastLoginDate))
         swProfesional.isChecked = user.isProfessional
         if (user.gender == "female") {
             rbFemale.isChecked = true
@@ -183,17 +183,17 @@ class UserDetailActivity : ParentActivity() {
         }
     }
 
-    fun getFieldsOrErrors(): Pair<User?, List<String>?> {
-        var fieldsWithErrors: MutableList<String> = mutableListOf()
+    private fun getFieldsOrErrors(): Pair<User?, List<String>?> {
+        val fieldsWithErrors: MutableList<String> = mutableListOf()
 
         lateinit var gender: String
-            if (rbFemale.isChecked) {
-                gender = "female"
-            } else if (rbMale.isChecked) {
-                gender = "male"
-            } else {
-                fieldsWithErrors.add("lblGender")
-            }
+        if (rbFemale.isChecked) {
+            gender = "female"
+        } else if (rbMale.isChecked) {
+            gender = "male"
+        } else {
+            fieldsWithErrors.add("lblGender")
+        }
 
         fillBackgroundColorForFileds(fieldsWithErrors)
 
@@ -209,10 +209,10 @@ class UserDetailActivity : ParentActivity() {
                 gender,
                 txtAddress.text.toString(),
                 txtPhone.text.toString(),
-                Date(),
+                formatStringToDate(txtBirthdate.text.toString()),
                 txtNationalID.text.toString(),
-                txtRegistrationDate.text.toString(),
-                txtLastLoginDate.text.toString()
+                formatStringToDate(txtRegistrationDate.text.toString()),
+                formatStringToDate(txtLastLoginDate.text.toString())
         )
         return Pair(user, null)
     }
@@ -221,6 +221,18 @@ class UserDetailActivity : ParentActivity() {
         val myFormat = "dd/MM/yyyy" // Choose the format you need
         val sdf = SimpleDateFormat(myFormat)
         txtBirthdate.setText(sdf.format(calendar.getTime()))
+    }
+
+    private fun formatDateToString(date: Date): String{
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val d = format.format(date)
+        return d
+    }
+
+    private fun formatStringToDate(date: String): Date {
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val d: Date = sdf.parse(date)
+        return d
     }
 
 }

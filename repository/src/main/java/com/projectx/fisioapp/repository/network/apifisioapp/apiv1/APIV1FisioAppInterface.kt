@@ -1,8 +1,8 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv1
 
 import com.projectx.fisioapp.repository.BuildConfig
-import com.projectx.fisioapp.repository.entitymodel.appointments.DeleteAppointmentResponse
-import com.projectx.fisioapp.repository.entitymodel.appointments.GetAppointmentsResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.UpdateAppointmentResponse
+import com.projectx.fisioapp.repository.entitymodel.responses.GetAppointmentsResponse
 import com.projectx.fisioapp.repository.entitymodel.responses.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -91,8 +91,6 @@ internal interface APIV1FisioAppInterface {
                         @Field("isActive") isActive: Boolean): Call<SaveCatalogResponse>
 
 
-
-
     /******** APPOINTMENTS OPERATIONS *********/
     @GET(BuildConfig.FISIOAPP_APPOINTMENTS_PROFESSIONAL_SERVER_PATH)
     fun doGetAppointments(@Header("x-access-token") token: String): Call<GetAppointmentsResponse>
@@ -104,20 +102,14 @@ internal interface APIV1FisioAppInterface {
 
 
     @DELETE(BuildConfig.FISIOAPP_APPOINTMENTS_SERVER_PATH + "/{id}")
-    fun doDeleteAppointment(@Header("x-access-token") token: String, @Path("id") id: String): Call<DeleteAppointmentResponse>
+    fun doDeleteAppointment(@Header("x-access-token") token: String, @Path("id") id: String): Call<UpdateAppointmentResponse>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @FormUrlEncoded
+    @PUT(BuildConfig.FISIOAPP_APPOINTMENTS_SERVER_PATH + "/{id}")
+    fun doUpdateAppointment(@Header("x-access-token") token: String,
+                            @Path("id") id: String,
+                            @Field("isConfirmed") isConfirmed: Boolean,
+                            @Field("isCancelled") isCancelled: Boolean): Call<UpdateAppointmentResponse>
 
 
 }

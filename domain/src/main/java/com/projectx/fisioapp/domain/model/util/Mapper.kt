@@ -33,7 +33,7 @@ class Mapper {
         return Catalogs(tempList)
     }
 
-    internal fun mapBenefit(catalog: CatalogData, type: BenefitType): Catalog = Catalog(
+    private fun mapBenefit(catalog: CatalogData, type: BenefitType): Catalog = Catalog(
             catalog.databaseId,
             catalog.name,
             catalog.description,
@@ -53,9 +53,9 @@ class Mapper {
             getType(item.type))
 
     private fun getType(type: BenefitType): CatalogType {
-        when(type){
-            BenefitType.SERVICE -> return CatalogType.SERVICE
-            BenefitType.PRODUCT -> return CatalogType.PRODUCT
+        return when(type){
+            BenefitType.SERVICE -> CatalogType.SERVICE
+            BenefitType.PRODUCT -> CatalogType.PRODUCT
         }
     }
 

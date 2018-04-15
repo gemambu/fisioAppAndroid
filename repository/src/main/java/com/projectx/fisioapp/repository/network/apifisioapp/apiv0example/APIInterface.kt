@@ -1,17 +1,10 @@
 package com.projectx.fisioapp.repository.network.apifisioapp.apiv0example
 
 import com.projectx.fisioapp.repository.entitymodel.entitymodelexample.MultipleResource
-import com.projectx.fisioapp.repository.entitymodel.entitymodelexample.ServiceList
 import com.projectx.fisioapp.repository.entitymodel.entitymodelexample.User
 import com.projectx.fisioapp.repository.entitymodel.entitymodelexample.UserList
-
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 internal interface APIInterface {

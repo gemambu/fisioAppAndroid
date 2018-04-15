@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.projectx.fisioapp.repository.db.constants.DBAppointmentConstants
+import com.projectx.fisioapp.repository.db.constants.DBCatalogConstants
 
 fun buildHelper(context: Context, name: String, version: Int): DBHelper {
     return DBHelper(context, name, null, version)

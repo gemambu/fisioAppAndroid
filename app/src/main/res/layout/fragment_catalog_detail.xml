@@ -11,7 +11,7 @@
         android:id="@+id/activity_catalog_detail_name_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nombre" />
+        android:text="@string/catalog_name" />
 
     <EditText
         android:id="@+id/activity_catalog_detail_name_text"
@@ -19,13 +19,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:text="Catalog name" />
+        tools:text="@string/catalog_name" />
 
     <TextView
         android:id="@+id/activity_catalog_detail_desc_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description" />
+        android:text="@string/catalog_desc" />
 
     <EditText
         android:id="@+id/activity_catalog_detail_desc_text"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:text="Catalog description" />
+        tools:text="@string/catalog_desc" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:id="@+id/activity_catalog_detail_price_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Price" />
+            android:text="@string/catalog_price" />
 
         <EditText
             android:id="@+id/activity_catalog_detail_price_text"
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Active" />
+            android:text="@string/catalog_active" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,15 +73,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_catalog_detail_save_bttn"
-            android:text="Save"/>
+            android:text="@string/catalog_save_bttn"/>
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_catalog_detail_delete_bttn"
-            android:text="Delete"/>
+            android:text="@string/catalog_delete_bttn"/>
     </LinearLayout>
 
 

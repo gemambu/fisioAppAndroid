@@ -1,8 +1,8 @@
-package com.projectx.fisioapp.repository.entitymodel.appointments
+package com.projectx.fisioapp.repository.entitymodel.responses
 
 import com.google.gson.annotations.Expose
 
-class DeleteAppointmentResponse {
+class UpdateAppointmentResponse {
 
     @Expose
     var ok: Boolean? = null

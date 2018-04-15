@@ -3,10 +3,11 @@ package com.projectx.fisioapp.app.utils
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.projectx.fisioapp.app.settingsmanager.SettingsManager
+import java.text.SimpleDateFormat
+import java.util.*
 
 
-fun ToastIt(context: Context, msg: String) {
+fun toastIt(context: Context, msg: String) {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     Log.d("App", msg) // Debug
 }
@@ -14,5 +15,11 @@ fun ToastIt(context: Context, msg: String) {
 enum class CatalogType {
     SERVICE,
     PRODUCT
+}
+
+fun formatDate(date: Date) : String {
+
+    val format = SimpleDateFormat("EEEE, dd/MM/yyy - HH:mm")
+    return format.format(date)
 }
 

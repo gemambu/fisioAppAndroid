@@ -14,10 +14,10 @@ import com.projectx.fisioapp.R
 
 class LoginFragment : Fragment() {
 
-    var onFragmentButtonLoginPressedListener: OnFragmentButtonLoginPressedListener? = null
-    var loginButton: Button? = null
-    var email: EditText? = null
-    var pass: EditText? = null
+    private var onFragmentButtonLoginPressedListener: OnFragmentButtonLoginPressedListener? = null
+    private var loginButton: Button? = null
+    private var email: EditText? = null
+    private var pass: EditText? = null
 
     companion object {
         private val TAG = "LoginFragment"
@@ -28,9 +28,9 @@ class LoginFragment : Fragment() {
 
         val root = inflater?.inflate(R.layout.fragment_login, container, false)
 
-        loginButton = root?.findViewById<Button>(R.id.btnAuthenticate)
-        email = root?.findViewById<EditText>(R.id.etEmail)
-        pass = root?.findViewById<EditText>(R.id.etPass)
+        loginButton = root?.findViewById(R.id.btnAuthenticate)
+        email = root?.findViewById(R.id.etEmail)
+        pass = root?.findViewById(R.id.etPass)
 
         loginButton?.setOnClickListener {
             onFragmentButtonLoginPressedListener?.buttonLoginPressed(
@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    fun setFakeDataInForm() {
+    private fun setFakeDataInForm() {
         email?.setText( "fisio@invalid.com")
         pass?.setText("12345678")
     }
@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
         commonOnAttach(activity)
     }
 
-    fun commonOnAttach(context: Context?) {
+    private fun commonOnAttach(context: Context?) {
         if (context is OnFragmentButtonLoginPressedListener) {
             onFragmentButtonLoginPressedListener = context
         }
