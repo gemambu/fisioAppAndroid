@@ -163,16 +163,16 @@ class UserDetailActivity : ParentActivity() {
 
 
     private fun fillFileds(user: User) {
-        txtName.setText(user.name)
-        txtLastName.setText(user.lastName)
-        txtEmail.setText(user.email)
-        txtAddress.setText(user.address)
-        txtPhone.setText(user.phone)
-        txtBirthdate.setText(formatDateToString(user.birthDate))
-        txtNationalID.setText(user.nationalId)
-        txtFellowshipNumber.setText(user.fellowshipNumber)
-        txtRegistrationDate.setText(formatDateToString(user.registrationDate))
-        txtLastLoginDate.setText(formatDateToString(user.lastLoginDate))
+        etName.setText(user.name)
+        etLastName.setText(user.lastName)
+        etEmail.setText(user.email)
+        etAddress.setText(user.address)
+        etPhone.setText(user.phone)
+        etBirthdate.setText(formatDateToString(user.birthDate))
+        etNationalID.setText(user.nationalId)
+        etFellowshipNumber.setText(user.fellowshipNumber)
+        etRegistrationDate.setText(formatDateToString(user.registrationDate))
+        etLastLoginDate.setText(formatDateToString(user.lastLoginDate))
         swProfesional.isChecked = user.isProfessional
         if (user.gender == "female") {
             rbFemale.isChecked = true
@@ -201,18 +201,18 @@ class UserDetailActivity : ParentActivity() {
 
         val user = User(
                 uId,
-                txtName.text.toString(),
-                txtLastName.text.toString(),
-                txtEmail.text.toString(),
+                etName.text.toString(),
+                etLastName.text.toString(),
+                etEmail.text.toString(),
                 swProfesional.isChecked,
-                txtFellowshipNumber.text.toString(),
+                etFellowshipNumber.text.toString(),
                 gender,
-                txtAddress.text.toString(),
-                txtPhone.text.toString(),
-                formatStringToDate(txtBirthdate.text.toString()),
-                txtNationalID.text.toString(),
-                formatStringToDate(txtRegistrationDate.text.toString()),
-                formatStringToDate(txtLastLoginDate.text.toString())
+                etAddress.text.toString(),
+                etPhone.text.toString(),
+                formatStringToDate(etBirthdate.text.toString()),
+                etNationalID.text.toString(),
+                formatStringToDate(etRegistrationDate.text.toString()),
+                formatStringToDate(etLastLoginDate.text.toString())
         )
         return Pair(user, null)
     }
@@ -220,7 +220,7 @@ class UserDetailActivity : ParentActivity() {
     private fun updateBirthdateInView() {
         val myFormat = "dd/MM/yyyy" // Choose the format you need
         val sdf = SimpleDateFormat(myFormat)
-        txtBirthdate.setText(sdf.format(calendar.getTime()))
+        etBirthdate.setText(sdf.format(calendar.getTime()))
     }
 
     private fun formatDateToString(date: Date): String{

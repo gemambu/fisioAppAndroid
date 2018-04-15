@@ -44,6 +44,7 @@
                 android:layout_marginStart="@dimen/activity_margin_default"
                 android:layout_marginTop="@dimen/activity_margin_wide"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etName"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_name"
@@ -57,13 +58,14 @@
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtName"
+                android:id="@+id/etName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/colorPrimaryDark"
                 android:inputType="text"
+                android:labelFor="@+id/lblName"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/leftColumnGuideline"
                 app:layout_constraintTop_toTopOf="@+id/lblName"
@@ -76,6 +78,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etLastName"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_last_name"
@@ -83,18 +86,18 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtName"
+                app:layout_constraintTop_toBottomOf="@+id/etName"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtLastName"
+                android:id="@+id/etLastName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:inputType="text"
-                app:layout_constraintEnd_toEndOf="@+id/txtName"
-                app:layout_constraintStart_toStartOf="@+id/txtName"
+                app:layout_constraintEnd_toEndOf="@+id/etName"
+                app:layout_constraintStart_toStartOf="@+id/etName"
                 app:layout_constraintTop_toTopOf="@+id/lblLastName"
                 tools:text="Doe" />
 
@@ -105,6 +108,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etEmail"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_email"
@@ -112,18 +116,18 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtLastName"
+                app:layout_constraintTop_toBottomOf="@+id/etLastName"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtEmail"
+                android:id="@+id/etEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:inputType="textEmailAddress"
-                app:layout_constraintEnd_toEndOf="@+id/txtLastName"
-                app:layout_constraintStart_toStartOf="@+id/txtLastName"
+                app:layout_constraintEnd_toEndOf="@+id/etLastName"
+                app:layout_constraintStart_toStartOf="@+id/etLastName"
                 app:layout_constraintTop_toTopOf="@+id/lblEmail"
                 tools:text="johndoe@invalid.com" />
 
@@ -134,6 +138,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etAddress"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_address"
@@ -141,18 +146,18 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+                app:layout_constraintTop_toBottomOf="@+id/etEmail"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtAddress"
+                android:id="@+id/etAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:inputType="text"
-                app:layout_constraintEnd_toEndOf="@+id/txtEmail"
-                app:layout_constraintStart_toStartOf="@+id/txtEmail"
+                app:layout_constraintEnd_toEndOf="@+id/etEmail"
+                app:layout_constraintStart_toStartOf="@+id/etEmail"
                 app:layout_constraintTop_toTopOf="@+id/lblAddress"
                 tools:text="My address, 33" />
 
@@ -163,6 +168,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etPhone"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_phone"
@@ -170,18 +176,18 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                app:layout_constraintTop_toBottomOf="@+id/etAddress"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtPhone"
+                android:id="@+id/etPhone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:inputType="phone"
-                app:layout_constraintEnd_toEndOf="@+id/txtAddress"
-                app:layout_constraintStart_toStartOf="@+id/txtAddress"
+                app:layout_constraintEnd_toEndOf="@+id/etAddress"
+                app:layout_constraintStart_toStartOf="@+id/etAddress"
                 app:layout_constraintTop_toTopOf="@+id/lblPhone"
                 tools:text="+34 626 626 626" />
 
@@ -192,6 +198,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etBirthdate"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_birthdate"
@@ -199,37 +206,38 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPhone"
+                app:layout_constraintTop_toBottomOf="@+id/etPhone"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtBirthdate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/etBirthdate"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:inputType="text"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toStartOf="@+id/btnCalendar"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/txtPhone"
+                app:layout_constraintStart_toStartOf="@+id/etPhone"
                 app:layout_constraintTop_toTopOf="@+id/lblBirthdate"
                 tools:text="1/1/2000" />
 
             <Button
                 android:id="@+id/btnCalendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="8dp"
-                android:background="@android:drawable/ic_menu_my_calendar"
-                app:layout_constraintBottom_toBottomOf="@+id/txtBirthdate"
-                app:layout_constraintEnd_toEndOf="@+id/txtPhone"
+                android:background="@android:drawable/ic_menu_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/etBirthdate"
+                app:layout_constraintEnd_toEndOf="@+id/etPhone"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/txtBirthdate"
-                app:layout_constraintTop_toTopOf="@+id/txtBirthdate" />
+                app:layout_constraintStart_toEndOf="@+id/etBirthdate"
+                app:layout_constraintTop_toTopOf="@+id/etBirthdate" />
 
 
             <TextView
@@ -239,6 +247,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etNationalID"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_national_id"
@@ -246,18 +255,18 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtBirthdate"
+                app:layout_constraintTop_toBottomOf="@+id/etBirthdate"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtNationalID"
+                android:id="@+id/etNationalID"
                 android:inputType="text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="@+id/btnCalendar"
-                app:layout_constraintStart_toStartOf="@+id/txtBirthdate"
+                app:layout_constraintStart_toStartOf="@+id/etBirthdate"
                 app:layout_constraintTop_toTopOf="@+id/lblNationalID"
                 tools:text="12345678Z" />
 
@@ -268,6 +277,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etFellowshipNumber"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_fellowship_id"
@@ -275,18 +285,18 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtNationalID"
+                app:layout_constraintTop_toBottomOf="@+id/etNationalID"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtFellowshipNumber"
+                android:id="@+id/etFellowshipNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:inputType="phone"
-                app:layout_constraintEnd_toEndOf="@+id/txtNationalID"
-                app:layout_constraintStart_toStartOf="@+id/txtNationalID"
+                app:layout_constraintEnd_toEndOf="@+id/etNationalID"
+                app:layout_constraintStart_toStartOf="@+id/etNationalID"
                 app:layout_constraintTop_toTopOf="@+id/lblFellowshipNumber"
                 tools:text="12345678Z" />
 
@@ -297,6 +307,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etRegistrationDate"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_since"
@@ -304,21 +315,22 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtFellowshipNumber"
+                app:layout_constraintTop_toBottomOf="@+id/etFellowshipNumber"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtRegistrationDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/etRegistrationDate"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                app:layout_constraintEnd_toEndOf="@+id/txtFellowshipNumber"
-                app:layout_constraintStart_toStartOf="@+id/txtFellowshipNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/etFellowshipNumber"
+                app:layout_constraintStart_toStartOf="@+id/etFellowshipNumber"
                 app:layout_constraintTop_toTopOf="@+id/lblRegistrationDate"
                 tools:text="1/1/2018" />
 
@@ -329,6 +341,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/etLastLoginDate"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_last_login"
@@ -336,21 +349,22 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtRegistrationDate"
+                app:layout_constraintTop_toBottomOf="@+id/etRegistrationDate"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
             <EditText
-                android:id="@+id/txtLastLoginDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/etLastLoginDate"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                app:layout_constraintEnd_toEndOf="@+id/txtRegistrationDate"
-                app:layout_constraintStart_toStartOf="@+id/txtRegistrationDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@+id/etRegistrationDate"
+                app:layout_constraintStart_toStartOf="@+id/etRegistrationDate"
                 app:layout_constraintTop_toTopOf="@+id/lblLastLoginDate"
                 tools:text="1/4/2018" />
 
@@ -361,6 +375,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gradient_left_column_fields"
+                android:labelFor="@+id/swProfesional"
                 android:paddingEnd="@dimen/activity_margin_default"
                 android:paddingStart="@dimen/activity_margin_wide"
                 android:text="@string/form_user_details_professional"
@@ -368,7 +383,7 @@
                 app:layout_constraintEnd_toEndOf="@id/ivLeftColumn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/ivLeftColumn"
-                app:layout_constraintTop_toBottomOf="@+id/txtLastLoginDate"
+                app:layout_constraintTop_toBottomOf="@+id/etLastLoginDate"
                 app:layout_goneMarginStart="8dp"
                 app:layout_goneMarginTop="16dp" />
 
@@ -378,9 +393,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@+id/lblProfessional"
-                app:layout_constraintEnd_toEndOf="@+id/txtLastLoginDate"
+                app:layout_constraintEnd_toEndOf="@+id/etLastLoginDate"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/txtLastLoginDate"
+                app:layout_constraintStart_toStartOf="@+id/etLastLoginDate"
                 app:layout_constraintTop_toTopOf="@+id/lblProfessional" />
 
             <TextView
