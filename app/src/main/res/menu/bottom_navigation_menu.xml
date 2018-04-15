@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!--
-    <item
-        android:id="@+id/ic_menu_login"
-        android:icon="@drawable/ic_menu_login"
-        android:title="@string/log_in" />
-    <item
-        android:id="@+id/ic_menu_aboutme"
-        android:icon="@drawable/ic_menu_aboutme"
-        android:title="@string/about_me" />
-    -->
     <item
         android:id="@+id/ic_menu_calendar"
         android:icon="@drawable/ic_menu_calendar"
