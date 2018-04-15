@@ -104,6 +104,12 @@ class CatalogListActivity : ParentActivity() {
         return true
     }
 
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return super.checkOptionSelected(item)
+    }
+
+    /*
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.user_details -> {
@@ -128,7 +134,7 @@ class CatalogListActivity : ParentActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     private fun refreshData() {
         Toast.makeText(this, "Refreshing data", Toast.LENGTH_LONG).show()

@@ -80,29 +80,7 @@ class CalendarActivity : ParentActivity(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.user_details -> {
-                Router().moveToAboutMeActivity(this)
-            }
-            R.id.about_us -> {
-                Router().moveToAboutUsActivity(this)
-            }
-            R.id.logout -> {
-                AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.logout))
-                        .setMessage(getString(R.string.menu_exit_message))
-                        .setNegativeButton("CANCEL", { dialog, _ ->
-                            dialog.dismiss()
-                        })
-                        .setPositiveButton("LOGOUT", { dialog, _ ->
-                            token = ""
-                            Router().moveToLoginActivity(this)
-                            dialog.dismiss()
-                        })
-                        .show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        return super.checkOptionSelected(item)
     }
 
 
