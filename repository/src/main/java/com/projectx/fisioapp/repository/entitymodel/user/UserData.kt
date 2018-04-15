@@ -16,6 +16,6 @@ class UserData (
         @Expose var phone: String,
         @Expose var birthDate: Date,
         @Expose var nationalId: String,
-        @Expose var registrationDate: String,
-        @Expose var lastLoginDate: String
+        @Expose var registrationDate: Date,
+        @Expose var lastLoginDate: Date
 )

@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.utils.formatDate
 import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserIntImpl
@@ -17,8 +15,6 @@ import com.projectx.fisioapp.domain.interactor.users.updateuser.UpdateUserIntera
 import com.projectx.fisioapp.domain.model.User
 import kotlinx.android.synthetic.main.activity_user_detail.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class UserDetailActivity : ParentActivity() {
@@ -172,12 +168,12 @@ class UserDetailActivity : ParentActivity() {
         txtEmail.setText(user.email)
         txtAddress.setText(user.address)
         txtPhone.setText(user.phone)
-        txtBirthdate.setText(user.birthDate.toString())
+        txtBirthdate.setText(formatDateToString(user.birthDate))
         txtNationalID.setText(user.nationalId)
         txtFellowshipNumber.setText(user.fellowshipNumber)
-        txtRegistrationDate.setText(user.registrationDate)
-        txtLastLoginDate.setText(user.lastLoginDate)
-        swProfesional.isChecked = user.isProfessional ?: false
+        txtRegistrationDate.setText(formatDateToString(user.registrationDate))
+        txtLastLoginDate.setText(formatDateToString(user.lastLoginDate))
+        swProfesional.isChecked = user.isProfessional
         if (user.gender == "female") {
             rbFemale.isChecked = true
             rbMale.isChecked = false
@@ -213,10 +209,10 @@ class UserDetailActivity : ParentActivity() {
                 gender,
                 txtAddress.text.toString(),
                 txtPhone.text.toString(),
-                Date(),
+                formatStringToDate(txtBirthdate.text.toString()),
                 txtNationalID.text.toString(),
-                txtRegistrationDate.text.toString(),
-                txtLastLoginDate.text.toString()
+                formatStringToDate(txtRegistrationDate.text.toString()),
+                formatStringToDate(txtLastLoginDate.text.toString())
         )
         return Pair(user, null)
     }
@@ -225,6 +221,18 @@ class UserDetailActivity : ParentActivity() {
         val myFormat = "dd/MM/yyyy" // Choose the format you need
         val sdf = SimpleDateFormat(myFormat)
         txtBirthdate.setText(sdf.format(calendar.getTime()))
+    }
+
+    private fun formatDateToString(date: Date): String{
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val d = format.format(date)
+        return d
+    }
+
+    private fun formatStringToDate(date: String): Date {
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val d: Date = sdf.parse(date)
+        return d
     }
 
 }
