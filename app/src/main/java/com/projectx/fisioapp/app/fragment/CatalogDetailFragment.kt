@@ -15,20 +15,14 @@ import com.projectx.fisioapp.domain.model.Catalog
 import com.projectx.fisioapp.domain.model.util.BenefitType
 import kotlinx.android.synthetic.main.fragment_catalog_detail.*
 
-/**
- * A fragment representing a single Service detail screen.
- * This fragment is either contained in a [ServiceListActivity]
- * in two-pane mode (on tablets) or a [ServiceDetailActivity]
- * on handsets.
- */
 class CatalogDetailFragment : Fragment() {
 
     /**
      * The dummy content this fragment is presenting.
      */
     private var mItem: Catalog? = null
-    lateinit var type: CatalogType
-    var catalogItemListener: CatalogItemListener? = null
+    private lateinit var type: CatalogType
+    private var catalogItemListener: CatalogItemListener? = null
     private lateinit var root: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +41,7 @@ class CatalogDetailFragment : Fragment() {
         activity_catalog_detail_name_text.hint = "name"
         activity_catalog_detail_desc_text.hint = "description"
         activity_catalog_detail_price_text.hint = "20"
+
         is_active_box.isChecked = false
 
         arguments?.let {
@@ -61,15 +56,13 @@ class CatalogDetailFragment : Fragment() {
                 // to load content from a content provider.
                 mItem = arguments.getSerializable(ARG_ITEM) as Catalog
 
-
-
                 mItem?.let {
-                    //activity.toolbar_layout?.title = it.content
+
                     activity_catalog_detail_name_text.setText(it.name)
                     activity_catalog_detail_desc_text.setText(it.description)
                     activity_catalog_detail_price_text.setText(it.price.toString())
                     is_active_box.isChecked = it.isActive
-                    activity_catalog_detail_save_bttn.text = "Update"
+                    activity_catalog_detail_save_bttn.text = getString(R.string.catalog_update)
                 }
 
                 activity_catalog_detail_save_bttn.setOnClickListener {

@@ -25,4 +25,5 @@ interface CacheInteractor {
     fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteAllAppointments(success: () -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteAppointment(id: String, success: () -> Unit, error: (errorMessage: String) -> Unit)
+    fun updateAppointment(id: String, isConfirmed: Boolean, isCancelled: Boolean, success: () -> Unit, error: (errorMessage: String) -> Unit)
 }

@@ -1,15 +1,18 @@
 package com.projectx.fisioapp.repository.cache
 
 import android.content.Context
+import com.projectx.fisioapp.repository.BuildConfig
 import com.projectx.fisioapp.repository.db.DBHelper
 import com.projectx.fisioapp.repository.db.buildHelper
-import com.projectx.fisioapp.repository.db.dao.CatalogDAO
-import com.projectx.fisioapp.repository.BuildConfig
 import com.projectx.fisioapp.repository.db.dao.AppointmentDAO
+import com.projectx.fisioapp.repository.db.dao.CatalogDAO
 import com.projectx.fisioapp.repository.entitymodel.appointments.AppoinmentData
 import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogData
 import com.projectx.fisioapp.repository.thread.DispatchOnMainThread
 import java.lang.ref.WeakReference
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CacheIntImpl(context: Context): CacheInteractor {
@@ -37,7 +40,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun getAllCatalogItems(type: String, success: (catalogList: List<CatalogData>) -> Unit, error: (errorMessage: String) -> Unit) {
 
         Thread(Runnable {
-            val entityList = CatalogDAO(dbHelper).query(type)
+            val entityList = CatalogDAO(dbHelper).queryType(type)
 
             if (entityList.isNotEmpty()) {
                 success(entityList)
@@ -52,7 +55,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun saveCatalogItems(type: String, catalogList: List<CatalogData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
-                catalogList.forEach { CatalogDAO(dbHelper).insertOrUpdate(it, type) }
+                catalogList.forEach { CatalogDAO(dbHelper).insertOrUpdate(it) }
 
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()
@@ -98,7 +101,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
 
                 DispatchOnMainThread(Runnable {
 
-                    if(successUpdate.length > 0){
+                    if(successUpdate.isNotEmpty()){
                         dbHelper.close()
                         success()
                     } else {
@@ -120,7 +123,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
             val successDeleting = CatalogDAO(dbHelper).delete(id)
 
             DispatchOnMainThread(Runnable {
-                if (successDeleting.length > 0) {
+                if (successDeleting.isNotEmpty()) {
                     success()
                 } else {
                     error("Error deleting")
@@ -167,9 +170,24 @@ class CacheIntImpl(context: Context): CacheInteractor {
         }).run()
     }
 
+    fun fromISO8601UTC(dateStr: String): Date? {
+        val tz = TimeZone.getTimeZone("UTC")
+        val df = SimpleDateFormat("yyyy-MM-dd")
+        df.timeZone = tz
+
+        try {
+            return df.parse(dateStr)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
     override fun getAppointmentsForDate(date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
-            val entityList = AppointmentDAO(dbHelper).query(date)
+
+            val entityList = AppointmentDAO(dbHelper).queryDate(date)
 
             if (entityList.isNotEmpty()) {
                 success(entityList)
@@ -183,7 +201,7 @@ class CacheIntImpl(context: Context): CacheInteractor {
     override fun saveAllAppointments(appointmentsList: List<AppoinmentData>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
         Thread(Runnable {
             try {
-                appointmentsList.forEach {AppointmentDAO(dbHelper).insert(it)}
+                appointmentsList.forEach {AppointmentDAO(dbHelper).insertOrUpdate(it)}
 
                 DispatchOnMainThread(Runnable {
                     dbHelper.close()
@@ -220,7 +238,24 @@ class CacheIntImpl(context: Context): CacheInteractor {
             val successDeleting = AppointmentDAO(dbHelper).delete(id)
 
             DispatchOnMainThread(Runnable {
-                if (successDeleting.length > 0) {
+                if (successDeleting.isNotEmpty()) {
+                    success()
+                } else {
+                    error("Error deleting")
+                }
+                dbHelper.close()
+            })
+        }).run()
+    }
+
+    override fun updateAppointment(id: String, isConfirmed: Boolean, isCancelled: Boolean, success: () -> Unit, error: (errorMessage: String) -> Unit) {
+
+        Thread(Runnable {
+
+            val successUpdating = AppointmentDAO(dbHelper).update(id, isConfirmed, isCancelled)
+
+            DispatchOnMainThread(Runnable {
+                if (successUpdating > 0) {
                     success()
                 } else {
                     error("Error deleting")
@@ -231,3 +266,5 @@ class CacheIntImpl(context: Context): CacheInteractor {
     }
 
 }
+
+

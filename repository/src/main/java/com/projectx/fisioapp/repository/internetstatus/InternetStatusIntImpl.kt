@@ -9,8 +9,8 @@ import com.projectx.fisioapp.repository.utils.ErrorClosure
 
 class InternetStatusIntImpl(val context: Context): InternetStatusInteractor {
 
-    internal lateinit var connectivityManager: ConnectivityManager
-    internal var connected = false
+    private lateinit var connectivityManager: ConnectivityManager
+    private var connected = false
 
     override fun execute(success: CodeClosure, error: ErrorClosure) {
 

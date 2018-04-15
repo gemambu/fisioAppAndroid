@@ -1,8 +1,10 @@
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="top"
+    android:id="@+id/calendar_fragment"
     tools:context="com.projectx.fisioapp.app.fragment.CalendarFragment">
 
     <CalendarView
@@ -10,4 +12,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
