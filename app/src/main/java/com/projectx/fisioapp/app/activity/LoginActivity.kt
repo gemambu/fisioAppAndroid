@@ -46,13 +46,17 @@ class LoginActivity : ParentActivity(),
         tabLayout.getTabAt(0)!!.setIcon(R.drawable.ic_tab_login)
         tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_tab_register)
 
+        /*
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavView_bar) as BottomNavigationView
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
 
         addBottomBar(this)
+        */
 
     }
 
+    // Moved to CalendarActivity and CatalogListActivity
+    /*
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.statusbar_menu, menu)
         return true
@@ -69,6 +73,7 @@ class LoginActivity : ParentActivity(),
         }
         return super.onOptionsItemSelected(item)
     }
+    */
 
     private fun setupViewPager(viewPager: ViewPager?) {
         val adapter = SectionsPagerAdapter(supportFragmentManager)
@@ -78,12 +83,10 @@ class LoginActivity : ParentActivity(),
     }
 
     override fun buttonLoginPressed(email: String, password: String) {
-        toastIt(this, "Login: $email and $password")
         authenticateUser(email, password)
     }
 
     override fun buttonRegisterPressed(name: String, email: String, password: String) {
-        toastIt(this, "Login: $name and $email and $password")
         registerUser(name, email, password)
     }
 
@@ -96,9 +99,7 @@ class LoginActivity : ParentActivity(),
                         try {
                             token = tkn
                             uId = user.id
-                            toastIt(baseContext, "TK: $token")
-                            toastIt(baseContext, "uId: $uId")
-                            if (checkToken()) toastIt(this, "Finish?")
+                            if (checkToken()) finish()
                         } catch (e: Throwable) {
                             toastIt(this, "Error: " + e.localizedMessage )
                         }
