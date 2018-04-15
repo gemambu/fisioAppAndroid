@@ -8,7 +8,7 @@ import android.view.View
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentDetailFragment
 import com.projectx.fisioapp.app.fragment.AppointmentDetailListener
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.appointments.UpdateAppointmentIntImpl
@@ -61,16 +61,16 @@ class AppointmentDetailActivity : ParentActivity(), AppointmentDetailListener {
                         item.isCancelled,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
-                                ToastIt(view.context, e)
+                                toastIt(view.context, e)
                             }
                         },
                         error = object : ErrorCompletion {
                             override fun errorCompletion(errorMessage: String) {
-                                ToastIt(view.context, errorMessage)
+                                toastIt(view.context, errorMessage)
                             }
                         })
             } catch (e: Exception) {
-                ToastIt(view.context, "Error: " + e.localizedMessage )
+                toastIt(view.context, "Error: " + e.localizedMessage )
             }
         }
     }

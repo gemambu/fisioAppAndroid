@@ -13,7 +13,7 @@ import com.projectx.fisioapp.app.fragment.LoginFragment
 import com.projectx.fisioapp.app.fragment.RegisterFragment
 import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
 import com.projectx.fisioapp.app.router.Router
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.users.authenticateuser.AuthenticateUserIntImpl
 import com.projectx.fisioapp.domain.interactor.users.authenticateuser.AuthenticateUserInteractor
@@ -78,12 +78,12 @@ class LoginActivity : ParentActivity(),
     }
 
     override fun buttonLoginPressed(email: String, password: String) {
-        ToastIt(this, "Login: $email and $password")
+        toastIt(this, "Login: $email and $password")
         authenticateUser(email, password)
     }
 
     override fun buttonRegisterPressed(name: String, email: String, password: String) {
-        ToastIt(this, "Login: $name and $email and $password")
+        toastIt(this, "Login: $name and $email and $password")
         registerUser(name, email, password)
     }
 
@@ -96,15 +96,15 @@ class LoginActivity : ParentActivity(),
                         try {
                             token = tkn
                             uId = user.id
-                            ToastIt(baseContext, "TK: $token")
-                            ToastIt(baseContext, "uId: $uId")
-                            if (checkToken()) ToastIt(this, "Finish?")
+                            toastIt(baseContext, "TK: $token")
+                            toastIt(baseContext, "uId: $uId")
+                            if (checkToken()) toastIt(this, "Finish?")
                         } catch (e: Throwable) {
-                            ToastIt(this, "Error: " + e.localizedMessage )
+                            toastIt(this, "Error: " + e.localizedMessage )
                         }
                     }, error = object : ErrorCompletion {
                         override fun errorCompletion(errorMessage: String) {
-                            ToastIt(baseContext, errorMessage)
+                            toastIt(baseContext, errorMessage)
                         }
                     })
     }
@@ -118,16 +118,16 @@ class LoginActivity : ParentActivity(),
                     success = { ok: Boolean, msg: String ->
                         try {
                             if (ok) {
-                                    ToastIt(baseContext, "You can press 'Login' to start")
+                                    toastIt(baseContext, "You can press 'Login' to start")
                             } else {
-                                ToastIt(baseContext, "Success/error: Try again")
+                                toastIt(baseContext, "Success/error: Try again")
                             }
                         } catch (e: Exception) {
-                            ToastIt(this, "Error: " + e.localizedMessage )
+                            toastIt(this, "Error: " + e.localizedMessage )
                         }
                     }, error = object : ErrorCompletion {
                 override fun errorCompletion(errorMessage: String) {
-                    ToastIt(baseContext, errorMessage)
+                    toastIt(baseContext, errorMessage)
                 }
             })
     }

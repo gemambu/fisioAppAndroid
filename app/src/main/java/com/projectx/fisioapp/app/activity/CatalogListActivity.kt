@@ -15,7 +15,7 @@ import com.projectx.fisioapp.app.router.Router
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
 import com.projectx.fisioapp.app.utils.RQ_OPERATION
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogListIntImpl
@@ -140,11 +140,11 @@ class CatalogListActivity : ParentActivity() {
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(baseContext, errorMessage)
+                        toastIt(baseContext, errorMessage)
                     }
                 })
             } catch (e: Exception) {
-                ToastIt(context, "Error: " + e.localizedMessage )
+                toastIt(context, "Error: " + e.localizedMessage )
             }
         }
     }

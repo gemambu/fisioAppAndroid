@@ -5,7 +5,8 @@ import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import com.projectx.fisioapp.R
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.formatDate
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserIntImpl
 import com.projectx.fisioapp.domain.interactor.users.getuser.GetUserInteractor
@@ -71,11 +72,11 @@ class UserDetailActivity : ParentActivity() {
                         fillFileds(it)
                     }, error = object : ErrorCompletion {
                         override fun errorCompletion(errorMessage: String) {
-                            ToastIt(baseContext, errorMessage)
+                            toastIt(baseContext, errorMessage)
                         }
                     })
         } catch (e: Exception) {
-            ToastIt(this, "Error: " + e.localizedMessage )
+            toastIt(this, "Error: " + e.localizedMessage )
         }
     }
 
@@ -83,12 +84,12 @@ class UserDetailActivity : ParentActivity() {
 
         val checkFields = getFieldsOrErrors()
         if (checkFields.second != null) {
-            ToastIt(this, "Fields with errors")
+            toastIt(this, "Fields with errors")
             return
         }
 
         if (checkFields.first == null) {
-            ToastIt(this, "No user information available")
+            toastIt(this, "No user information available")
             return
         }
 
@@ -103,18 +104,18 @@ class UserDetailActivity : ParentActivity() {
                     success = { ok: Boolean, user: User ->
                         if (ok) {
                             fillFileds(user)
-                            ToastIt(this, "User updated")
+                            toastIt(this, "User updated")
                         }
                         else {
-                            ToastIt(this, "Success/error")
+                            toastIt(this, "Success/error")
                         }
                     }, error = object : ErrorCompletion {
                         override fun errorCompletion(errorMessage: String) {
-                            ToastIt(baseContext, errorMessage)
+                            toastIt(baseContext, errorMessage)
                         }
                     })
         } catch (e: Exception) {
-            ToastIt(this, "Error: " + e.localizedMessage )
+            toastIt(this, "Error: " + e.localizedMessage )
         }
     }
 
@@ -135,7 +136,7 @@ class UserDetailActivity : ParentActivity() {
                 "lblFellowshipNumber" -> lblFellowshipNumber.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields_error)
                 "lblProfessional" -> lblProfessional.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields_error)
                 "lblGender" -> lblGender.background = ContextCompat.getDrawable(this, R.drawable.gradient_left_column_fields_error)
-                else -> ToastIt(this, it)
+                else -> toastIt(this, it)
             }
         }
     }
@@ -147,7 +148,7 @@ class UserDetailActivity : ParentActivity() {
         txtEmail.setText(user.email)
         txtAddress.setText(user.address)
         txtPhone.setText(user.phone)
-        txtBirthdate.setText(user.birthDate.toString())
+        txtBirthdate.setText(formatDate(user.birthDate))
         txtNationalID.setText(user.nationalId)
         txtFellowshipNumber.setText(user.fellowshipNumber)
         txtRegistrationDate.setText(user.registrationDate)

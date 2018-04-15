@@ -7,7 +7,7 @@ import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
 import com.projectx.fisioapp.app.fragment.CalendarFragment
 import com.projectx.fisioapp.app.router.Router
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.appointments.GetAppointmentsForDateIntImpl
@@ -63,11 +63,11 @@ class CalendarActivity : ParentActivity(),
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(baseContext, errorMessage)
+                        toastIt(baseContext, errorMessage)
                     }
                 })
             } catch (e: Exception) {
-                ToastIt(context, "Error: " + e.localizedMessage)
+                toastIt(context, "Error: " + e.localizedMessage)
             }
         }
     }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.projectx.fisioapp.R
+import com.projectx.fisioapp.app.utils.formatDate
 import com.projectx.fisioapp.domain.model.Appointment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_appointment_detail.*
@@ -50,16 +51,23 @@ class AppointmentDetailFragment : Fragment() {
 
 
         appointment_detail_customer_name_label.text = appointmentDetail.customerName
-        appointment_detail_time_label.text = appointmentDetail.date.toString()
+        appointment_detail_time_label.text = formatDate(appointmentDetail.date)
         appointment_detail_customer_price_label.text = appointmentDetail.servicePrice
         appointment_detail_address_label.text = appointmentDetail.address
 
-        detail_appointment_confirmed.isChecked = appointmentDetail.isConfirmed
         detail_appointment_cancelled.isChecked = appointmentDetail.isCancelled
+        detail_appointment_confirmed.isChecked = appointmentDetail.isConfirmed
+
+        // If the appointment is cancelled, the user cannot edit that info
+        if(appointmentDetail.isCancelled){
+            detail_appointment_confirmed.isClickable = false
+            detail_appointment_cancelled.isClickable = false
+
+            btnSave.hide()
+        }
 
 
-
-        if (appointmentDetail.extraInfo.isNotEmpty() && appointmentDetail.extraInfo != "false"){
+        if (appointmentDetail.extraInfo.isNotEmpty()){
             appointment_detail_extra_info_label.text = appointmentDetail.extraInfo
         } else {
             appointment_detail_extra_info_label.text = getString(R.string.no_extra_info)

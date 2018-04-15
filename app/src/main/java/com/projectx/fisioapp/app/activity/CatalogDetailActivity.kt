@@ -10,7 +10,7 @@ import com.projectx.fisioapp.app.fragment.CatalogDetailFragment
 import com.projectx.fisioapp.app.fragment.CatalogItemListener
 import com.projectx.fisioapp.app.utils.CatalogType
 import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.toastIt
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.DeleteCatalogIntImpl
@@ -92,7 +92,7 @@ class CatalogDetailActivity : ParentActivity(), CatalogItemListener {
                         item,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
-                                ToastIt(view.context, e)
+                                toastIt(view.context, e)
 
                                 val intent = Intent()
                                 intent.putExtra("result", -1)
@@ -100,12 +100,12 @@ class CatalogDetailActivity : ParentActivity(), CatalogItemListener {
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(view.context, errorMessage)
+                        toastIt(view.context, errorMessage)
                         finalizeActivity(Activity.RESULT_CANCELED, Intent())
                     }
                 })
             } catch (e: Exception) {
-                ToastIt(view.context, "Error: " + e.localizedMessage )
+                toastIt(view.context, "Error: " + e.localizedMessage )
             }
         }
     }
@@ -121,7 +121,7 @@ class CatalogDetailActivity : ParentActivity(), CatalogItemListener {
                         type.name,
                         success = object : SuccessCompletion<String> {
                             override fun successCompletion(e: String) {
-                                ToastIt(view.context, e)
+                                toastIt(view.context, e)
 
                                 val intent = Intent()
                                 intent.putExtra("result", -1)
@@ -129,13 +129,13 @@ class CatalogDetailActivity : ParentActivity(), CatalogItemListener {
                             }
                         }, error = object : ErrorCompletion {
                             override fun errorCompletion(errorMessage: String) {
-                                ToastIt(view.context, errorMessage)
+                                toastIt(view.context, errorMessage)
 
                                 finalizeActivity(Activity.RESULT_CANCELED, Intent())
                             }
                         })
             } catch (e: Exception) {
-                ToastIt(view.context, "Error: " + e.localizedMessage )
+                toastIt(view.context, "Error: " + e.localizedMessage )
             }
         }
     }

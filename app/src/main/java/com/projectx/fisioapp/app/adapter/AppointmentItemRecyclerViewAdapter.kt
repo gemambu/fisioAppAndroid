@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.activity.CalendarActivity
 import com.projectx.fisioapp.app.router.Router
+import com.projectx.fisioapp.app.utils.formatDate
 import com.projectx.fisioapp.domain.model.Appointment
 import com.projectx.fisioapp.domain.model.Appointments
 import kotlinx.android.synthetic.main.appointment_list_content.view.*
@@ -27,7 +28,7 @@ class AppointmentItemRecyclerViewAdapter(private val mParentActivity: CalendarAc
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues!![position]
-        holder.mIdView.text = item.date.toString()
+        holder.mIdView.text = formatDate(item.date)
         holder.mContentView.text = item.address
 
         with(holder.itemView) {
