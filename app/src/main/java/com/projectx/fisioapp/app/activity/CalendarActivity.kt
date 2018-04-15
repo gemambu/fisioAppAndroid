@@ -1,7 +1,9 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.fragment.AppointmentsListFragment
@@ -73,11 +75,44 @@ class CalendarActivity : ParentActivity(),
     }
 
     // ***** Back button enabled *****
+    /*
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    */
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.statusbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.user_details -> {
+                Router().moveToAboutMeActivity(this)
+            }
+            R.id.about_us -> {
+                Router().moveToAboutUsActivity(this)
+            }
+            R.id.logout -> {
+                AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.logout))
+                        .setMessage(getString(R.string.menu_exit_message))
+                        .setPositiveButton("LOGOUT", { dialog, _ ->
+                            token = ""
+                            Router().moveToLoginActivity(this)
+                            dialog.dismiss()
+                        })
+                        .setNegativeButton("CANCEL", { dialog, _ ->
+                            dialog.dismiss()
+                        })
+                        .show()
             }
         }
         return super.onOptionsItemSelected(item)

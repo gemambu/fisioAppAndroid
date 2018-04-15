@@ -66,4 +66,6 @@
     <string name="about_us">About us</string>
     <string name="no_extra_info">No extra info provided</string>
     <string name="catalog_update">Update</string>
+    <string name="logout">Logout</string>
+    <string name="menu_exit_message">Do you want to exit now?</string>
 </resources>

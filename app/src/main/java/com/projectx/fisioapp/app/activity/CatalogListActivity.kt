@@ -1,5 +1,6 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.projectx.fisioapp.R
@@ -98,10 +100,43 @@ class CatalogListActivity : ParentActivity() {
     }
 
     // ***** Back button enabled *****
+    /*
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    */
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.statusbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.user_details -> {
+                Router().moveToAboutMeActivity(this)
+            }
+            R.id.about_us -> {
+                Router().moveToAboutUsActivity(this)
+            }
+            R.id.logout -> {
+                AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.logout))
+                        .setMessage(getString(R.string.menu_exit_message))
+                        .setPositiveButton("LOGOUT", { dialog, _ ->
+                            token = ""
+                            Router().moveToLoginActivity(this)
+                            dialog.dismiss()
+                        })
+                        .setNegativeButton("CANCEL", { dialog, _ ->
+                            dialog.dismiss()
+                        })
+                        .show()
             }
         }
         return super.onOptionsItemSelected(item)
