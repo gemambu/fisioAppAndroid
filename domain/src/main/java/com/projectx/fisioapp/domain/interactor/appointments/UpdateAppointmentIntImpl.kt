@@ -14,15 +14,14 @@ class UpdateAppointmentIntImpl(context: Context) : UpdateAppointmentInteractor {
     private val weakContext = WeakReference<Context>(context)
     private val repository: RepositoryInteractor = RepositoryIntImpl(weakContext.get()!!)
 
-    override fun execute(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: SuccessCompletion<Appointment>, error: ErrorCompletion) {
+    override fun execute(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: SuccessCompletion<String>, error: ErrorCompletion) {
 
         repository.updateAppointment(token, id, isConfirmed, isCancelled,
                 success = {
-                    val appointment: Appointment = AppointmentMapper().appointmentMapper(it)
-                    success.successCompletion(appointment)
+                    success.successCompletion("Successfully saved")
                 }, error = {
-                    error.errorCompletion(it)
-                })
+            error.errorCompletion(it)
+        })
     }
 
 }

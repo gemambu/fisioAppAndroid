@@ -340,29 +340,29 @@ class RepositoryIntImpl(val context: Context) : RepositoryInteractor {
         })
     }
 
-    override fun updateAppointment(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (appointment: AppoinmentData) -> Unit, error: (errorMessage: String) -> Unit) {
+    override fun updateAppointment(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
         updateAppointment.execute(token,
                 id,
                 isConfirmed,
                 isCancelled,
                 success = {
-                    updateAppointmentInCache(id, isConfirmed, isCancelled)
-                    success(it)
+                    updateAppointmentInCache(id, isConfirmed, isCancelled, success, error)
+                    //success(it)
 
                 }, error = {
-            error(it)
-        })
+                    error(it)
+                })
     }
 
 
 
-    private fun updateAppointmentInCache(id: String, isConfirmed: Boolean, isCancelled: Boolean) {
+    private fun updateAppointmentInCache(id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit) {
         cache.updateAppointment(id, isConfirmed, isCancelled,
                 success = {
                     success("Appointment $id} updated successfully")
                 }, error = {
-            kotlin.error("Error updating item: $id")
-        })
+                    kotlin.error("Error updating item: $id")
+                })
     }
 
 

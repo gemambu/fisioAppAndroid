@@ -47,27 +47,6 @@ class AppointmentDetailActivity : ParentActivity(), AppointmentDetailListener {
                     .commit()
         }
 
-            /*if (resources.getBoolean(R.bool.screen_sw400) != true) {
-
-                setContentView(R.layout.activity_appointment_detail)
-
-                if (fragmentManager.findFragmentById(R.id.appointment_detail_fragment) == null) {
-                    val fragment = AppointmentDetailFragment.newInstance()
-                    fragmentManager.beginTransaction()
-                            .add(R.id.appointment_detail_fragment, fragment)
-                            .commit()
-                }
-            } else {
-
-                setContentView(R.layout.activity_calendar)
-                if (fragmentManager.findFragmentById(R.id.appointments_fragment) == null) {
-                    val fragment = AppointmentDetailFragment.newInstance()
-                    fragmentManager.beginTransaction()
-                            .add(R.id.appointments_fragment, fragment)
-                            .commit()
-                }
-            }*/
-
     }
 
     override fun onSavePressed(view: View, item: Appointment) {
@@ -80,9 +59,9 @@ class AppointmentDetailActivity : ParentActivity(), AppointmentDetailListener {
                         item.id,
                         item.isConfirmed,
                         item.isCancelled,
-                        success = object : SuccessCompletion<Appointment> {
-                            override fun successCompletion(e: Appointment) {
-                                ToastIt(view.context, "$e")
+                        success = object : SuccessCompletion<String> {
+                            override fun successCompletion(e: String) {
+                                ToastIt(view.context, e)
                             }
                         },
                         error = object : ErrorCompletion {

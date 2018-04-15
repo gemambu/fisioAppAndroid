@@ -29,7 +29,7 @@ interface RepositoryInteractor {
     /******** appointments ********/
     fun getAllAppointments(token: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
     fun getAppointmentsForDate(token: String, date: String, success: (appointmentsList: List<AppoinmentData>) -> Unit, error: (errorMessage: String) -> Unit)
-    fun updateAppointment(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (appointment: AppoinmentData) -> Unit, error: (errorMessage: String) -> Unit)
+    fun updateAppointment(token: String, id: String, isConfirmed: Boolean, isCancelled: Boolean, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit)
     fun deleteAppointment(token: String, id: String, success: (successMessage: String) -> Unit, error: (errorMessage: String) -> Unit)
 
 }

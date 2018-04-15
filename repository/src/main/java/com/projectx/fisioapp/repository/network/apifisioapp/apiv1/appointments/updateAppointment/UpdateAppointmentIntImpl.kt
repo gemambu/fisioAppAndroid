@@ -21,7 +21,9 @@ internal class UpdateAppointmentIntImpl(): UpdateAppointmentInteractor {
             override fun onResponse(call: Call<UpdateAppointmentResponse>?, response: Response<UpdateAppointmentResponse>) {
                 val backResponse = response.body()
 
-                backResponse.let { success(converterDeleteAppointment(backResponse!!)) }
+                backResponse.let {
+                    success(converterDeleteAppointment(backResponse!!))
+                }
             }
 
             override fun onFailure(call: Call<UpdateAppointmentResponse>, t: Throwable?) {

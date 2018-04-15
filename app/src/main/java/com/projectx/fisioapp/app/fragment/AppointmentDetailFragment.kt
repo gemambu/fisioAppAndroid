@@ -53,13 +53,11 @@ class AppointmentDetailFragment : Fragment() {
         appointment_detail_time_label.text = appointmentDetail.date.toString()
         appointment_detail_customer_price_label.text = appointmentDetail.servicePrice
         appointment_detail_address_label.text = appointmentDetail.address
-        if (appointmentDetail.isConfirmed && !appointmentDetail.isCancelled) {
-            detail_appointment_confirmed.isChecked
-        }
 
-        /*else if (appointmentDetail.isCancelled == true && appointmentDetail.isConfirmed == true) {
-            isConfirmed.text = "Cancelada"
-        }*/
+        detail_appointment_confirmed.isChecked = appointmentDetail.isConfirmed
+        detail_appointment_cancelled.isChecked = appointmentDetail.isCancelled
+
+
 
         if (appointmentDetail.extraInfo.isNotEmpty() && appointmentDetail.extraInfo != "false"){
             appointment_detail_extra_info_label.text = appointmentDetail.extraInfo
@@ -79,12 +77,8 @@ class AppointmentDetailFragment : Fragment() {
             startActivity(mapIntent)
         })
 
-        appointment_save_button.setOnClickListener({
+        btnSave.setOnClickListener({
             saveAppointment()
-        })
-
-        appointment_cancel_button.setOnClickListener({
-
         })
 
     }
