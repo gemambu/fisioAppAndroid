@@ -14,10 +14,7 @@ import android.widget.Toast
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
 import com.projectx.fisioapp.app.router.Router
-import com.projectx.fisioapp.app.utils.CatalogType
-import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
-import com.projectx.fisioapp.app.utils.RQ_OPERATION
-import com.projectx.fisioapp.app.utils.toastIt
+import com.projectx.fisioapp.app.utils.*
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogListIntImpl
@@ -104,30 +101,9 @@ class CatalogListActivity : ParentActivity() {
         return true
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.user_details -> {
-                Router().moveToAboutMeActivity(this)
-            }
-            R.id.about_us -> {
-                Router().moveToAboutUsActivity(this)
-            }
-            R.id.logout -> {
-                AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.logout))
-                        .setMessage(getString(R.string.menu_exit_message))
-                        .setNegativeButton(getString(R.string.menu_logout_cancel), { dialog, _ ->
-                            dialog.dismiss()
-                        })
-                        .setPositiveButton(getString(R.string.menu_logout_exit), { dialog, _ ->
-                            token = ""
-                            Router().moveToLoginActivity(this)
-                            dialog.dismiss()
-                        })
-                        .show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        return super.checkOptionSelected(item)
     }
 
     private fun refreshData() {

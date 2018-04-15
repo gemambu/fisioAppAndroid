@@ -62,15 +62,24 @@ class Router {
     }
 
     fun moveToCalendarActivity (main: Activity) {
-        main.startActivity(Intent(main, CalendarActivity::class.java))
+        if(main !is CalendarActivity){
+            main.startActivity(Intent(main, CalendarActivity::class.java))
+        }
+
     }
 
     fun moveToProductsActivity(main: Activity) {
-        moveToDetailActivity(main, CatalogType.PRODUCT)
+        if(main !is CatalogListActivity || (main).type != CatalogType.PRODUCT){
+            moveToDetailActivity(main, CatalogType.PRODUCT)
+        }
+
     }
 
     fun moveToServicesActivity(main: Activity) {
-        moveToDetailActivity(main, CatalogType.SERVICE)
+        if(main !is CatalogListActivity || (main).type != CatalogType.SERVICE){
+            moveToDetailActivity(main, CatalogType.SERVICE)
+        }
+
     }
 
     private fun moveToDetailActivity(mainActivity: Activity, type: CatalogType) {
