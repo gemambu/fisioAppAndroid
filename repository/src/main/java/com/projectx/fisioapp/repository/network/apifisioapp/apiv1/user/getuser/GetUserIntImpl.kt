@@ -13,7 +13,7 @@ import retrofit2.Response
 
 class GetUserIntImpl(): GetUserInteractor {
     override fun execute(token: String, id: String, success: (user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**

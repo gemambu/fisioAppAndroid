@@ -1,47 +1,39 @@
 package com.projectx.fisioapp.app.fragment
 
+//import android.support.v4.app.Fragment
 import android.app.Activity
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
-//import android.support.v4.app.Fragment
-import android.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import com.projectx.fisioapp.R
-import java.util.*
 
+@Suppress("DEPRECATION")
 class CalendarFragment : Fragment() {
 
-    lateinit var root: View
-    lateinit var calendarView: CalendarView
+    private var calendarView: CalendarView? = null
     private var onSelectedDateListener: OnSelectedDateListener? = null
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        inflater?.let{
-            root = it.inflate(R.layout.fragment_calendar, container, false)
-            calendarView = root.findViewById(R.id.fisio_calendar)
-            //calendarView.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-            calendarView.firstDayOfWeek = 2
+        val root = inflater?.inflate(R.layout.fragment_calendar, container, false)
+        calendarView = root?.findViewById(R.id.fisio_calendar)
+        calendarView?.firstDayOfWeek = 2
 
-            setCalendarListener(calendarView)
+        calendarView?.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            //Note that months are indexed from 0. So, 0 means january, 1 means February, 2 means march etc.
+            val updatedMonth = month + 1
+            val date = "$year-$updatedMonth-$dayOfMonth"
+
+            onSelectedDateListener?.onSelectedDate(date)
         }
 
         return root
-    }
-
-
-    fun setCalendarListener(calendar: CalendarView){
-        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            //Note that months are indexed from 0. So, 0 means january, 1 means February, 2 means march etc.
-            val month = month + 1
-            val date: String = "$year-$month-$dayOfMonth"
-            onSelectedDateListener?.onSelectedDate(date)
-        }
     }
 
     override fun onAttach(context: Context?) {
@@ -59,7 +51,7 @@ class CalendarFragment : Fragment() {
         onSelectedDateListener = null
     }
 
-    fun commonAttach(listener: Any?) {
+    private fun commonAttach(listener: Any?) {
         if (listener is OnSelectedDateListener) {
             onSelectedDateListener = listener
         }
@@ -68,10 +60,6 @@ class CalendarFragment : Fragment() {
     interface OnSelectedDateListener {
         fun onSelectedDate(date: String)
     }
-
-
-
-
 
 
 }

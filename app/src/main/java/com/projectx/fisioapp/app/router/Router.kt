@@ -25,29 +25,14 @@ class Router {
     fun navigateFromCalendarActivityToAppointmentDetailActivity(main: CalendarActivity, appointment: Appointment){
         val intent = AppointmentDetailActivity.newInstance(main.baseContext, appointment)
         main.startActivity(intent)
-        //main.startActivity(Intent(main.baseContext, AppointmentDetailActivity::class.java))
     }
 
     fun navigateFromCalendarActivityToLoginActivity(main: CalendarActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
     }
 
-    fun navigateFromeCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
+    fun navigateFromCatalogListActivitytoLoginActivity(main: CatalogListActivity) {
         main.startActivity(Intent(main, LoginActivity::class.java))
-    }
-
-    fun navigateFromParentActivityToServicesActivity(mainActivity: CatalogParentActivity) {
-        navigateToDetailActivity(mainActivity, CatalogType.SERVICE)
-    }
-
-    fun navigateFromParentActivityToProductsActivity(mainActivity: CatalogParentActivity) {
-        navigateToDetailActivity(mainActivity, CatalogType.PRODUCT)
-    }
-
-    private fun navigateToDetailActivity(mainActivity: CatalogParentActivity, type: CatalogType) {
-        val intent = Intent(mainActivity, CatalogListActivity::class.java)
-        intent.putExtra(EXTRA_CATALOG_TYPE, type)
-        mainActivity.startActivityForResult(intent, RQ_OPERATION)
     }
 
     fun navigateFromParentActivityToDetailCatalogActivity(item: Catalog, mainActivity: CatalogListActivity, type: CatalogType) {
@@ -77,15 +62,24 @@ class Router {
     }
 
     fun moveToCalendarActivity (main: Activity) {
-        main.startActivity(Intent(main, CalendarActivity::class.java))
+        if(main !is CalendarActivity){
+            main.startActivity(Intent(main, CalendarActivity::class.java))
+        }
+
     }
 
     fun moveToProductsActivity(main: Activity) {
-        moveToDetailActivity(main, CatalogType.PRODUCT)
+        if(main !is CatalogListActivity || (main).type != CatalogType.PRODUCT){
+            moveToDetailActivity(main, CatalogType.PRODUCT)
+        }
+
     }
 
     fun moveToServicesActivity(main: Activity) {
-        moveToDetailActivity(main, CatalogType.SERVICE)
+        if(main !is CatalogListActivity || (main).type != CatalogType.SERVICE){
+            moveToDetailActivity(main, CatalogType.SERVICE)
+        }
+
     }
 
     private fun moveToDetailActivity(mainActivity: Activity, type: CatalogType) {

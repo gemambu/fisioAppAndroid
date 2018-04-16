@@ -19,8 +19,8 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
                 email, password,
                 success = { user: UserData, token: String ->
 
-                    val user: User = entityMapper(user)
-                        success(user, token)
+                    val userData: User = entityMapper(user)
+                        success(userData, token)
                     }, error = {
                         error.errorCompletion(it)
                     }
@@ -28,7 +28,7 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
     }
 
     private fun entityMapper(userData: UserData): User {
-        val user = User(
+        return User(
                 userData.id,
                 userData.name,
                 userData.lastName,
@@ -43,7 +43,6 @@ class AuthenticateUserIntImpl (context: Context) :AuthenticateUserInteractor {
                 userData.registrationDate,
                 userData.lastLoginDate
         )
-        return user
     }
 
 }

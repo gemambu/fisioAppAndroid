@@ -13,7 +13,7 @@ import retrofit2.Response
 class UpdateUserIntImpl() : UpdateUserInteractor {
     override fun execute(token: String, user: UserData, success: (ok: Boolean, user: UserData) -> Unit, error: (errorMessage: String) -> Unit) {
 
-        var apiInterfaceLocalhost: APIV1FisioAppInterface =
+        val apiInterfaceLocalhost: APIV1FisioAppInterface =
                 APIV1FisioAppClient.client.create(APIV1FisioAppInterface::class.java)
 
         /**
@@ -25,10 +25,10 @@ class UpdateUserIntImpl() : UpdateUserInteractor {
         updateUser.enqueue(object : Callback<UpdateUserResponse> {
 
             override fun onResponse(call: Call<UpdateUserResponse>, response: Response<UpdateUserResponse>) {
-                val response = response.body()
-                val ok = response?.ok ?: false
-                val userData = response?.result as UserData
-                if (ok == true) success(ok, userData)
+                val backResponse = response.body()
+                val ok = backResponse?.ok ?: false
+                val userData = backResponse?.result as UserData
+                if (ok) success(ok, userData)
             }
 
             override fun onFailure(call: Call<UpdateUserResponse>?, t: Throwable?) {

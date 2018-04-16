@@ -18,7 +18,7 @@ class DeleteCatalogIntImpl(context: Context) : DeleteCatalogInteractor {
                 success = {
                     success.successCompletion("Deleted correctly")
                 }, error = {
-                    error(it)
+                    error.errorCompletion(it)
                 })
 
     }

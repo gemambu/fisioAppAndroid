@@ -21,7 +21,7 @@ class GetAppointmentsForDateIntImpl(context: Context) : GetAppointmentsForDateIn
                     val appointments: Appointments = AppointmentMapper().appointmentsListMapper(it)
                     success.successCompletion(appointments)
                 }, error = {
-                    error(it)
+                    error.errorCompletion(it)
         })
     }
 }

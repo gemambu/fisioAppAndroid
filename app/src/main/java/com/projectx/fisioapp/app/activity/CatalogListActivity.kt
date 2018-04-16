@@ -1,22 +1,20 @@
 package com.projectx.fisioapp.app.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.projectx.fisioapp.R
 import com.projectx.fisioapp.app.adapter.SimpleItemRecyclerViewAdapter
-import com.projectx.fisioapp.app.helper.BottomNavigationViewHelper
 import com.projectx.fisioapp.app.router.Router
-import com.projectx.fisioapp.app.utils.CatalogType
-import com.projectx.fisioapp.app.utils.EXTRA_CATALOG_TYPE
-import com.projectx.fisioapp.app.utils.RQ_OPERATION
-import com.projectx.fisioapp.app.utils.ToastIt
+import com.projectx.fisioapp.app.utils.*
 import com.projectx.fisioapp.domain.interactor.ErrorCompletion
 import com.projectx.fisioapp.domain.interactor.SuccessCompletion
 import com.projectx.fisioapp.domain.interactor.catalog.GetCatalogListIntImpl
@@ -52,35 +50,42 @@ class CatalogListActivity : ParentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_list)
 
+        if (!checkToken()) {
+            Router().navigateFromCatalogListActivitytoLoginActivity(this)
+        }
+
         type = intent.getSerializableExtra(EXTRA_CATALOG_TYPE) as CatalogType
+
+        title = when(type){
+            CatalogType.PRODUCT -> getString(R.string.catalog_products_title)
+            CatalogType.SERVICE -> getString(R.string.catalog_services_title)
+        }
 
         swipeLayout.setOnRefreshListener {
             refreshData()
         }
 
-        if (!checkToken()) {
-            Router().navigateFromeCatalogListActivitytoLoginActivity(this)
-        } else {
+        addBottomBar(this)
 
-            setSupportActionBar(toolbar)
-            toolbar.title = title
+    }
 
-            catalog_list_add_element.setOnClickListener { view ->
-                Router().navigateFromParentActivityToNewCatalogActivity(this, type)
-            }
+    override fun onResume() {
+        super.onResume()
 
-
-            if (catalog_detail_container != null) {
-                // The detail container view will be present only in the
-                // large-screen layouts (res/values-w900dp).
-                // If this view is present, then the
-                // activity should be in two-pane mode.
-                mTwoPane = true
-            }
-
-            getCatalogList(this, false)
+        catalog_list_add_element.setOnClickListener { _ ->
+            Router().navigateFromParentActivityToNewCatalogActivity(this, type)
         }
 
+
+        if (catalog_detail_container != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true
+        }
+
+        getCatalogList(this, false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -91,6 +96,16 @@ class CatalogListActivity : ParentActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.statusbar_menu, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return super.checkOptionSelected(item)
+    }
+
     private fun refreshData() {
         Toast.makeText(this, "Refreshing data", Toast.LENGTH_LONG).show()
 
@@ -98,7 +113,7 @@ class CatalogListActivity : ParentActivity() {
 
         Handler().postDelayed({
             Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
-            swipeLayout.setRefreshing(false)
+            swipeLayout.isRefreshing = false
         }, 4000)
     }
 
@@ -106,7 +121,7 @@ class CatalogListActivity : ParentActivity() {
 
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, list, mTwoPane)
         // set two columns with the elements
-        recyclerView.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
     }
 
     private fun getCatalogList(context: Context, forceUpdate: Boolean) {
@@ -124,11 +139,11 @@ class CatalogListActivity : ParentActivity() {
                             }
                         }, error = object : ErrorCompletion {
                     override fun errorCompletion(errorMessage: String) {
-                        ToastIt(baseContext, "$errorMessage")
+                        toastIt(baseContext, errorMessage)
                     }
                 })
             } catch (e: Exception) {
-                ToastIt(context, "Error: " + e.localizedMessage )
+                toastIt(context, "Error: " + e.localizedMessage )
             }
         }
     }

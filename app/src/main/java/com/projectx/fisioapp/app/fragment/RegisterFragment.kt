@@ -14,11 +14,11 @@ import com.projectx.fisioapp.R
 
 class RegisterFragment : Fragment() {
 
-    var onFragmentButtonRegisterPressedListener: OnFragmentButtonRegisterPressedListener? = null
-    var registerButton: Button? = null
+    private var onFragmentButtonRegisterPressedListener: OnFragmentButtonRegisterPressedListener? = null
+    private var registerButton: Button? = null
     var name: EditText? = null
-    var email: EditText? = null
-    var pass: EditText? = null
+    private var email: EditText? = null
+    private var pass: EditText? = null
 
     companion object {
         private val TAG = "RegisterFragment"
@@ -28,10 +28,10 @@ class RegisterFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val root = inflater?.inflate(R.layout.fragment_register, container, false)
-        registerButton = root?.findViewById<Button>(R.id.btnRegister)
-        name = root?.findViewById<EditText>(R.id.etName)
-        email = root?.findViewById<EditText>(R.id.etEmail)
-        pass = root?.findViewById<EditText>(R.id.etPass)
+        registerButton = root?.findViewById(R.id.btnRegister)
+        name = root?.findViewById(R.id.etName)
+        email = root?.findViewById(R.id.etEmail)
+        pass = root?.findViewById(R.id.etPass)
 
         registerButton?.setOnClickListener {
             onFragmentButtonRegisterPressedListener?.buttonRegisterPressed(
@@ -47,7 +47,7 @@ class RegisterFragment : Fragment() {
 
     }
 
-    fun setFakeDataInForm() {
+    private fun setFakeDataInForm() {
         name?.setText( "anotherFisio")
         email?.setText( "anotherfisio@invalid.com")
         pass?.setText("12345678")
@@ -63,7 +63,7 @@ class RegisterFragment : Fragment() {
         commonOnAttach(activity)
     }
 
-    fun commonOnAttach(context: Context?) {
+    private fun commonOnAttach(context: Context?) {
         if (context is OnFragmentButtonRegisterPressedListener) {
             onFragmentButtonRegisterPressedListener = context
         }

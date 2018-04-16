@@ -14,5 +14,5 @@ class User(var id: String,
         var phone: String,
         var birthDate: Date,
         var nationalId: String,
-        var registrationDate: String,
-        var lastLoginDate: String): Serializable
+        var registrationDate: Date,
+        var lastLoginDate: Date): Serializable

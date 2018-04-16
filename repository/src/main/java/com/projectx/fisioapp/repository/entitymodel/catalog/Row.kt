@@ -2,6 +2,7 @@ package com.projectx.fisioapp.repository.entitymodel.catalog
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.projectx.fisioapp.repository.entitymodel.common.Person
 
 class Row {
 

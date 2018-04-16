@@ -6,7 +6,7 @@ import com.projectx.fisioapp.repository.entitymodel.catalog.CatalogType
 
 
 fun convertList(response: GetCatalogResponse, type: CatalogType): List<CatalogData> {
-    var catalogDataList: MutableList<CatalogData> = arrayListOf()
+    val catalogDataList: MutableList<CatalogData> = arrayListOf()
 
 
     response.result.let {
@@ -17,15 +17,14 @@ fun convertList(response: GetCatalogResponse, type: CatalogType): List<CatalogDa
             rows.let {
 
                 rows!!.map {
-                    val row = it
                     val catalog = CatalogData(
-                            row.id!!,
-                            row.name!!,
-                            row.description!!,
-                            row.price!!.toFloat(),
+                            it.id!!,
+                            it.name!!,
+                            it.description!!,
+                            it.price!!.toFloat(),
                             // CHANGING PROFESSIONAL X PERSON
-                            row.professional!!.id!!,
-                            row.isActive!!,
+                            it.professional!!.id!!,
+                            it.isActive!!,
                             //row?.image!!,
                             type
                     )

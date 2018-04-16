@@ -22,7 +22,7 @@ class GetCatalogListIntImpl(context: Context) : GetCatalogListInteractor {
                     val items: Catalogs = Mapper().benefitsMapper(it, BenefitType.SERVICE)
                     success.successCompletion(items)
                 }, error = {
-                    error(it)
+                    error.errorCompletion(it)
                 })
 
     }
