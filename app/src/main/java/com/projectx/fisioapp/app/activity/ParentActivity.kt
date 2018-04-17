@@ -93,12 +93,15 @@ open class ParentActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.ic_menu_calendar -> {
                     Router().moveToCalendarActivity(main)
+                    item.setEnabled(true)
                 }
                 R.id.ic_menu_products -> {
                     Router().moveToProductsActivity(main)
+                    item.setEnabled(true)
                 }
                 R.id.ic_menu_services -> {
                     Router().moveToServicesActivity(main)
+                    item.setEnabled(true)
                 }
             }
 
