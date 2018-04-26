@@ -32,7 +32,7 @@ apply plugin: 'kotlin-android'
 
 android {
     ext.http_debug_server_name = "\"http://192.168.1.41:3000\""
-    ext.http_release_server_name = "\"http://http://fisioapp.styleapps.es\""
+    ext.http_release_server_name = "\"http://fisioapp.styleapps.es\""
 }
 ```
 
